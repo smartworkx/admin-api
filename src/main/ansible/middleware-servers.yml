@@ -1,6 +1,6 @@
-db-servers.yml---
+---
 
-- hosts: ci-servers
+- hosts: middleware-servers
   become: yes
   vars:
     jenkins_hostname: localhost
