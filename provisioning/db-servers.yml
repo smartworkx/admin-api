@@ -1,0 +1,7 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - apt: name=postgresql update_cache=yes
+    - apt: name=postgresql-contrib update_cache=yes
