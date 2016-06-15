@@ -8,6 +8,6 @@
     - group: name=bootapp
     - user: name=bootapp group=bootapp shell=/usr/sbin/nologin
     - copy: backup=yes src=../build/libs/admin-api-0.0.1-SNAPSHOT.jar dest=/var/admin-api/ mode=500 owner=bootapp group=bootapp
-    - shell: 'chattr +i /var/admin-api/admin-api-0.0.1-SNAPSHOT.jar'
+# bring back    - shell: 'chattr +i /var/admin-api/admin-api-0.0.1-SNAPSHOT.jar'
     - file: src=/var/admin-api/admin-api-0.0.1-SNAPSHOT.jar dest=/etc/init.d/admin-api state=link
     - service: name=admin-api state=restarted

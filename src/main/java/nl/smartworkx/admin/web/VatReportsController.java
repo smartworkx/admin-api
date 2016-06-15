@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class VatReportsController {
 
 	@RequestMapping
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = "http://192.168.33.10")
 	public VatReport findById(Quarter period){
 		return new VatReport(period,"123","345");
 	}
