@@ -2,6 +2,7 @@ package nl.smartworkx.admin.web;
 
 import nl.smartworkx.admin.model.VatReport;
 import nl.smartworkx.admin.model.Quarter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/vatReports")
 public class VatReportsController {
 
+
+
+
 	@RequestMapping
-	@CrossOrigin(origins = "http://192.168.33.10")
 	public VatReport findById(Quarter period){
 		return new VatReport(period,"123","345");
 	}

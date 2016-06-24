@@ -14,6 +14,12 @@ config.vm.define "api" do |api|
     api.vm.network "private_network", ip: "192.168.33.11"
     api.vm.provision "ansible" do |ansible|
         ansible.playbook = "provisioning/api-servers.yml"
+        ansible.inventory_path = "provisioning/vagrant.inventory"
+        ansible.limit = "api-servers"
+        ansible.extra_vars = {
+          admin_api_password: "password",
+          admin_owner_password: "password"
+       }
     end
   end
 
@@ -22,7 +28,15 @@ config.vm.define "api" do |api|
     db.vm.network "private_network", ip: "192.168.33.12"
     db.vm.provision "ansible" do |ansible|
         ansible.playbook = "provisioning/db-servers.yml"
+        ansible.inventory_path = "provisioning/vagrant.inventory"
+        ansible.limit = "db-servers"
+        ansible.extra_vars = {
+          admin_api_password: "password",
+          admin_owner_password: "password"
+       }
     end
   end
+
+
 
 end

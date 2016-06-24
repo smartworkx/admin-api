@@ -1,0 +1,5 @@
+[db-servers]
+192.168.33.12
+
+[db-servers:vars]
+api_address=192.168.0.0/16

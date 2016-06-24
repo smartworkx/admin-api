@@ -1,0 +1,12 @@
+[api-servers]
+192.168.33.11
+
+[db-servers]
+192.168.33.12
+
+[api-servers:vars]
+cross_origin_addresses=http://192.168.33.10
+db_address=192.168.33.12
+
+[db-servers:vars]
+api_address=192.168.0.0/16

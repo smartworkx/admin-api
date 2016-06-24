@@ -1,6 +1,0 @@
-[oh-servers]
-192.168.1.10 ansible_user=pi
-
-[ci-servers]
-192.168.1.20 ansible_user=ubuntu ask_ssh_pass=true
-

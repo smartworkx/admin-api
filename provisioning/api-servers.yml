@@ -2,6 +2,17 @@
 
 - hosts: all
   become: yes
+
+  vars_prompt:
+      - name: "admin_owner_password"
+        prompt: "Enter owner password"
+        default: 'password'
+        private: yes
+      - name: "admin_api_password"
+        prompt: "Enter admin api password"
+        default: 'password'
+        private: yes
+
   tasks:
     - shell: 'add-apt-repository ppa:openjdk-r/ppa'
     - apt: name=openjdk-8-jdk update_cache=yes
@@ -10,4 +21,5 @@
     - copy: backup=yes src=../build/libs/admin-api-0.0.1-SNAPSHOT.jar dest=/var/admin-api/ mode=500 owner=bootapp group=bootapp
 # bring back    - shell: 'chattr +i /var/admin-api/admin-api-0.0.1-SNAPSHOT.jar'
     - file: src=/var/admin-api/admin-api-0.0.1-SNAPSHOT.jar dest=/etc/init.d/admin-api state=link
+    - template: src=files/application.yml.j2 dest=/var/admin-api/application.yml
     - service: name=admin-api state=restarted

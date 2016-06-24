@@ -1,3 +1,3 @@
-[submodule "src/main/assets/features"]
-	path = src/main/assets/features
-	url = https://github.com/joris77/admin-features.git
+[submodule "src/test/resources/features"]
+	path = src/test/resources/features
+	url = git@github.com:joris77/admin-features.git

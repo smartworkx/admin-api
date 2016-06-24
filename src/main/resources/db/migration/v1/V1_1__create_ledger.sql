@@ -1,0 +1,5 @@
+CREATE TABLE ledger
+(
+  id BIGINT PRIMARY KEY NOT NULL,
+  name VARCHAR(255)
+);
