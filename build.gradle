@@ -13,6 +13,23 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 
+configurations {
+	cucumberRuntime {
+		extendsFrom testRuntime
+	}
+}
+
+task cucumber() {
+	dependsOn assemble, compileTestJava
+	doLast {
+		javaexec {
+			main = "cucumber.api.cli.Main"
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = ['--plugin', 'pretty', '--glue', 'nl.smartworkx.admin.glue', 'src/test/resources/features']
+		}
+	}
+}
+
 jar {
 	baseName = 'admin-api'
 	version = '0.0.1-SNAPSHOT'
@@ -36,7 +53,10 @@ dependencies {
 	compile('com.google.guava:guava:19.0')
 	runtime('org.flywaydb:flyway-core')
 
-	testCompile('org.springframework.boot:spring-boot-starter-test') 
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile 'info.cukes:cucumber-java:1.2.4'
+	testCompile 'info.cukes:cucumber-junit:1.2.4'
+	testCompile 'info.cukes:cucumber-spring:1.2.4'
 }
 
 springBoot {
