@@ -3,14 +3,13 @@ package nl.smartworkx.admin.mt940;
 import nl.smartworkx.admin.CreateFinancialFactService;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.FinancialFact;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Joris Wijlens
  * @version 1.0
  * @since 1.0
  */
-public class PrintCreateFinancialFactService implements CreateFinancialFactService {
+class PrintCreateFinancialFactService implements CreateFinancialFactService {
 	@Override public void create(FinancialFact financialFact) {
 		System.out.println(financialFact.getValueDate().toString() + "," +financialFact.getDescription() + ",," + convertDebitCredit(financialFact.getDebitCredit()) + financialFact.getAmount().getNumber());
 	}

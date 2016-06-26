@@ -30,6 +30,15 @@ task cucumber() {
 	}
 }
 
+task javadocs(type: Javadoc) {
+	source = sourceSets.main.allJava
+}
+
+task testjavadocs(type: Javadoc) {
+	source = sourceSets.test.allJava
+	destinationDir = reporting.file("test-docs")
+}
+
 jar {
 	baseName = 'admin-api'
 	version = '0.0.1-SNAPSHOT'

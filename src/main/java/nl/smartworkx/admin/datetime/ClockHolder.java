@@ -4,28 +4,25 @@ import java.time.Clock;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
-import org.springframework.stereotype.Component;
-
 /**
  * @author Joris Wijlens
  * @version 1.0
  * @since 1.0
  */
-@Component
 public final class ClockHolder {
 
-	private Clock clock = Clock.systemDefaultZone();
+	private static Clock CLOCK = Clock.systemDefaultZone();
 
 	private static final ZoneId DEFAULT_TIME_ZONE = ZoneId.of("CET");
 
-	private void setClock(Clock clock) {
+	private static void setClock(Clock clock) {
 
-		this.clock = clock;
+		CLOCK = clock;
 	}
 
 	public Clock getClock() {
 
-		return clock;
+		return CLOCK;
 	}
 
 	/**
@@ -33,7 +30,7 @@ public final class ClockHolder {
 	 *
 	 * @param dateAsString
 	 */
-	public void setClock(String dateAsString) {
+	public static void setClock(String dateAsString) {
 
 		setClock(Clock.fixed(DateUtils.dateToDateTime(dateAsString).toInstant(ZoneOffset.MIN), DEFAULT_TIME_ZONE));
 	}
