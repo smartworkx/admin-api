@@ -1,4 +1,6 @@
-package nl.smartworkx.admin.model;
+package nl.smartworkx.admin.application;
+
+import nl.smartworkx.admin.model.Quarter;
 
 /**
  * @author Joris Wijlens

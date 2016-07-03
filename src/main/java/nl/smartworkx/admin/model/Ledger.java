@@ -1,6 +1,8 @@
 package nl.smartworkx.admin.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * @author Joris Wijlens
@@ -8,7 +10,11 @@ import javax.persistence.Entity;
  * @since 1.0
  */
 @Entity
-public class Ledger extends BaseEntity {
+public class Ledger {
+
+	@Id
+	@GeneratedValue
+	private LedgerId ledgerId;
 
 	private String name;
 

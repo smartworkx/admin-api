@@ -1,19 +1,7 @@
 package nl.smartworkx.admin.mt940;
 
-import com.google.common.collect.Lists;
-import com.prowidesoftware.swift.model.field.Field61;
-import com.prowidesoftware.swift.model.field.Field86;
-import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
-import nl.smartworkx.admin.CreateFinancialFactService;
-import nl.smartworkx.admin.model.DebitCredit;
-import nl.smartworkx.admin.model.FinancialFact;
-import org.apache.commons.lang.StringUtils;
-import org.javamoney.moneta.Money;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import static com.prowidesoftware.swift.model.mt.mt9xx.MT940.parse;
 
-import javax.money.MonetaryAmount;
-import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -22,8 +10,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.money.MonetaryAmount;
 
-import static com.prowidesoftware.swift.model.mt.mt9xx.MT940.parse;
+import org.apache.commons.lang.StringUtils;
+import org.javamoney.moneta.Money;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.google.common.collect.Lists;
+import com.prowidesoftware.swift.model.field.Field61;
+import com.prowidesoftware.swift.model.field.Field86;
+import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
+import nl.smartworkx.admin.CreateFinancialFactService;
+import nl.smartworkx.admin.model.DebitCredit;
+import nl.smartworkx.admin.model.FinancialFact;
 
 /**
  * @author Joris Wijlens
@@ -50,8 +49,7 @@ public class Mt940ImporterService {
 			for (Field61 field61 : Lists.reverse(mt940.getField61())) {
 				Field86 field86 = field86s.get(line);
 				createFinancialFactService.create(new FinancialFact(getDate(field61.getValueDate()),
-						getAmount(field61.getAmount()), getValueByCodeword(field86),
-						getCreditDebit(field61.getDCMark())));
+						getAmount(field61.getAmount()), getValueByCodeword(field86)));
 				line++;
 			}
 		} catch (IOException e) {

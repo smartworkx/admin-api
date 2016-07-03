@@ -11,16 +11,16 @@ import java.time.ZoneOffset;
  */
 public final class ClockHolder {
 
-	private static Clock CLOCK = Clock.systemDefaultZone();
-
 	private static final ZoneId DEFAULT_TIME_ZONE = ZoneId.of("CET");
+
+	private static Clock CLOCK = Clock.systemDefaultZone();
 
 	private static void setClock(Clock clock) {
 
 		CLOCK = clock;
 	}
 
-	public Clock getClock() {
+	public static Clock getClock() {
 
 		return CLOCK;
 	}

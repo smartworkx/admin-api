@@ -1,10 +1,9 @@
 package nl.smartworkx.admin.model;
 
-
-import nl.smartworkx.admin.infrastructure.jpa.MonetaryAmountConverter;
-
 import javax.money.MonetaryAmount;
 import javax.persistence.*;
+
+import nl.smartworkx.admin.infrastructure.jpa.MonetaryAmountConverter;
 
 /**
  * @author Joris Wijlens
@@ -12,9 +11,13 @@ import javax.persistence.*;
  * @since 1.0
  */
 @Entity
-public class LedgerLine extends BaseEntity{
-	@ManyToOne
-	private Ledger ledger;
+public class Record {
+
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	private LedgerId ledger;
 
 	@Enumerated
 	private DebitCredit debitCredit;
@@ -23,7 +26,7 @@ public class LedgerLine extends BaseEntity{
 	@Column(columnDefinition="varchar(64)")
 	private MonetaryAmount amount;
 
-	public LedgerLine(Ledger ledger, DebitCredit debitCredit, MonetaryAmount amount) {
+	public Record(LedgerId ledger, DebitCredit debitCredit, MonetaryAmount amount) {
 
 		this.ledger = ledger;
 		this.debitCredit = debitCredit;
@@ -31,7 +34,7 @@ public class LedgerLine extends BaseEntity{
 		this.amount = amount;
 	}
 
-	public Ledger getLedger() {
+	public LedgerId getLedger() {
 
 		return ledger;
 	}

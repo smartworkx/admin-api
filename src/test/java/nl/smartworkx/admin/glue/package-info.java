@@ -4,9 +4,9 @@
  * <li>Step definitions do not exercise production code themselves.
  * They delegate this to helpers.</li>
  * <li> The helpers are retrieved by
- * the {@link nl.smartworkx.admin.glue.GlueFactory} the step
+ * the {@link nl.smartworkx.admin.GlueFactory} the step
  * definitions do not initiate the application context. This is
- * done lazily by the {@link nl.smartworkx.admin.glue.GlueFactory}
+ * done lazily by the {@link nl.smartworkx.admin.GlueFactory}
  * This way tests that only use the domain or do not need a spring
  * application context are not slowed down by the initialization of
  * application context of the app (the cucumber step definitions do

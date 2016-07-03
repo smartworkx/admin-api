@@ -11,7 +11,10 @@ import nl.smartworkx.admin.model.FinancialFact;
  */
 class PrintCreateFinancialFactService implements CreateFinancialFactService {
 	@Override public void create(FinancialFact financialFact) {
-		System.out.println(financialFact.getValueDate().toString() + "," +financialFact.getDescription() + ",," + convertDebitCredit(financialFact.getDebitCredit()) + financialFact.getAmount().getNumber());
+
+		System.out.println(
+				financialFact.getValueDate().toString() + "," + financialFact.getDescription() + ",," + financialFact
+						.getAmount().getNumber());
 	}
 
 	private String convertDebitCredit(DebitCredit debitCredit) {

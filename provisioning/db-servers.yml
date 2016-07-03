@@ -39,6 +39,7 @@
           - 'INSERT'
           - 'UPDATE'
           - 'DELETE'
+          - 'USAGE'
 
     postgresql_listen_addresses:
       - "*"

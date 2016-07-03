@@ -1,9 +1,9 @@
 package nl.smartworkx.admin.web;
 
-import nl.smartworkx.admin.model.VatReport;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import nl.smartworkx.admin.application.VatReport;
 import nl.smartworkx.admin.model.Quarter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * @autror Joris Wijlens
