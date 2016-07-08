@@ -37,21 +37,22 @@ public class JournalStepdefs extends AbstractIntegrationStepdefs {
 	public void thereIsAnOutgoingInvoiceWithAnAmountOfExVATOf(BigDecimal amount, int taxRate) throws Throwable {
 
 		LocalDate now = LocalDate.now(ClockHolder.getClock());
-		FinancialFact financialFact = createFinancialFact(now, Money.of(amount, "EUR"));
+		Money amountExVat = Money.of(amount, "EUR");
+		FinancialFact financialFact = createFinancialFact(now, amountExVat);
 		JournalEntry journalEntry = repositoryJournalEntryHelper
-				.createOutgoingInvoiceJournalEntry(financialFact.getId(), taxRate, now);
+				.createOutgoingInvoiceJournalEntry(financialFact.getId(), taxRate, now, amountExVat);
 		knowsTheJournalEntry.setCurrent(journalEntry);
 
 	}
 
 	@And("^there is a journal entry for an incoming invoice with an amount of (\\d+) ex VAT of (\\d+)%$")
-	public void thereIsAJournalEntryForAnIncomingInvoiceWithAnAmountOfExVATOf(int amount, int taxRate)
+	public void thereIsAJournalEntryForAnIncomingInvoiceWithAnAmountOfExVATOf(double amount, int taxRate)
 			throws Throwable {
 
 		LocalDate now = LocalDate.now(ClockHolder.getClock());
 		FinancialFact financialFact = createFinancialFact(now, Money.of(amount, "EUR"));
 		JournalEntry journalEntry = repositoryJournalEntryHelper
-				.createIncomingInvoiceJournalEntry(financialFact.getId(), taxRate, now);
+				.createIncomingInvoiceJournalEntry(financialFact.getId(), taxRate, now, amount);
 		knowsTheJournalEntry.setCurrent(journalEntry);
 	}
 

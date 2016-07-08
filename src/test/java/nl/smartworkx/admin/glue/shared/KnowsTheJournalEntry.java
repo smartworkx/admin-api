@@ -3,7 +3,6 @@ package nl.smartworkx.admin.glue.shared;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import nl.smartworkx.admin.model.JournalEntry;
-import nl.smartworkx.admin.model.JournalEntryId;
 
 /**
  * @author Joris Wijlens
@@ -12,5 +11,5 @@ import nl.smartworkx.admin.model.JournalEntryId;
  */
 @Component
 @Scope(scopeName = KnowsTheFinancialFact.CUCUMBER_GLUE_SCOPE_NAME)
-public class KnowsTheJournalEntry extends BaseKnowsThe<JournalEntry, JournalEntryId> {
+public class KnowsTheJournalEntry extends BaseKnowsThe<JournalEntry> {
 }

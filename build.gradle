@@ -66,6 +66,7 @@ dependencies {
 	testCompile 'info.cukes:cucumber-java:1.2.4'
 	testCompile 'info.cukes:cucumber-junit:1.2.4'
 	testCompile 'info.cukes:cucumber-spring:1.2.4'
+	testCompile 'com.jayway.jsonpath:json-path:2.2.0'
 }
 
 springBoot {

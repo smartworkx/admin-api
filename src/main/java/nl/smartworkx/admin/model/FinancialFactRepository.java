@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * @version 1.0
  * @since 1.0
  */
-public interface FinancialFactRepository extends CrudRepository<FinancialFact, FinancialFactId> {
+public interface FinancialFactRepository extends CrudRepository<FinancialFact, Long> {
 }

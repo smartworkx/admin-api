@@ -1,8 +1,6 @@
 package nl.smartworkx.admin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author Joris Wijlens
@@ -12,19 +10,29 @@ import javax.persistence.Id;
 @Entity
 public class Ledger {
 
+
 	@Id
-	@GeneratedValue
-	private LedgerId ledgerId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ledger")
+	@SequenceGenerator(name = "ledger", sequenceName = "ledger_id_seq")
+	private Long id;
+
+	private String code;
 
 	private String name;
 
-	public Ledger(String name) {
-
-		this.name = name;
-	}
 
 	public String getName() {
 
 		return name;
+	}
+
+	public Long getId() {
+
+		return id;
+	}
+
+	public String getCode() {
+
+		return code;
 	}
 }

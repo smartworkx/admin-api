@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import nl.smartworkx.admin.model.BaseAggregateId;
 import nl.smartworkx.admin.model.DddEntity;
 
 /**
@@ -13,16 +12,16 @@ import nl.smartworkx.admin.model.DddEntity;
  * @version 1.0
  * @since 1.0
  */
-public class BaseKnowsThe<T extends DddEntity, I extends BaseAggregateId> {
+public class BaseKnowsThe<T extends DddEntity> {
 	public static final String CUCUMBER_GLUE_SCOPE_NAME = "cucumber-glue";
 
-	private LinkedHashMap<I, T> currents = new LinkedHashMap<>();
+	private LinkedHashMap<Long, T> currents = new LinkedHashMap<>();
 
 	public T getCurrent() {
 
-		List<Map.Entry<I, T>> entryList =
+		List<Map.Entry<Long, T>> entryList =
 				new ArrayList<>(currents.entrySet());
-		Map.Entry<I, T> lastEntry =
+		Map.Entry<Long, T> lastEntry =
 				entryList.get(entryList.size() - 1);
 		return lastEntry.getValue();
 	}

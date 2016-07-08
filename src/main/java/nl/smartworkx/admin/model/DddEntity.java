@@ -6,5 +6,5 @@ package nl.smartworkx.admin.model;
  * @since 1.0
  */
 public interface DddEntity {
-	<I extends BaseAggregateId> I getId();
+	<I extends Long> I getId();
 }

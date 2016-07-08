@@ -14,9 +14,6 @@ import nl.smartworkx.admin.model.Quarter;
 @RequestMapping("/vatReports")
 public class VatReportsController {
 
-
-
-
 	@RequestMapping
 	public VatReport findById(Quarter period){
 		return new VatReport(period,"123","345");

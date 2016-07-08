@@ -69,8 +69,8 @@ public class FinancialFact implements DddAggregate {
 		return debitCredit;
 	}
 
-	public FinancialFactId getId() {
+	public Long getId() {
 
-		return new FinancialFactId(id);
+		return id;
 	}
 }

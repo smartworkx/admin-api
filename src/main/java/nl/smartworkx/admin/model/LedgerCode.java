@@ -5,9 +5,7 @@ package nl.smartworkx.admin.model;
  * @version 1.0
  * @since 1.0
  */
-public class LedgerId extends BaseAggregateId {
-	public LedgerId(Long id) {
-
-		super(id);
-	}
+public enum LedgerCode {
+	DVAT,
+	VATS
 }

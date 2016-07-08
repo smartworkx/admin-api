@@ -1,6 +1,7 @@
 package nl.smartworkx.admin.model;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.*;
 
@@ -22,25 +23,26 @@ public class JournalEntry implements DddAggregate {
 	private Long financialFactId;
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "journal_entry")
 	private List<Record> records;
 
 	private JournalEntry() {
 
 	}
 
-	public JournalEntry(LocalDate bookDate, FinancialFactId financialFact,
-			List<Record> records) {
+	public JournalEntry(LocalDate bookDate, Long financialFact,
+			Record... records) {
 
 		this.bookDate = bookDate;
 
-		this.financialFactId = financialFact.getId();
-		this.records = records;
+		this.financialFactId = financialFact;
+		this.records = Arrays.asList(records);
 
 	}
 
-	public FinancialFactId getFinancialFact() {
+	public Long getFinancialFact() {
 
-		return new FinancialFactId(id);
+		return id;
 	}
 
 	public List<Record> getRecords() {
@@ -53,8 +55,8 @@ public class JournalEntry implements DddAggregate {
 		return bookDate;
 	}
 
-	@Override public JournalEntryId getId() {
+	@Override public Long getId() {
 
-		return new JournalEntryId(id);
+		return id;
 	}
 }

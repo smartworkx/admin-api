@@ -14,10 +14,11 @@ import nl.smartworkx.admin.infrastructure.jpa.MonetaryAmountConverter;
 public class Record {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "record")
+	@SequenceGenerator(name = "record", sequenceName = "record_id_seq")
 	private Long id;
 
-	private LedgerId ledger;
+	private Long ledger;
 
 	@Enumerated
 	private DebitCredit debitCredit;
@@ -26,7 +27,11 @@ public class Record {
 	@Column(columnDefinition="varchar(64)")
 	private MonetaryAmount amount;
 
-	public Record(LedgerId ledger, DebitCredit debitCredit, MonetaryAmount amount) {
+	private Record() {
+
+	}
+
+	public Record(Long ledger, DebitCredit debitCredit, MonetaryAmount amount) {
 
 		this.ledger = ledger;
 		this.debitCredit = debitCredit;
@@ -34,7 +39,7 @@ public class Record {
 		this.amount = amount;
 	}
 
-	public LedgerId getLedger() {
+	public Long getLedger() {
 
 		return ledger;
 	}
