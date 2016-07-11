@@ -20,7 +20,7 @@ public class Record {
 
 	private Long ledger;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private DebitCredit debitCredit;
 
 	@Convert(converter = MonetaryAmountConverter.class)

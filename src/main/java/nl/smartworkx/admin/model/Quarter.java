@@ -1,5 +1,9 @@
 package nl.smartworkx.admin.model;
 
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
+
 /**
  * @author Joris Wijlens
  * @version 1.0
@@ -7,11 +11,14 @@ package nl.smartworkx.admin.model;
  */
 public class Quarter {
 	private Integer year;
-	private Short quarter;
 
-	private Quarter(){}
+	private Integer quarter;
 
-	public Quarter(Integer year, Short quarter) {
+	private Quarter() {
+
+	}
+
+	public Quarter(Integer year, Integer quarter) {
 
 		this.year = year;
 
@@ -23,18 +30,28 @@ public class Quarter {
 		return year;
 	}
 
-	public Short getQuarter() {
+	public Integer getQuarter() {
 
 		return quarter;
 	}
 
-	public void setYear(Integer year) {
+	public LocalDate getFirstDay() {
 
-		this.year = year;
+		return getFirstMonth().atDay(1);
 	}
 
-	public void setQuarter(Short quarter) {
+	private YearMonth getFirstMonth() {
 
-		this.quarter = quarter;
+		return YearMonth.of(year, (quarter - 1) * 3 + 1);
+	}
+
+	private YearMonth getLastMonth() {
+
+		return Year.of(year).atMonth(quarter * 3);
+	}
+
+	public LocalDate getLastDay() {
+
+		return getLastMonth().atEndOfMonth();
 	}
 }

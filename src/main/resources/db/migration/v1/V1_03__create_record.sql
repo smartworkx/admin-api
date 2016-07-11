@@ -2,7 +2,7 @@ CREATE TABLE record
 (
   id            BIGSERIAL PRIMARY KEY NOT NULL,
   amount        VARCHAR(64),
-  debit_credit  INTEGER,
+  debit_credit  VARCHAR(64),
   ledger        BIGINT,
   journal_entry BIGINT,
   CONSTRAINT fk_ledger FOREIGN KEY (ledger) REFERENCES ledger (id),

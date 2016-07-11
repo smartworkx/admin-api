@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.Money;
+import org.javamoney.moneta.function.MonetaryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import nl.smartworkx.admin.model.*;
@@ -32,7 +33,7 @@ public class RepositoryJournalEntryHelper {
 	public JournalEntry createOutgoingInvoiceJournalEntry(Long financialFactId, int taxRate,
 			LocalDate now, Money amountExVat) {
 
-		final MonetaryAmount vatAmount = amountExVat.multiply(taxRate);
+		final MonetaryAmount vatAmount = MonetaryUtil.percent(taxRate).apply(amountExVat);
 		MonetaryAmount totalAmount = vatAmount.add(amountExVat);
 		Ledger deductedVatLedger = ledgerRepository.findByCode("VATS");
 		Record deductedVatRecord = new Record(deductedVatLedger.getId(), DebitCredit.DEBIT, vatAmount);
@@ -52,7 +53,7 @@ public class RepositoryJournalEntryHelper {
 			final LocalDate now, final double amount) {
 
 		Money amountExVat = Money.of(amount, "EUR");
-		final MonetaryAmount vatAmount = amountExVat.multiply(taxRate);
+		final MonetaryAmount vatAmount = MonetaryUtil.percent(taxRate).apply(amountExVat);
 		MonetaryAmount totalAmount = vatAmount.add(amountExVat);
 		Ledger deductedVatLedger = ledgerRepository.findByCode("DVAT");
 		Record deductedVatRecord = new Record(deductedVatLedger.getId(), DebitCredit.DEBIT, vatAmount);

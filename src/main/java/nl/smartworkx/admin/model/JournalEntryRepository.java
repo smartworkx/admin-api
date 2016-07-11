@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * @version 1.0
  * @since 1.0
  */
-public interface JournalEntryRepository extends CrudRepository<JournalEntry, Long> {
+public interface JournalEntryRepository extends CrudRepository<JournalEntry, Long>, JournalEntryRepositoryCustom {
 }

@@ -30,12 +30,6 @@ public class VatReportStepdefs {
 		vatReportResult.assertServicesTaxed(servicesTaxedAmount);
 	}
 
-	@And("^the vat report has an VAT of \"([^\"]*)\"$")
-	public void theVatReportHasAnVATOf(String vatAmount) throws Throwable {
-
-		vatReportResult.assertVat(vatAmount);
-	}
-
 	@And("^the vat report has a deducted VAT of \"([^\"]*)\"$")
 	public void theVatReportHasADeductedVATOf(String deductedVat) throws Throwable {
 

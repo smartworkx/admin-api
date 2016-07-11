@@ -23,11 +23,8 @@ public class MvcVatReportResult {
 
 	}
 
-	public void assertVat(final String vatAmount) {
+	public void assertDeductedVatOf(final String deductedVat) throws Exception {
 
-	}
-
-	public void assertDeductedVatOf(final String deductedVat) {
-
+		resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.taxPaid", Matchers.equalTo(deductedVat)));
 	}
 }

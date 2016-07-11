@@ -1,18 +1,14 @@
 package nl.smartworkx.admin.infrastructure.jpa;
 
-import org.javamoney.moneta.FastMoney;
-import org.javamoney.moneta.Money;
-import org.javamoney.moneta.internal.FastMoneyAmountBuilder;
-
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
+import java.util.Locale;
+import java.util.Objects;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryQuery;
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.math.BigDecimal;
-import java.util.Objects;
-import java.util.Optional;
+
+import org.springframework.stereotype.Component;
 
 /**
  * @author Joris Wijlens
@@ -20,15 +16,16 @@ import java.util.Optional;
  * @since 1.0
  */
 @Converter
+@Component
 public class MonetaryAmountConverter implements AttributeConverter<MonetaryAmount, String> {
-
+	MonetaryAmountFormat format = MonetaryFormats.getAmountFormat(Locale.GERMAN);
 	@Override
 	public String convertToDatabaseColumn(MonetaryAmount attribute) {
 
 		if (Objects.isNull(attribute)) {
 			return null;
 		}
-		return Money.from(attribute).toString();
+		return format.format(attribute).toString();
 	}
 
 	@Override
@@ -36,7 +33,7 @@ public class MonetaryAmountConverter implements AttributeConverter<MonetaryAmoun
 		if (Objects.isNull(dbData)) {
 			return null;
 		}
-		return Money.parse(dbData);
+		return format.parse(dbData);
 	}
 
 }
