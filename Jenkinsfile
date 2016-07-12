@@ -12,5 +12,13 @@ node {
     sh "gradle clean assemble -PBUILD_NUMBER=${env.BUILD_NUMBER}"
 
     stage 'Stage Archive'
-    //step([$class: 'ArtifactArchiver', artifacts: 'App/build/libs/*.jar', fingerprint: true])
+    step([$class: 'ArtifactArchiver', artifacts: '**/build/libs/*.jar', fingerprint: true])
+
+    stage 'Publish doc'
+
+    stage 'Cucumber'
+
+    stage 'Deploy test'
+
+    stage 'Deploy prod'
 }
