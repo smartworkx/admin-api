@@ -39,6 +39,13 @@ task testjavadocs(type: Javadoc) {
 	destinationDir = reporting.file("test-docs")
 }
 
+test {
+	filter {
+		includeTestsMatching "*Test"
+		exclude "*IntegrationTest"
+	}
+}
+
 jar {
 	baseName = 'admin-api'
 	version = '0.0.1-SNAPSHOT'
