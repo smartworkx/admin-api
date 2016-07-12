@@ -31,6 +31,8 @@ node {
 
 }
 
+input 'Do you want to install on prod?'
+
 node {
     stage 'Deploy prod'
 }
