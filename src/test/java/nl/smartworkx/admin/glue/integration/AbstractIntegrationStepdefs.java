@@ -19,6 +19,6 @@ import nl.smartworkx.admin.IntegrationTestApplicationContext;
 		loader = SpringApplicationContextLoader.class)
 @WebAppConfiguration
 @IntegrationTest
-public class AbstractIntegrationStepdefs {
+public abstract class AbstractIntegrationStepdefs {
 
 }
