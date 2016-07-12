@@ -1,3 +1,5 @@
+#!groovy
+
 node {
     // Mark the code checkout 'stage'....
     stage 'Stage Checkout'
@@ -18,7 +20,17 @@ node {
 
     stage 'Cucumber'
 
+
+}
+
+input 'Do you want to install on test?'
+
+node {
     stage 'Deploy test'
 
+
+}
+
+node {
     stage 'Deploy prod'
 }
