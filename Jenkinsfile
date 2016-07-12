@@ -4,7 +4,7 @@ node {
 
     // Checkout code from repository and update any submodules
     checkout scm
-    sh 'git submodule update --init'
+   // sh 'git submodule update --init'
 
     stage 'Stage Build'
 
