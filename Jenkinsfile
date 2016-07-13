@@ -20,19 +20,18 @@ node {
 
     stage 'Cucumber'
 
-
 }
 
+stage 'Deploy test'
 input 'Do you want to install on test?'
 
 node {
-    stage 'Deploy test'
-
-
+    sh 'echo deploying on test'
 }
 
+stage 'Deploy prod'
 input 'Do you want to install on prod?'
 
 node {
-    stage 'Deploy prod'
+    sh 'echo deploying on prod'
 }
