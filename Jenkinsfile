@@ -17,9 +17,8 @@ node {
     ansiblePlaybook(
             playbook: 'provisioning/db-servers.yml',
             inventory: 'provisioning/ci.inventory ',
-            extraVars: [
-                    '-u': 'pi'
-            ])
+            sudoUser: 'pi'
+    )
     sh 'gradle cucumberInt'
 
     stage 'Stage Archive'
