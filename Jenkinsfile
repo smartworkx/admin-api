@@ -17,7 +17,7 @@ node {
     ansiblePlaybook(
             playbook: 'provisioning/db-servers.yml',
             inventory: 'provisioning/ci.inventory ',
-            sudoUser: 'pi'
+            extras: '-u pi'
     )
     sh 'gradle cucumberInt'
 
