@@ -16,7 +16,7 @@ node {
     stage 'Stage Archive'
     step([$class: 'ArtifactArchiver', artifacts: '**/build/libs/*.jar', fingerprint: true])
 
-    stage 'Publish doc'
+    sh 'echo Publishing doc'
 
     stage 'Cucumber'
 
