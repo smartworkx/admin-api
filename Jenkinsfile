@@ -18,7 +18,7 @@ node {
             playbook: 'provisioning/db-servers.yml',
             inventory: 'provisioning/ci.inventory ',
             extraVars: [
-                    u: 'pi'
+                    '-u': 'pi'
             ])
     sh 'gradle cucumberInt'
 
