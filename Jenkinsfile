@@ -17,7 +17,8 @@ node {
     ansiblePlaybook(
             playbook: 'provisioning/db-servers.yml',
             inventory: 'provisioning/ci.inventory ',
-            extras: '-u pi'
+            extras: '-u pi',
+            credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
     )
     sh 'gradle cucumberInt'
 
