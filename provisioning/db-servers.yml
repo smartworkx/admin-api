@@ -13,10 +13,12 @@
       default: 'password'
       private: yes
   vars:
+    database_name: admin
+
     postgresql_version: 9.4
 
     postgresql_databases:
-      - name: admin
+      - name: {{database_name}}
         owner: admin-owner
 
     postgresql_users:
