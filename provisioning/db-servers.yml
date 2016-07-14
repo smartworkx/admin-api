@@ -18,7 +18,7 @@
     postgresql_version: 9.4
 
     postgresql_databases:
-      - name: {{database_name}}
+      - name: "{{database_name}}"
         owner: admin-owner
 
     postgresql_users:
