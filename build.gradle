@@ -48,7 +48,7 @@ test {
 
 jar {
 	baseName = 'admin-api'
-	version = "1.0.$BUILD_NUMBER"
+	version = "1.0." + getTimestamp()
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -82,4 +82,9 @@ springBoot {
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.12'
+}
+
+def getTimestamp() {
+	def date = new Date()
+	return date.format('yyMMdd.HHmmss')
 }
