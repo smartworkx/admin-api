@@ -3,6 +3,6 @@
 
 [api-servers:vars]
 cross.origin.addresses=http://192
-
+database_name=admin
 
 
