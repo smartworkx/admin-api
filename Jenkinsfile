@@ -11,7 +11,7 @@ node {
     stage 'Stage Build'
 
     //build your gradle flavor, passes the current build number as a parameter to gradle
-    //sh "gradle clean assemble -PBUILD_NUMBER=${env.BUILD_NUMBER}"
+    sh "gradle clean assemble -PBUILD_NUMBER=${env.BUILD_NUMBER}"
 
     stage 'Cucumber'
     ansiblePlaybook(
