@@ -11,7 +11,7 @@ node {
     stage 'Stage Build'
 
     //build your gradle flavor, passes the current build number as a parameter to gradle
-    sh "gradle clean assemble -PBUILD_NUMBER=${env.BUILD_NUMBER}"
+    sh "gradle clean assemble"
 
     stage 'Cucumber'
     ansiblePlaybook(
@@ -20,7 +20,7 @@ node {
             extras: '-u pi',
             credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
     )
-    sh "gradle cucumberInt -PBUILD_NUMBER=${env.BUILD_NUMBER} -Dspring.profiles.active=ci"
+    sh "gradle cucumberInt -PjvmArgs='-Dspring.profiles.active=ci'"
 
     stage 'Stage Archive'
     step([$class: 'ArtifactArchiver', artifacts: '**/build/libs/*.jar', fingerprint: true])
