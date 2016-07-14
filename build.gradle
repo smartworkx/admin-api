@@ -20,13 +20,14 @@ configurations {
 }
 
 task cucumberInt() {
-	println('Jvm args ' + project.jvmArgs)
 	dependsOn assemble, compileTestJava
 	doLast {
 		javaexec {
 			main = "cucumber.api.cli.Main"
 			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-			jvmArgs = [project.jvmArgs]
+			if (project.hasProperty('jvmArgs')) {
+				jvmArgs = [project.jvmArgs]
+			}
 			args = ['--plugin', 'pretty', '--glue', 'nl.smartworkx.admin.glue.integration', 'src/test/resources/features']
 		}
 	}
