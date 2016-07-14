@@ -1,7 +1,7 @@
 spring:
   jpa:
     database: POSTGRESQL
-    show-sql:true
+    show-sql: true
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
