@@ -13,7 +13,7 @@
       default: 'password'
       private: yes
   vars:
-    postgresql_version: 9.5
+    postgresql_version: 9.1
 
     postgresql_databases:
       - name: admin
