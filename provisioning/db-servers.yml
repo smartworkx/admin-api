@@ -30,8 +30,6 @@
       - name: admin-owner
         db: "{{database_name}}"
         priv: "ALL"
-
-    postgresql_user_privileges:
       - name: admin-api
         db: "{{database_name}}"
         privs:
