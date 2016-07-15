@@ -10,12 +10,10 @@ spring:
     url: jdbc:postgresql://192.168.33.12:5432/admin
     username: admin-api
     password: password
-flyway:
+cross-origin-addresses: http://localhost:3000
+liquibase:
   user: admin-owner
   password: password
-  url: jdbc:postgresql://192.168.33.12:5432/admin
-  driver-class-name: org.postgresql.Driver
-cross-origin-addresses: http://localhost:3000
 
 ---
 
@@ -28,7 +26,7 @@ spring:
   profiles: ci
   datasource:
     url: jdbc:postgresql://192.168.1.10:5432/admin_test
-flyway:
+liquibase:
   url: jdbc:postgresql://192.168.1.10:5432/admin_test
 server:
   port: 8081
