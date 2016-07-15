@@ -28,12 +28,12 @@
 
     postgresql_user_privileges:
       - name: admin-owner
-        db: admin
+        db: "{{database_name}}"
         priv: "ALL"
 
     postgresql_user_privileges:
       - name: admin-api
-        db: admin
+        db: "{{database_name}}"
         privs:
           - 'SELECT'
           - 'INSERT'
