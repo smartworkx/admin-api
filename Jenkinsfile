@@ -41,6 +41,16 @@ input 'Do you want to install on prod?'
 
 node {
     sh 'echo deploying on prod'
-    sh 'ansible-playbook -i provisioning/prod.inventory provisioning/db-servers.yml'
-    sh 'ansible-playbook -i provisioning/prod.inventory provisioning/api-servers.yml'
+    ansiblePlaybook(
+            playbook: 'provisioning/db-servers.yml',
+            inventory: 'provisioning/prod.inventory ',
+            extras: '-u pi',
+            credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
+    )
+    ansiblePlaybook(
+            playbook: 'provisioning/api-servers.yml',
+            inventory: 'provisioning/prod.inventory ',
+            extras: '-u pi',
+            credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
+    )
 }
