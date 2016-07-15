@@ -1,8 +1,8 @@
-[api-servers]
-192.168.33.11
+[db-servers]
+192.168.1.10
 
-[api-servers:vars]
-cross.origin.addresses=http://192
+[db-servers:vars]
+api_address=192.168.0.0/16
 database_name=admin
 
 
