@@ -41,6 +41,6 @@ input 'Do you want to install on prod?'
 
 node {
     sh 'echo deploying on prod'
-    sh 'ansible-playbook -i provisioning/test.inventory provisioning/db-servers.yml'
-    sh 'ansible-playbook -i provisioning/test.inventory provisioning/api-servers.yml'
+    sh 'ansible-playbook -i provisioning/prod.inventory provisioning/db-servers.yml'
+    sh 'ansible-playbook -i provisioning/prod.inventory provisioning/api-servers.yml'
 }
