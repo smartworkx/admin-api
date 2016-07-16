@@ -13,7 +13,7 @@ spring:
     password: {{admin_api_password}}
     url: jdbc:postgresql://{{ db_address }}:5432/admin
 
-flyway:
+liquibase:
   user: admin-owner
   password: {{admin_owner_password}}
   url: jdbc:postgresql://{{ db_address }}:5432/admin
