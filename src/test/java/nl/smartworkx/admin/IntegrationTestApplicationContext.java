@@ -24,7 +24,7 @@ public class IntegrationTestApplicationContext {
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-		dataSource.setDriverClassName(prop("driver-class-name"));
+		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl(prop("url"));
 		dataSource.setUsername(prop("user"));
 		dataSource.setPassword(prop("password"));
@@ -33,7 +33,7 @@ public class IntegrationTestApplicationContext {
 
 	private String prop(final String s) {
 
-		String prefix = "flyway.";
+		String prefix = "liquibase.";
 		return env.getRequiredProperty(prefix + s);
 	}
 }

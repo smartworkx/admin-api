@@ -35,7 +35,7 @@ public class CleanDatbaseHooks {
 							+ "    FROM pg_tables\n"
 							+ "    WHERE tableowner = username\n"
 							+ "          AND schemaname = 'public'\n"
-							+ "          AND tablename NOT IN ('ledger', 'schema_version');\n"
+							+ "          AND tablename NOT IN ('ledger', 'databasechangelog','databasechangeloglock');\n"
 							+ "BEGIN\n"
 							+ "  FOR stmt IN statements LOOP\n"
 							+ "    EXECUTE 'TRUNCATE TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';\n"
