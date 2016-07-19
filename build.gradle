@@ -20,7 +20,7 @@ configurations {
 }
 
 task cucumberInt() {
-	dependsOn assemble, compileTestJava
+	dependsOn compileTestJava
 	doLast {
 		javaexec {
 			main = "cucumber.api.cli.Main"
