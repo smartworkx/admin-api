@@ -6,7 +6,7 @@ node {
 
     // Checkout code from repository and update any submodules
     checkout scm
-   // sh 'git submodule update --init'
+    // sh 'git submodule update --init'
 
     stage 'Stage Build'
 
@@ -28,7 +28,9 @@ node {
 }
 
 stage 'Deploy test'
-input 'Do you want to install on test?'
+timeout(time: 1, unit: 'DAYS') {
+    input 'Do you want to install on test?'
+}
 
 node {
     sh 'echo deploying on test'
@@ -47,7 +49,9 @@ node {
 }
 
 stage 'Deploy prod'
-input 'Do you want to install on prod?'
+timeout(time: 1, unit: 'DAYS') {
+    input 'Do you want to install on prod?'
+}
 
 node {
     sh 'echo deploying on prod'
