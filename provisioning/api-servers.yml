@@ -7,6 +7,12 @@
     local_file_name: "{{ lookup('pipe', 'ls -1 ../build/libs/*.jar') }}"
 
   tasks:
+    - set_fact:
+        admin_api_password: "{{ lookup('password', '/var/lib/jenkins/secrets/admin_api.txt length=15') }}"
+      when: admin_api_password is undefined
+    - set_fact:
+        admin_owner_password: "{{ lookup('password', '/var/lib/jenkins/secrets/admin_owner.txt length=15') }}"
+      when: admin_owner_password is undefined
     - apt: name=software-properties-common
     - shell: 'add-apt-repository ppa:openjdk-r/ppa'
     - apt: name=openjdk-8-jdk update_cache=yes

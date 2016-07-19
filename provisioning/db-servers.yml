@@ -4,6 +4,9 @@
   become: yes
 
   vars:
+
+
+
     postgresql_version: 9.4
 
     postgresql_databases:
@@ -13,9 +16,11 @@
     postgresql_users:
       - name: admin-owner
         pass: "{{admin_owner_password}}"
+        no_log: true
 
       - name: admin-api
         pass: "{{admin_api_password}}"
+        no_log: true
 
     postgresql_user_privileges:
       - name: admin-owner
@@ -39,6 +44,14 @@
       - { type: host,  database: all, user: all, address: '127.0.0.1/32', method: '{{ postgresql_default_auth_method }}', comment: 'IPv4 local connections:' }
       - { type: host,  database: all, user: all, address: '::1/128',      method: '{{ postgresql_default_auth_method }}', comment: 'IPv6 local connections:' }
       - { type: host,  database: all, user: all, address: '{{api_address}}', method: 'password'}
+
+  pre_tasks:
+    - set_fact:
+        admin_api_password: "{{ lookup('password', '/var/lib/jenkins/secrets/admin_api.txt length=15') }}"
+      when: admin_api_password is undefined
+    - set_fact:
+        admin_owner_password: "{{ lookup('password', '/var/lib/jenkins/secrets/admin_owner.txt length=15') }}"
+      when: admin_owner_password is undefined
 
   roles:
       - role: ANXS.postgresql
