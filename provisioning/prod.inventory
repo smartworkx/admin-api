@@ -1,15 +1,8 @@
-[db-servers]
-192.168.1.10
-
 [api-servers]
-192.168.1.10
-
-[db-servers:vars]
-api_address=192.168.0.0/16
-database_name=admin
+52.208.119.99
 
 [api-servers:vars]
-cross_origin_addresses=http://localhost
-db_address=localhost
+cross_origin_addresses=http://ec2-52-208-119-99.eu-west-1.compute.amazonaws.com
+db_address=172.30.2.66
 
 

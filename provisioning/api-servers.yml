@@ -12,14 +12,21 @@
         prompt: "Enter admin api password"
         default: 'password'
         private: yes
+  vars:
+    local_file_name: "{{ lookup('pipe', 'ls -1 ../build/libs/*.jar') }}"
 
   tasks:
+    - apt: name=software-properties-common
     - shell: 'add-apt-repository ppa:openjdk-r/ppa'
-    - apt: name=openjdk-8-jdk update_cache=yes
+    - apt: name=openjdk-8-jdk
     - group: name=bootapp
     - user: name=bootapp group=bootapp shell=/usr/sbin/nologin
-    - copy: backup=yes src=../build/libs/admin-api-0.0.1-SNAPSHOT.jar dest=/var/admin-api/ mode=500 owner=bootapp group=bootapp
-# bring back    - shell: 'chattr +i /var/admin-api/admin-api-0.0.1-SNAPSHOT.jar'
-    - file: src=/var/admin-api/admin-api-0.0.1-SNAPSHOT.jar dest=/etc/init.d/admin-api state=link
-    - template: src=files/application.yml.j2 dest=/var/admin-api/application.yml
-    - service: name=admin-api state=restarted
+    - file: path=/var/adminapi/ state=directory owner=bootapp group=bootapp
+    - copy: backup=yes src={{local_file_name}} dest=/var/adminapi/adminapi.jar mode=500 owner=bootapp group=bootapp
+# bring back    - shell: 'chattr +i /var/adminapi/adminapi-0.0.1-SNAPSHOT.jar'
+    - file: src=/var/adminapi/adminapi.jar dest=/etc/init.d/adminapi state=link
+      when: ansible_distribution == 'Ubuntu'
+    - copy: src=files/adminapi.service dest=/etc/systemd/system
+      when: ansible_distribution == "Debian"
+    - template: src=files/application.yml.j2 dest=/var/adminapi/application.yml
+    - service: name=adminapi state=restarted

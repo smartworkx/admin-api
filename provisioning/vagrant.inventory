@@ -11,3 +11,4 @@ db_address=192.168.33.12
 [db-servers:vars]
 api_address=192.168.0.0/16
 database_name=admin
+install_postgresql=true

@@ -1,0 +1,11 @@
+[Unit]
+Description=adminapi
+After=syslog.target
+
+[Service]
+User=bootapp
+ExecStart=/var/adminapi/adminapi.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
