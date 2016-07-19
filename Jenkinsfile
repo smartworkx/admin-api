@@ -39,12 +39,14 @@ node {
 stage 'Deploy prod'
 input 'Do you want to install on prod?'
 
+
 node {
     sh 'echo deploying on prod'
     ansiblePlaybook(
             playbook: 'provisioning/api-servers.yml',
             inventory: 'provisioning/prod.inventory ',
             extras: '-u admin',
+            extraVars: '',
             credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
     )
 }

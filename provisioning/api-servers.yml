@@ -18,7 +18,10 @@
   tasks:
     - apt: name=software-properties-common
     - shell: 'add-apt-repository ppa:openjdk-r/ppa'
+    - apt: name=openjdk-8-jdk update_cache=yes
+      when: ansible_distribution == 'Ubuntu'
     - apt: name=openjdk-8-jdk
+      when: ansible_distribution == "Debian"
     - group: name=bootapp
     - user: name=bootapp group=bootapp shell=/usr/sbin/nologin
     - file: path=/var/adminapi/ state=directory owner=bootapp group=bootapp

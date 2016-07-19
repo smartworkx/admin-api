@@ -21,10 +21,10 @@
 
     postgresql_users:
       - name: admin-owner
-        pass: "{{admin_owner_password}}"
+        pass: "{{lookup('password', 'credentials/admin_owner.txt')}}"
 
       - name: admin-api
-        pass: "{{admin_api_password}}"
+        pass: "{{lookup('password', 'credentials/admin_api.txt')}}"
 
     postgresql_user_privileges:
       - name: admin-owner
