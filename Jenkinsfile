@@ -27,14 +27,24 @@ node {
     sh 'echo Publishing doc'
 }
 
-//stage 'Deploy test'
-//input 'Do you want to install on test?'
+stage 'Deploy test'
+input 'Do you want to install on test?'
 
-//node {
-//    sh 'echo deploying on test'
-//    sh 'ansible-playbook -i provisioning/test.inventory provisioning/db-servers.yml'
-//    sh 'ansible-playbook -i provisioning/test.inventory provisioning/api-servers.yml'
-//}
+node {
+    sh 'echo deploying on test'
+    ansiblePlaybook(
+            playbook: 'provisioning/db-servers.yml',
+            inventory: 'provisioning/test.inventory ',
+            extras: '-u admin',
+            credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
+    )
+    ansiblePlaybook(
+            playbook: 'provisioning/api-servers.yml',
+            inventory: 'provisioning/test.inventory ',
+            extras: '-u admin',
+            credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
+    )
+}
 
 stage 'Deploy prod'
 input 'Do you want to install on prod?'

@@ -1,8 +1,15 @@
 [api-servers]
-192.168.33.11
+52.49.211.193
+
+[db-servers]
+52.49.211.193
 
 [api-servers:vars]
-cross.origin.addresses=http://192
+cross_origin_addresses=http://52.49.211.193
+db_address=localhost
+
+[db-servers:vars]
+api_address=172.30.0.0/16
 database_name=admin
 admin_api_password=password
 admin_owner_password=password
