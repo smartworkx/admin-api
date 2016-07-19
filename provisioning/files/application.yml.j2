@@ -10,12 +10,12 @@ spring:
   datasource:
     platform: postgres
     username: admin-api
-    password: {{lookup('password', 'credentials/admin_api.txt')}}
+    password: {{admin_api_password}}
     url: jdbc:postgresql://{{ db_address }}:5432/admin
 
 liquibase:
   user: admin-owner
-  password: {{lookup('password', 'credentials/admin_owner.txt')}}
+  password: {{admin_owner_password}}
   url: jdbc:postgresql://{{ db_address }}:5432/admin
 
 cross-origin-addresses: {{ cross_origin_addresses }}

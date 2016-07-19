@@ -3,15 +3,6 @@
 - hosts: all
   become: yes
 
-  vars_prompt:
-      - name: "admin_owner_password"
-        prompt: "Enter owner password"
-        default: 'password'
-        private: yes
-      - name: "admin_api_password"
-        prompt: "Enter admin api password"
-        default: 'password'
-        private: yes
   vars:
     local_file_name: "{{ lookup('pipe', 'ls -1 ../build/libs/*.jar') }}"
 

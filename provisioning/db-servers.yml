@@ -3,15 +3,6 @@
 - hosts: db-servers
   become: yes
 
-  vars_prompt:
-    - name: "admin_owner_password"
-      prompt: "Enter owner password"
-      default: 'password'
-      private: yes
-    - name: "admin_api_password"
-      prompt: "Enter admin api password"
-      default: 'password'
-      private: yes
   vars:
     postgresql_version: 9.4
 
@@ -21,10 +12,10 @@
 
     postgresql_users:
       - name: admin-owner
-        pass: "{{lookup('password', 'credentials/admin_owner.txt')}}"
+        pass: "{{admin_owner_password}}"
 
       - name: admin-api
-        pass: "{{lookup('password', 'credentials/admin_api.txt')}}"
+        pass: "{{admin_api_password}}"
 
     postgresql_user_privileges:
       - name: admin-owner

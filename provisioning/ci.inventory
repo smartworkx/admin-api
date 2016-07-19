@@ -4,3 +4,5 @@
 [db-servers:vars]
 api_address=192.168.0.0/16
 database_name=admin_test
+admin_api_password=password
+admin_owner_password=password

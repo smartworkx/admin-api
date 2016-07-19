@@ -4,5 +4,7 @@
 [api-servers:vars]
 cross.origin.addresses=http://192
 database_name=admin
+admin_api_password=password
+admin_owner_password=password
 
 

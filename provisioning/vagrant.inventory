@@ -12,3 +12,5 @@ db_address=192.168.33.12
 api_address=192.168.0.0/16
 database_name=admin
 install_postgresql=true
+admin_api_password=password
+admin_owner_password=password
