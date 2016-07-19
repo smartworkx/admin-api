@@ -14,6 +14,12 @@ node {
     sh "gradle clean assemble"
 
     stage 'Cucumber'
+    ansiblePlaybook(
+            playbook: 'provisioning/db-servers.yml',
+            inventory: 'provisioning/ci.inventory ',
+            extras: '-u admin',
+            credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
+    )
     sh "gradle cucumberInt -PjvmArgs='-Dspring.profiles.active=ci'"
 
     stage 'Stage Archive'
@@ -33,14 +39,18 @@ node {
 stage 'Deploy prod'
 input 'Do you want to install on prod?'
 
-
 node {
     sh 'echo deploying on prod'
+    ansiblePlaybook(
+            playbook: 'provisioning/db-servers.yml',
+            inventory: 'provisioning/prod.inventory ',
+            extras: '-u admin',
+            credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
+    )
     ansiblePlaybook(
             playbook: 'provisioning/api-servers.yml',
             inventory: 'provisioning/prod.inventory ',
             extras: '-u admin',
-            extraVars: '',
             credentialsId: 'bec43108-1819-465a-bf56-91324f852fc1'
     )
 }

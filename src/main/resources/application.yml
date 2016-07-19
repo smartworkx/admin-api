@@ -27,8 +27,8 @@ spring:
 spring:
   profiles: ci
   datasource:
-    url: jdbc:postgresql://192.168.1.10:5432/admin_test
+    url: jdbc:postgresql://52.209.45.39:5432/admin
 liquibase:
-  url: jdbc:postgresql://192.168.1.10:5432/admin_test
+  url: jdbc:postgresql://52.209.45.39:5432/admin
 server:
   port: 8081

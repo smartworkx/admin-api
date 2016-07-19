@@ -1,8 +1,15 @@
+[api-servers]
+52.209.45.39
+
 [db-servers]
-192.168.1.10
+52.209.45.39
+
+[api-servers:vars]
+cross_origin_addresses=http://ec2-52-209-45-39.eu-west-1.compute.amazonaws.com
+db_address=52.209.45.39
 
 [db-servers:vars]
-api_address=192.168.0.0/16
-database_name=admin_test
+api_address=0.0.0.0/0
+database_name=admin
 admin_api_password=password
 admin_owner_password=password
