@@ -33,11 +33,16 @@ public class JournalEntry implements DddAggregate {
 	public JournalEntry(LocalDate bookDate, Long financialFact,
 			Record... records) {
 
+		this(bookDate, financialFact, Arrays.asList(records));
+
+	}
+
+	public JournalEntry(final LocalDate bookDate, final Long financialFactId, final List<Record> records) {
+
 		this.bookDate = bookDate;
 
-		this.financialFactId = financialFact;
-		this.records = Arrays.asList(records);
-
+		this.financialFactId = financialFactId;
+		this.records = records;
 	}
 
 	public Long getFinancialFact() {

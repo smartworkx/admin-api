@@ -15,6 +15,12 @@ public final class DateUtils {
 
 	public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
+	public static LocalDate lenientToDate(String dateAsString) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+		return LocalDate.parse(dateAsString.substring(0, 10), formatter);
+	}
+
 	public static LocalDate toDate(String dateAsString){
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 		return LocalDate.parse(dateAsString, formatter);
@@ -24,5 +30,10 @@ public final class DateUtils {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
 		return LocalDateTime.parse(dateAsString + " 00:00:00", formatter);
 
+	}
+
+	public static LocalDate today() {
+
+		return LocalDate.now(ClockHolder.getClock());
 	}
 }
