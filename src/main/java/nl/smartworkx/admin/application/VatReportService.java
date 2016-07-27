@@ -10,6 +10,7 @@ import org.javamoney.moneta.Money;
 import org.javamoney.moneta.function.MonetaryFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import nl.smartworkx.admin.MoneyUtils;
 import nl.smartworkx.admin.infrastructure.jpa.MonetaryAmountConverter;
 import nl.smartworkx.admin.model.JournalEntryRepository;
 import nl.smartworkx.admin.model.LedgerCode;
@@ -51,6 +52,6 @@ public class VatReportService {
 		return format.format(entries.stream()
 				.filter(obj -> obj[0].equals(ledgerCode.name())).map(obj -> amountConverter.convertToEntityAttribute(
 						(String) obj[1]))
-				.reduce(MonetaryFunctions.sum()).orElse(Money.of(BigDecimal.ZERO, "EUR")));
+				.reduce(MonetaryFunctions.sum()).orElse(MoneyUtils.toMoney(0)));
 	}
 }

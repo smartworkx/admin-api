@@ -1,5 +1,7 @@
 package nl.smartworkx.admin;
 
+import javax.money.MonetaryAmount;
+
 import org.javamoney.moneta.Money;
 
 /**
@@ -11,5 +13,10 @@ public class MoneyUtils {
 	public static Money toMoney(final Double amount) {
 
 		return Money.of(amount, "EUR");
+	}
+
+	public static Money toMoney(final int i) {
+
+		return toMoney(new Double(i));
 	}
 }
