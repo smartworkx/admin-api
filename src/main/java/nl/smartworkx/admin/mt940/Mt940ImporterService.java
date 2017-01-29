@@ -32,63 +32,63 @@ import nl.smartworkx.admin.model.FinancialFact;
 @Service
 public class Mt940ImporterService {
 
-	private CreateFinancialFactService createFinancialFactService;
+    private CreateFinancialFactService createFinancialFactService;
 
-	@Autowired
-	public Mt940ImporterService(CreateFinancialFactService createFinancialFactService) {
+    @Autowired
+    public Mt940ImporterService(CreateFinancialFactService createFinancialFactService) {
 
-		this.createFinancialFactService = createFinancialFactService;
-	}
+        this.createFinancialFactService = createFinancialFactService;
+    }
 
-	public void importMt940(InputStream stream) {
+    public void importMt940(InputStream stream) {
 
-		try {
-			MT940 mt940 = parse(stream);
-			int line = 1;
-			List<Field86> field86s = Lists.reverse(mt940.getField86());
-			for (Field61 field61 : Lists.reverse(mt940.getField61())) {
-				Field86 field86 = field86s.get(line);
-				createFinancialFactService.create(new FinancialFact(getDate(field61.getValueDate()),
-						getAmount(field61.getAmount()), getValueByCodeword(field86)));
-				line++;
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+        try {
+            MT940 mt940 = parse(stream);
+            int line = 1;
+            List<Field86> field86s = Lists.reverse(mt940.getField86());
+            for (Field61 field61 : Lists.reverse(mt940.getField61())) {
+                Field86 field86 = field86s.get(line);
+                createFinancialFactService.create(new FinancialFact(getDate(field61.getValueDate()), getAmount(field61.getAmount()), getValueByCodeword(field86), getCreditDebit(field61
+                        .getDCMark())));
+                line++;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	private String getValueByCodeword(Field86 field86) {
-		String value = field86.getValue().replace("\r\n","");
-		String counterParty = getCounterParty(value);
-		String counterpartyPrefix = counterParty == null ? "": counterParty + " ";
-		return StringUtils.chomp(counterpartyPrefix + value.substring(value.indexOf("USTD") + 6), "/").replaceAll(",", " ");
-	}
+    private String getValueByCodeword(Field86 field86) {
+        String value = field86.getValue().replace("\r\n", "");
+        String counterParty = getCounterParty(value);
+        String counterpartyPrefix = counterParty == null ? "" : counterParty + " ";
+        return StringUtils.chomp(counterpartyPrefix + value.substring(value.indexOf("USTD") + 6), "/")
+                .replaceAll(",", " ");
+    }
 
-	public String getCounterParty(String value) {
+    public String getCounterParty(String value) {
 
-		Pattern pattern = Pattern.compile("/CNTP/.+?/.+?/(.+?)/");
+        Pattern pattern = Pattern.compile("/CNTP/.+?/.+?/(.+?)/");
 
-		Matcher matcher = pattern.matcher(value);
-		return matcher.find() ? matcher.group(1) : null;
-	}
+        Matcher matcher = pattern.matcher(value);
+        return matcher.find() ? matcher.group(1) : null;
+    }
 
-	private DebitCredit getCreditDebit(String dcMark) {
+    private DebitCredit getCreditDebit(String dcMark) {
 
-		return "D".equals(dcMark) ? DebitCredit.DEBIT : DebitCredit.CREDIT;
-	}
+        return "D".equals(dcMark) ? DebitCredit.DEBIT : DebitCredit.CREDIT;
+    }
 
-	private MonetaryAmount getAmount(String amount) {
+    private MonetaryAmount getAmount(String amount) {
 
-		return Money.of(new BigDecimal(amount.replace(",",".")), "EUR");
+        return Money.of(new BigDecimal(amount.replace(",", ".")), "EUR");
 
-	}
+    }
 
-	private LocalDate getDate(String date) {
+    private LocalDate getDate(String date) {
 
-		DateTimeFormatter formatter =
-				DateTimeFormatter.ofPattern("yyMMdd");
-		LocalDate localDate = LocalDate.parse(date, formatter);
-		return localDate;
-	}
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return localDate;
+    }
 
 }

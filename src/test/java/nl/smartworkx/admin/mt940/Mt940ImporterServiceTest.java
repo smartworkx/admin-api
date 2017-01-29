@@ -21,7 +21,7 @@ mt940ImporterService = new Mt940ImporterService(new PrintCreateFinancialFactServ
 
 	@Test
 	public void parseMt940(){
-		mt940ImporterService.importMt940(Mt940ImporterService.class.getResourceAsStream("/201601.940"));
+		mt940ImporterService.importMt940(Mt940ImporterService.class.getResourceAsStream("/201604.940"));
 	}
 
 	@Test
