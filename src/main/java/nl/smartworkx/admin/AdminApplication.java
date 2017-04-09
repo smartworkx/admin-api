@@ -1,7 +1,5 @@
 package nl.smartworkx.admin;
 
-import java.time.Clock;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import nl.smartworkx.admin.model.bank.BankFileUploadEventHandler;
+import nl.smartworkx.admin.model.bank.Mt940ImporterService;
 
 @SpringBootApplication
 public class AdminApplication {
@@ -21,11 +21,16 @@ public class AdminApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				System.out.println("Cross origion address: " + crossOriginAddresses);
 				registry.addMapping("/*").allowedOrigins(crossOriginAddresses);
 			}
 		};
 	}
+
+	@Bean
+	BankFileUploadEventHandler bankFileUploadEventHandler(){
+		return new BankFileUploadEventHandler();
+	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(AdminApplication.class, args);

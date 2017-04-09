@@ -7,7 +7,7 @@ CREATE TABLE financial_fact
   amount       VARCHAR(64),
   debit_credit INTEGER,
   description  VARCHAR(255),
-  value_date   BYTEA
+  value_date   date
 );
 
 --changeset joriswijlens:#1-2 Create table financial fact
@@ -23,7 +23,7 @@ CREATE TABLE journal_entry
   id                BIGSERIAL PRIMARY KEY NOT NULL,
   description       VARCHAR(255),
   financial_fact_id BIGINT  NOT NULL,
-  book_date BYTEA NOT NULL,
+  book_date         date NOT NULL,
   CONSTRAINT fk_financial_fact FOREIGN KEY (financial_fact_id) REFERENCES financial_fact (id)
 );
 
@@ -62,3 +62,15 @@ INSERT INTO ledger (code, name) VALUES ('EDUC', 'Opleiding');
 INSERT INTO ledger (code, name) VALUES ('INSU', 'Verzekering');
 INSERT INTO ledger (code, name) VALUES ('LOAN', 'Lening');
 INSERT INTO ledger (code, name) VALUES ('INT', 'Rente');
+
+
+--changeset joriswijlens:#1-7 Bank file uploads
+CREATE TABLE bank_file_upload
+(
+  id                  BIGSERIAL PRIMARY KEY NOT NULL,
+  content             TEXT,
+  creation_date_time  TIMESTAMP
+);
+
+GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";

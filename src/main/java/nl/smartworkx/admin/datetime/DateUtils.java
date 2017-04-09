@@ -36,4 +36,8 @@ public final class DateUtils {
 
 		return LocalDate.now(ClockHolder.getClock());
 	}
+
+	public static LocalDateTime now(){
+		return LocalDateTime.now(ClockHolder.getClock());
+	}
 }

@@ -1,9 +1,7 @@
-package nl.smartworkx.admin.mt940;
+package nl.smartworkx.admin.model.bank;
 
 import static com.prowidesoftware.swift.model.mt.mt9xx.MT940.parse;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,20 +38,16 @@ public class Mt940ImporterService {
         this.createFinancialFactService = createFinancialFactService;
     }
 
-    public void importMt940(InputStream stream) {
+    public void importMt940(String stream) {
 
-        try {
-            MT940 mt940 = parse(stream);
-            int line = 1;
-            List<Field86> field86s = Lists.reverse(mt940.getField86());
-            for (Field61 field61 : Lists.reverse(mt940.getField61())) {
-                Field86 field86 = field86s.get(line);
-                createFinancialFactService.create(new FinancialFact(getDate(field61.getValueDate()), getAmount(field61.getAmount()), getValueByCodeword(field86), getCreditDebit(field61
-                        .getDCMark())));
-                line++;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        MT940 mt940 = parse(stream);
+        int line = 1;
+        List<Field86> field86s = Lists.reverse(mt940.getField86());
+        for (Field61 field61 : Lists.reverse(mt940.getField61())) {
+            Field86 field86 = field86s.get(line);
+            createFinancialFactService.create(new FinancialFact(getDate(field61.getValueDate()), getAmount(field61.getAmount()), getValueByCodeword(field86), getCreditDebit(field61
+                    .getDCMark())));
+            line++;
         }
     }
 
