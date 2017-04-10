@@ -4,7 +4,8 @@
 CREATE TABLE financial_fact
 (
   id           BIGSERIAL PRIMARY KEY NOT NULL,
-  amount       VARCHAR(64),
+  currency      VARCHAR(64),
+  amount        numeric(19, 2),
   debit_credit INTEGER,
   description  VARCHAR(255),
   value_date   date
@@ -31,7 +32,8 @@ CREATE TABLE journal_entry
 CREATE TABLE record
 (
   id            BIGSERIAL PRIMARY KEY NOT NULL,
-  amount        VARCHAR(64),
+  currency      VARCHAR(64),
+  amount        numeric(19, 2),
   debit_credit  VARCHAR(64),
   ledger        BIGINT,
   journal_entry BIGINT,

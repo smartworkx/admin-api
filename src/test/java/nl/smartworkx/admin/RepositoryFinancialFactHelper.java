@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.FinancialFact;
 import nl.smartworkx.admin.model.FinancialFactRepository;
 
@@ -24,7 +25,7 @@ public class RepositoryFinancialFactHelper {
 		this.repository = repository;
 	}
 
-	public FinancialFact createFinancialFact(Money amount, LocalDate date) {
+	public FinancialFact createFinancialFact(Amount amount, LocalDate date) {
 
 		return repository.save(DomainFinancialFactHelper.create(amount, date));
 	}

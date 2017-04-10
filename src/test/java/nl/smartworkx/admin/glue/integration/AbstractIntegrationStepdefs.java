@@ -1,8 +1,8 @@
 package nl.smartworkx.admin.glue.integration;
 
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationContextLoader;
+import org.springframework.boot.test.context.SpringBootContextLoader;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,9 +18,9 @@ import nl.smartworkx.admin.ProfileResolver;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AdminApplication.class, IntegrationTestApplicationContext.class },
-		loader = SpringApplicationContextLoader.class)
+		loader = SpringBootContextLoader.class)
 @WebAppConfiguration
-@IntegrationTest
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(resolver = ProfileResolver.class)
 public abstract class AbstractIntegrationStepdefs {
 

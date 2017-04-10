@@ -11,6 +11,7 @@ import nl.smartworkx.admin.RepositoryJournalEntryHelper;
 import nl.smartworkx.admin.datetime.ClockHolder;
 import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
 import nl.smartworkx.admin.glue.shared.KnowsTheJournalEntry;
+import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.FinancialFact;
 import nl.smartworkx.admin.model.JournalEntry;
 
@@ -37,7 +38,7 @@ public class JournalStepdefs extends AbstractIntegrationStepdefs {
 	public void thereIsAnOutgoingInvoiceWithAnAmountOfExVATOf(BigDecimal amount, int taxRate) throws Throwable {
 
 		LocalDate now = LocalDate.now(ClockHolder.getClock());
-		Money amountExVat = Money.of(amount, "EUR");
+		Amount amountExVat = new Amount(amount, "EUR");
 		FinancialFact financialFact = createFinancialFact(now, amountExVat);
 		JournalEntry journalEntry = repositoryJournalEntryHelper
 				.createOutgoingInvoiceJournalEntry(financialFact.getId(), taxRate, now, amountExVat);
@@ -50,15 +51,15 @@ public class JournalStepdefs extends AbstractIntegrationStepdefs {
 			throws Throwable {
 
 		LocalDate now = LocalDate.now(ClockHolder.getClock());
-		FinancialFact financialFact = createFinancialFact(now, Money.of(amount, "EUR"));
+		FinancialFact financialFact = createFinancialFact(now, new Amount(amount, "EUR"));
 		JournalEntry journalEntry = repositoryJournalEntryHelper
 				.createIncomingInvoiceJournalEntry(financialFact.getId(), taxRate, now, amount);
 		knowsTheJournalEntry.setCurrent(journalEntry);
 	}
 
-	private FinancialFact createFinancialFact(final LocalDate now, final Money eur) {
+	private FinancialFact createFinancialFact(final LocalDate now, final Amount amount) {
 
-		FinancialFact financialFact = repositoryFinancialFactHelper.createFinancialFact(eur, now);
+		FinancialFact financialFact = repositoryFinancialFactHelper.createFinancialFact(amount, now);
 		knowsTheFinancialFact.setCurrent(financialFact);
 		return financialFact;
 	}

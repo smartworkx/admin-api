@@ -19,6 +19,7 @@ import com.prowidesoftware.swift.model.field.Field61;
 import com.prowidesoftware.swift.model.field.Field86;
 import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
 import nl.smartworkx.admin.CreateFinancialFactService;
+import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.FinancialFact;
 
@@ -72,9 +73,9 @@ public class Mt940ImporterService {
         return "D".equals(dcMark) ? DebitCredit.DEBIT : DebitCredit.CREDIT;
     }
 
-    private MonetaryAmount getAmount(String amount) {
+    private Amount getAmount(String amount) {
 
-        return Money.of(new BigDecimal(amount.replace(",", ".")), "EUR");
+        return new Amount(new BigDecimal(amount.replace(",", ".")), "EUR");
 
     }
 

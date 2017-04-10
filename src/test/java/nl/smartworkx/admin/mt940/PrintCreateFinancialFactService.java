@@ -17,7 +17,7 @@ class PrintCreateFinancialFactService implements CreateFinancialFactService {
                 .toString() + "," + financialFact.getDescription() + ",," + convertDebitCredit(financialFact
                 .getDebitCredit()) + financialFact
                 .getAmount()
-                .getNumber());
+                .getValue());
     }
 
     private String convertDebitCredit(DebitCredit debitCredit) {

@@ -10,6 +10,7 @@ import nl.smartworkx.admin.RepositoryFinancialFactHelper;
 import nl.smartworkx.admin.RepositoryJournalEntryHelper;
 import nl.smartworkx.admin.datetime.ClockHolder;
 import nl.smartworkx.admin.glue.integration.AbstractIntegrationStepdefs;
+import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.FinancialFact;
 
 /**
@@ -29,7 +30,7 @@ public class JournalStepdefs extends AbstractIntegrationStepdefs {
 	public void thereIsAnOutgoingInvoiceWithAnAmountOfExVATOf(BigDecimal amount, int taxRate) throws Throwable {
 
 		LocalDate now = LocalDate.now(ClockHolder.getClock());
-		Money amountExVat = Money.of(amount, "EUR");
+		Amount amountExVat = new Amount(amount, "EUR");
 		FinancialFact financialFact = repositoryFinancialFactHelper.createFinancialFact(amountExVat, now);
 		repositoryJournalEntryHelper
 				.createOutgoingInvoiceJournalEntry(financialFact.getId(), taxRate, now, amountExVat);

@@ -3,6 +3,7 @@ package nl.smartworkx.admin;
 import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.Money;
+import nl.smartworkx.admin.model.Amount;
 
 /**
  * @author Joris Wijlens
@@ -10,12 +11,12 @@ import org.javamoney.moneta.Money;
  * @since 1.0
  */
 public class MoneyUtils {
-	public static Money toMoney(final Double amount) {
+	public static Amount toMoney(final Double amount) {
 
-		return Money.of(amount, "EUR");
+		return new Amount(amount, "EUR");
 	}
 
-	public static Money toMoney(final int i) {
+	public static Amount toMoney(final int i) {
 
 		return toMoney(new Double(i));
 	}

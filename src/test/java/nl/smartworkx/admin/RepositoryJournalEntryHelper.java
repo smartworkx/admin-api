@@ -31,16 +31,16 @@ public class RepositoryJournalEntryHelper {
 	}
 
 	public JournalEntry createOutgoingInvoiceJournalEntry(Long financialFactId, int taxRate,
-			LocalDate now, Money amountExVat) {
+			LocalDate now, Amount amountExVat) {
 
-		final MonetaryAmount vatAmount = MonetaryUtil.percent(taxRate).apply(amountExVat);
-		MonetaryAmount totalAmount = vatAmount.add(amountExVat);
+		final MonetaryAmount vatAmount = MonetaryUtil.percent(taxRate).apply(amountExVat.getMoney());
+		MonetaryAmount totalAmount = vatAmount.add(amountExVat.getMoney());
 		Ledger deductedVatLedger = ledgerRepository.findByCode("VATS");
 		Record deductedVatRecord = new Record(deductedVatLedger.getId(), DebitCredit.DEBIT, vatAmount);
-		Ledger telephoneCostsLedger = ledgerRepository.findByCode("TOJ");
-		Record telephoneCostRecord = new Record(telephoneCostsLedger.getId(), DebitCredit.CREDIT, amountExVat);
+		Ledger toJoriesLedger = ledgerRepository.findByCode("TOJ");
+		Record telephoneCostRecord = new Record(toJoriesLedger.getId(), DebitCredit.CREDIT, amountExVat);
 		Ledger bankLedger = ledgerRepository.findByCode("DEB");
-		Record bankRecord = new Record(bankLedger.getId(), DebitCredit.DEBIT, amountExVat.add(totalAmount));
+		Record bankRecord = new Record(bankLedger.getId(), DebitCredit.DEBIT, amountExVat.getMoney().add(totalAmount));
 
 		JournalEntry journalEntry = new JournalEntry(now, financialFactId, deductedVatRecord, telephoneCostRecord,
 				bankRecord);

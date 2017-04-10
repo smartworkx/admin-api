@@ -1,10 +1,14 @@
 package nl.smartworkx.admin.model;
 
 import java.time.LocalDate;
-import javax.money.MonetaryAmount;
 import javax.persistence.*;
 
-import nl.smartworkx.admin.infrastructure.jpa.MonetaryAmountConverter;
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 /**
  * @author Joris Wijlens
@@ -19,22 +23,21 @@ public class FinancialFact implements DddAggregate {
 	@SequenceGenerator(name = "financial_fact", sequenceName = "financial_fact_id_seq")
 	private Long id;
 
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate valueDate;
 
-	@Convert(converter = MonetaryAmountConverter.class)
-	@Column(columnDefinition = "varchar(64)")
-	private MonetaryAmount amount;
+	@Embedded
+	private Amount amount;
 
 	private String description;
 
 	private DebitCredit debitCredit;
 
-	private FinancialFact() {
-
-	}
+	private FinancialFact() {}
 
 	public FinancialFact(LocalDate valueDate,
-			MonetaryAmount amount,
+			Amount amount,
 			String description) {
 
 		this.valueDate = valueDate;
@@ -42,7 +45,7 @@ public class FinancialFact implements DddAggregate {
 		this.description = description;
 	}
 
-	public FinancialFact(LocalDate valueDate, MonetaryAmount amount, String description,
+	public FinancialFact(LocalDate valueDate, Amount amount, String description,
 			DebitCredit debitCredit) {
 
 		this(valueDate, amount, description);
@@ -54,7 +57,7 @@ public class FinancialFact implements DddAggregate {
 		return valueDate;
 	}
 
-	public MonetaryAmount getAmount() {
+	public Amount getAmount() {
 
 		return amount;
 	}

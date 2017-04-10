@@ -1,9 +1,15 @@
 package nl.smartworkx.admin.model;
 
+import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
-import javax.persistence.*;
-
-import nl.smartworkx.admin.infrastructure.jpa.MonetaryAmountConverter;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  * @author Joris Wijlens
@@ -13,44 +19,47 @@ import nl.smartworkx.admin.infrastructure.jpa.MonetaryAmountConverter;
 @Entity
 public class Record {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "record")
-	@SequenceGenerator(name = "record", sequenceName = "record_id_seq")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "record")
+    @SequenceGenerator(name = "record", sequenceName = "record_id_seq")
+    private Long id;
 
-	private Long ledger;
+    private Long ledger;
 
-	@Enumerated(EnumType.STRING)
-	private DebitCredit debitCredit;
+    @Enumerated(EnumType.STRING)
+    private DebitCredit debitCredit;
 
-	@Convert(converter = MonetaryAmountConverter.class)
-	@Column(columnDefinition="varchar(64)")
-	private MonetaryAmount amount;
+    @Embedded
+    private Amount amount;
 
-	private Record() {
+    private Record() {
 
-	}
+    }
 
-	public Record(Long ledger, DebitCredit debitCredit, MonetaryAmount amount) {
+    public Record(Long ledger, DebitCredit debitCredit, Amount amount) {
 
-		this.ledger = ledger;
-		this.debitCredit = debitCredit;
+        this.ledger = ledger;
+        this.debitCredit = debitCredit;
 
-		this.amount = amount;
-	}
+        this.amount = amount;
+    }
 
-	public Long getLedger() {
+    public Record(Long id, DebitCredit debit, MonetaryAmount amount) {
+        this(id, debit, new Amount(new BigDecimal(amount.getNumber().doubleValue()), amount.getCurrency().getCurrencyCode()));
+    }
 
-		return ledger;
-	}
+    public Long getLedger() {
 
-	public DebitCredit getDebitCredit() {
+        return ledger;
+    }
 
-		return debitCredit;
-	}
+    public DebitCredit getDebitCredit() {
 
-	public MonetaryAmount getAmount() {
+        return debitCredit;
+    }
 
-		return amount;
-	}
+    public Amount getAmount() {
+
+        return amount;
+    }
 }

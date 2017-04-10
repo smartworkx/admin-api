@@ -3,36 +3,35 @@ package nl.smartworkx.admin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import nl.smartworkx.admin.model.bank.BankFileUploadEventHandler;
-import nl.smartworkx.admin.model.bank.Mt940ImporterService;
 
 @SpringBootApplication
-public class AdminApplication {
+public class AdminApplication extends RepositoryRestMvcConfiguration {
 
-	@Value("${cross-origin-addresses}")
-	private String crossOriginAddresses;
+    @Value("${cross-origin-addresses}")
+    private String crossOriginAddresses;
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/*").allowedOrigins(crossOriginAddresses);
-			}
-		};
-	}
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins(crossOriginAddresses);
+    }
 
-	@Bean
-	BankFileUploadEventHandler bankFileUploadEventHandler(){
-		return new BankFileUploadEventHandler();
-	}
+    @Bean
+    BankFileUploadEventHandler bankFileUploadEventHandler() {
+        return new BankFileUploadEventHandler();
+    }
 
+    public static void main(String[] args) {
+        final ConfigurableApplicationContext ctx = SpringApplication.run(AdminApplication.class, args);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(AdminApplication.class, args);
-	}
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        super.addFormatters(registry);
+    }
 }

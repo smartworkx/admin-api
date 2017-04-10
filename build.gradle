@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.4.RELEASE'
+		springBootVersion = '1.5.2.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -73,6 +73,7 @@ dependencies {
 	compile('com.google.guava:guava:19.0')
 	compile("org.springframework.boot:spring-boot-devtools")
 	compile("org.hibernate:hibernate-java8")
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.4.0"
 	runtime('org.liquibase:liquibase-core')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
