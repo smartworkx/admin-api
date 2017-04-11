@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.web;
+package nl.smartworkx.admin.interfaces.web.adapters.tax.vat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

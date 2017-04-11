@@ -4,7 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import nl.smartworkx.admin.IOUtils;
+import nl.smartworkx.admin.model.IOUtils;
 import nl.smartworkx.admin.adapters.ing.Mt940ImporterService;
 
 /**

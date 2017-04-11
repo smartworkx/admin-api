@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import nl.smartworkx.admin.model.FinancialFactRepository;
+import nl.smartworkx.admin.model.financialfact.FinancialFactRepository;
 
 /**
  *
@@ -20,7 +20,7 @@ public class InboxFinancialFactService {
 
     public List<InboxFinancialFact> getInboxFinancialFacts() {
         final List<InboxFinancialFact> inboxItems = new ArrayList<>();
-        financialFactRepository.findAll().forEach(financialFact -> {
+        financialFactRepository.findNonJournalizedFinancialFacts().forEach(financialFact -> {
             inboxItems.add(new InboxFinancialFact(financialFact));
         });
         return inboxItems;

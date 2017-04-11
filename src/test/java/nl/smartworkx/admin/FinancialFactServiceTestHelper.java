@@ -1,12 +1,9 @@
 package nl.smartworkx.admin;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import nl.smartworkx.admin.application.CreateFinancialFactService;
-import nl.smartworkx.admin.model.Amount;
-import nl.smartworkx.admin.model.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.FinancialFact;
 
 /**
  * @author Joris Wijlens
@@ -24,8 +21,8 @@ public class FinancialFactServiceTestHelper {
 		this.service = repository;
 	}
 
-	public FinancialFact createFinancialFact(Amount amount, LocalDate date) {
+	public FinancialFact createFinancialFact(FinancialFact financialFact) {
 
-		return service.create(DomainFinancialFactHelper.create(amount, date));
+		return service.create(financialFact);
 	}
 }

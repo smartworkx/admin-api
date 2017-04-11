@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model;
+package nl.smartworkx.admin.model.journal;
 
 import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+
+import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.DebitCredit;
 
 /**
  * @author Joris Wijlens

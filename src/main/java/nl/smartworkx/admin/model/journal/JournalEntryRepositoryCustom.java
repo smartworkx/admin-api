@@ -1,6 +1,8 @@
-package nl.smartworkx.admin.model;
+package nl.smartworkx.admin.model.journal;
 
 import java.util.List;
+
+import nl.smartworkx.admin.model.Quarter;
 
 /**
  * @author Joris Wijlens

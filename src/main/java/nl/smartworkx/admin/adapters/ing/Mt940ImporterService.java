@@ -19,7 +19,7 @@ import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
 import nl.smartworkx.admin.application.CreateFinancialFactService;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
-import nl.smartworkx.admin.model.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.FinancialFact;
 
 /**
  * @author Joris Wijlens

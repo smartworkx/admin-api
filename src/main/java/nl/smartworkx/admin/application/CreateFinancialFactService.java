@@ -1,7 +1,6 @@
 package nl.smartworkx.admin.application;
 
-import nl.smartworkx.admin.model.FinancialFact;
-import org.springframework.stereotype.Service;
+import nl.smartworkx.admin.model.financialfact.FinancialFact;
 
 /**
  * @author Joris Wijlens

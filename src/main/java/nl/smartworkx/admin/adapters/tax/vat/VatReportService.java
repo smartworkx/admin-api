@@ -10,8 +10,8 @@ import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import nl.smartworkx.admin.model.Amount;
-import nl.smartworkx.admin.model.JournalEntryRepository;
-import nl.smartworkx.admin.model.LedgerCode;
+import nl.smartworkx.admin.model.journal.JournalEntryRepository;
+import nl.smartworkx.admin.model.journal.LedgerCode;
 import nl.smartworkx.admin.model.Quarter;
 
 /**

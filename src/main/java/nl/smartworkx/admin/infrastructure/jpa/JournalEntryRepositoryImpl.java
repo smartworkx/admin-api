@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import nl.smartworkx.admin.model.JournalEntryRepositoryCustom;
+import nl.smartworkx.admin.model.journal.JournalEntryRepositoryCustom;
 import nl.smartworkx.admin.model.Quarter;
 
 /**

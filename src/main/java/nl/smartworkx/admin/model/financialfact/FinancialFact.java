@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model;
+package nl.smartworkx.admin.model.financialfact;
 
 import java.time.LocalDate;
 import javax.persistence.*;
@@ -9,6 +9,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import lombok.experimental.Builder;
+import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.DddAggregate;
+import nl.smartworkx.admin.model.DebitCredit;
 
 /**
  * @author Joris Wijlens
@@ -45,6 +49,7 @@ public class FinancialFact implements DddAggregate {
 		this.description = description;
 	}
 
+	@Builder
 	public FinancialFact(LocalDate valueDate, Amount amount, String description,
 			DebitCredit debitCredit) {
 

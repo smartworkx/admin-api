@@ -1,9 +1,12 @@
-package nl.smartworkx.admin.model;
+package nl.smartworkx.admin.model.journal;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import javax.persistence.*;
+
+import lombok.experimental.Builder;
+import nl.smartworkx.admin.model.DddAggregate;
 
 /**
  * @author Joris Wijlens
@@ -30,13 +33,7 @@ public class JournalEntry implements DddAggregate {
 
 	}
 
-	public JournalEntry(LocalDate bookDate, Long financialFact,
-			Record... records) {
-
-		this(bookDate, financialFact, Arrays.asList(records));
-
-	}
-
+	@Builder
 	public JournalEntry(final LocalDate bookDate, final Long financialFactId, final List<Record> records) {
 
 		this.bookDate = bookDate;
@@ -45,9 +42,9 @@ public class JournalEntry implements DddAggregate {
 		this.records = records;
 	}
 
-	public Long getFinancialFact() {
+	public Long getFinancialFactId() {
 
-		return id;
+		return this.financialFactId;
 	}
 
 	public List<Record> getRecords() {

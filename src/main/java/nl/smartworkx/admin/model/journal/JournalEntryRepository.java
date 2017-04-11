@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model;
+package nl.smartworkx.admin.model.journal;
 
 import org.springframework.data.repository.CrudRepository;
 

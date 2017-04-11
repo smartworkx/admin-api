@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.datetime;
+package nl.smartworkx.admin.model.time;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

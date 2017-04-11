@@ -1,6 +1,7 @@
 package nl.smartworkx.admin.glue.integration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -31,10 +32,9 @@ public class FinancialFactStepdefs extends AbstractIntegrationStepdefs {
          inboxFinancialFactsMvcResult = mvcTestHelper.getInboxFinancialFacts();
     }
 
-    @Then("^the financial fact is shown in the journalization inbox$")
-    public void theFinancialFactIsShownInTheJournalizationInbox() throws Throwable {
+    @Then("^(\\d+) financial facts? (is|are) shown in the journalization inbox$")
+    public void financialFactIsShownInTheJournalizationInbox(int numberOfItems, String bla) throws Throwable {
         inboxFinancialFactsMvcResult.returnsOk(this);
-        inboxFinancialFactsMvcResult.arrayHasSizeOf(1);
+        inboxFinancialFactsMvcResult.arrayHasSizeOf(numberOfItems);
     }
-
 }

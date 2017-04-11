@@ -1,4 +1,4 @@
-package nl.smartworkx.admin;
+package nl.smartworkx.admin.model;
 
 /**
  *

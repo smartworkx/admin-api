@@ -9,7 +9,7 @@ import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Type;
-import nl.smartworkx.admin.datetime.DateUtils;
+import nl.smartworkx.admin.model.time.DateUtils;
 import nl.smartworkx.admin.model.DddDomainEvent;
 
 /**

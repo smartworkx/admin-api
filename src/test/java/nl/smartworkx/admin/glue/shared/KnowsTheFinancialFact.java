@@ -2,7 +2,7 @@ package nl.smartworkx.admin.glue.shared;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import nl.smartworkx.admin.model.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.FinancialFact;
 
 /**
  * @author Joris Wijlens

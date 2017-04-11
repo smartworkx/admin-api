@@ -1,15 +1,14 @@
 package nl.smartworkx.admin.glue.integration.helpers;
 
-import java.time.LocalDate;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import nl.smartworkx.admin.DateUtils;
+import nl.smartworkx.admin.FinancialFactTestHelper;
 import nl.smartworkx.admin.FinancialFactServiceTestHelper;
 import nl.smartworkx.admin.glue.shared.BaseKnowsThe;
 import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
 import nl.smartworkx.admin.model.Amount;
-import nl.smartworkx.admin.model.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.FinancialFact;
+import nl.smartworkx.admin.model.time.DateUtils;
 
 /**
  * @author Joris Wijlens
@@ -29,15 +28,15 @@ public class FinancialFactGlueTestHelper {
         this.knowsTheFinancialFact = knowsTheFinancialFact;
     }
 
-    public FinancialFact createFinancialFact(final LocalDate now, final Amount amount) {
+    public FinancialFact createFinancialFact(FinancialFact financialFact1) {
 
-        FinancialFact financialFact = testHelper.createFinancialFact(amount, now);
+        FinancialFact financialFact = testHelper.createFinancialFact(financialFact1);
         knowsTheFinancialFact.setCurrent(financialFact);
         return financialFact;
     }
 
 
     public FinancialFact createFinancialFact() {
-        return createFinancialFact(DateUtils.getNow(), new Amount(10.00));
+        return createFinancialFact(FinancialFactTestHelper.create().build());
     }
 }

@@ -1,6 +1,6 @@
 package nl.smartworkx.admin.application.financialfact.inbox;
 
-import nl.smartworkx.admin.model.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.FinancialFact;
 
 /**
  *

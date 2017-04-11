@@ -1,8 +1,8 @@
 package nl.smartworkx.admin.application;
 
 import org.springframework.stereotype.Service;
-import nl.smartworkx.admin.model.FinancialFact;
-import nl.smartworkx.admin.model.FinancialFactRepository;
+import nl.smartworkx.admin.model.financialfact.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.FinancialFactRepository;
 
 /**
  * @author Joris Wijlens

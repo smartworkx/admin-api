@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.web;
+package nl.smartworkx.admin.interfaces.web.financialfact.inbox;
 
 import java.util.List;
 

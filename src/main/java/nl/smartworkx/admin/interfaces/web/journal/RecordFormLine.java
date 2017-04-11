@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.web;
+package nl.smartworkx.admin.interfaces.web.journal;
 
 import nl.smartworkx.admin.model.DebitCredit;
 

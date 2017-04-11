@@ -1,7 +1,7 @@
-package nl.smartworkx.admin.web;
+package nl.smartworkx.admin.interfaces.web.journal;
 
-import static nl.smartworkx.admin.MoneyUtils.toMoney;
-import static nl.smartworkx.admin.datetime.DateUtils.lenientToDate;
+import static nl.smartworkx.admin.model.MoneyUtils.toMoney;
+import static nl.smartworkx.admin.model.time.DateUtils.lenientToDate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import nl.smartworkx.admin.datetime.DateUtils;
-import nl.smartworkx.admin.model.*;
+import nl.smartworkx.admin.model.time.DateUtils;
+import nl.smartworkx.admin.model.financialfact.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.FinancialFactRepository;
+import nl.smartworkx.admin.model.journal.JournalEntry;
+import nl.smartworkx.admin.model.journal.JournalEntryRepository;
+import nl.smartworkx.admin.model.journal.Record;
 
 /**
  * @version 1.0
