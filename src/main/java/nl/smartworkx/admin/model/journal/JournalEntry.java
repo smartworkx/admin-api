@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.persistence.*;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.experimental.Builder;
 import nl.smartworkx.admin.model.DddAggregate;
 
@@ -14,6 +15,7 @@ import nl.smartworkx.admin.model.DddAggregate;
  * @since 1.0
  */
 @Entity
+@Immutable
 public class JournalEntry implements DddAggregate {
 
 	@Id

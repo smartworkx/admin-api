@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 
@@ -20,6 +21,7 @@ import nl.smartworkx.admin.model.DebitCredit;
  * @since 1.0
  */
 @Entity
+@Immutable
 public class Record {
 
     @Id
@@ -35,9 +37,7 @@ public class Record {
     @Embedded
     private Amount amount;
 
-    private Record() {
-
-    }
+    private Record() {}
 
     public Record(Long ledger, DebitCredit debitCredit, Amount amount) {
 

@@ -76,3 +76,9 @@ CREATE TABLE bank_file_upload
 
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
+
+--changeset joriswijlens:#1-8 Add financial fact origin
+ALTER TABLE bank_file_upload ADD COLUMN uuid UUID;
+
+ALTER TABLE financial_fact ADD COLUMN origin_uuid UUID;
+ALTER TABLE financial_fact ADD COLUMN origin_type VARCHAR(128);

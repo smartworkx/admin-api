@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import nl.smartworkx.admin.model.financialfact.FinancialFactOrigin;
 import nl.smartworkx.admin.model.time.DateUtils;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.financialfact.FinancialFactRepository;
@@ -52,7 +53,7 @@ public class JournalizeController {
 
 	private FinancialFact convert(final JournalizeForm form) {
 
-		return new FinancialFact(lenientToDate(form.getValueDate()), toMoney(form.getAmount()), form.getDescription());
+		return new FinancialFact(lenientToDate(form.getValueDate()), toMoney(form.getAmount()), form.getDescription(), new FinancialFactOrigin(form.getType()));
 	}
 
 	private JournalEntry convert(final JournalizeForm form, Long financialFactId) {

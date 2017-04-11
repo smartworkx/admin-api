@@ -19,6 +19,8 @@ public class JournalizeForm {
 
 	private List<RecordFormLine> records;
 
+	private String type;
+
 	public Double getAmount() {
 
 		return amount;
@@ -67,5 +69,13 @@ public class JournalizeForm {
 	public void setRecords(final List<RecordFormLine> records) {
 
 		this.records = records;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

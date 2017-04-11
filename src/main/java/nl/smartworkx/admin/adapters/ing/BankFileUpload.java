@@ -1,6 +1,7 @@
 package nl.smartworkx.admin.adapters.ing;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Type;
 import nl.smartworkx.admin.model.time.DateUtils;
 import nl.smartworkx.admin.model.DddDomainEvent;
@@ -16,6 +18,7 @@ import nl.smartworkx.admin.model.DddDomainEvent;
  *
  */
 @Entity
+@Immutable
 public class BankFileUpload implements DddDomainEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bank_file_upload")
@@ -28,8 +31,11 @@ public class BankFileUpload implements DddDomainEvent {
     @Type(type = "org.hibernate.type.TextType")
     private String content;
 
+    private UUID uuid;
+
     public BankFileUpload(String content) {
         this.creationDateTime = DateUtils.now();
+        this.uuid = UUID.randomUUID();
         this.content = content;
     }
 
@@ -63,5 +69,9 @@ public class BankFileUpload implements DddDomainEvent {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 }

@@ -1,11 +1,13 @@
 package nl.smartworkx.admin.mt940;
 
+import java.util.UUID;
+
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import nl.smartworkx.admin.model.IOUtils;
 import nl.smartworkx.admin.adapters.ing.Mt940ImporterService;
+import nl.smartworkx.admin.model.IOUtils;
 
 /**
  * @author Joris Wijlens
@@ -23,7 +25,7 @@ public class Mt940ImporterServiceTest {
 
     @Test
     public void parseMt940() {
-        mt940ImporterService.importMt940(IOUtils.convertStreamToString(Mt940ImporterService.class.getResourceAsStream("/201604.940")));
+        mt940ImporterService.importMt940(IOUtils.convertStreamToString(Mt940ImporterService.class.getResourceAsStream("/201604.940")), UUID.randomUUID());
     }
 
     @Test

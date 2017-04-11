@@ -1,9 +1,6 @@
 package nl.smartworkx.admin.adapters.ing;
 
 import org.springframework.stereotype.Service;
-import nl.smartworkx.admin.adapters.ing.BankFileUpload;
-import nl.smartworkx.admin.adapters.ing.BankFileUploadRepository;
-import nl.smartworkx.admin.adapters.ing.Mt940ImporterService;
 
 /**
  *
@@ -20,8 +17,8 @@ public class BankFileUploadService {
         this.mt940ImporterService = mt940ImporterService;
     }
 
-    public void create(BankFileUpload bankFileUpload){
+    public void create(BankFileUpload bankFileUpload) {
         this.repository.save(bankFileUpload);
-        this.mt940ImporterService.importMt940(bankFileUpload.getContent());
+        this.mt940ImporterService.importMt940(bankFileUpload.getContent(), bankFileUpload.getUuid());
     }
 }

@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +21,7 @@ import nl.smartworkx.admin.application.CreateFinancialFactService;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.FinancialFactOrigin;
 
 /**
  * @author Joris Wijlens
@@ -37,7 +39,7 @@ public class Mt940ImporterService {
         this.createFinancialFactService = createFinancialFactService;
     }
 
-    public void importMt940(String stream) {
+    public void importMt940(String stream, UUID uuid) {
 
         MT940 mt940 = parse(stream);
         int line = 1;
@@ -45,7 +47,7 @@ public class Mt940ImporterService {
         for (Field61 field61 : Lists.reverse(mt940.getField61())) {
             Field86 field86 = field86s.get(line);
             createFinancialFactService.create(new FinancialFact(getDate(field61.getValueDate()), getAmount(field61.getAmount()), getValueByCodeword(field86), getCreditDebit(field61
-                    .getDCMark())));
+                    .getDCMark()), new FinancialFactOrigin(uuid,"ING_BANK_OPERATION")));
             line++;
         }
     }

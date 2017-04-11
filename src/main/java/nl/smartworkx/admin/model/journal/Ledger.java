@@ -2,12 +2,15 @@ package nl.smartworkx.admin.model.journal;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Immutable;
+
 /**
  * @author Joris Wijlens
  * @version 1.0
  * @since 1.0
  */
 @Entity
+@Immutable
 public class Ledger {
 
 
