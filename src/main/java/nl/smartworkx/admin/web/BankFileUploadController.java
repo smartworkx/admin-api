@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-import nl.smartworkx.admin.application.BankFileUploadService;
-import nl.smartworkx.admin.model.bank.BankFileUpload;
+import nl.smartworkx.admin.adapters.ing.BankFileUploadService;
+import nl.smartworkx.admin.adapters.ing.BankFileUpload;
 
 /**
  *

@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Embeddable
 public class Amount {
 
+    public static final String DEFAULT_CURRENCY_CODE = "EUR";
     @Column(name = "amount")
     private BigDecimal value;
 
@@ -32,6 +33,11 @@ public class Amount {
 
     public Amount(Double amount, String currency) {
         this(new BigDecimal(amount), currency);
+    }
+
+    public Amount(Double value) {
+        this.value = new BigDecimal(value);
+        this.currency = DEFAULT_CURRENCY_CODE;
     }
 
     public BigDecimal getValue() {

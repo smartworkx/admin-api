@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import nl.smartworkx.admin.model.bank.BankFileUploadEventHandler;
+import nl.smartworkx.admin.adapters.ing.BankFileUploadEventHandler;
 
 @SpringBootApplication
 public class AdminApplication extends RepositoryRestMvcConfiguration {

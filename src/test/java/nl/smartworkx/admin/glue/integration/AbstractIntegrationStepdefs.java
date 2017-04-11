@@ -19,7 +19,6 @@ import nl.smartworkx.admin.ProfileResolver;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AdminApplication.class, IntegrationTestApplicationContext.class },
 		loader = SpringBootContextLoader.class)
-@WebAppConfiguration
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(resolver = ProfileResolver.class)
 public abstract class AbstractIntegrationStepdefs {

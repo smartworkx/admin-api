@@ -1,4 +1,4 @@
-package nl.smartworkx.admin;
+package nl.smartworkx.admin.application;
 
 import nl.smartworkx.admin.model.FinancialFact;
 import org.springframework.stereotype.Service;
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
  * @since 1.0
  */
 public interface CreateFinancialFactService {
-	void create(FinancialFact financialFact);
+	FinancialFact create(FinancialFact financialFact);
 }

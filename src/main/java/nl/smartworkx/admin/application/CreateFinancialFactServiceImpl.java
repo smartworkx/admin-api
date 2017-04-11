@@ -1,4 +1,4 @@
-package nl.smartworkx.admin;
+package nl.smartworkx.admin.application;
 
 import org.springframework.stereotype.Service;
 import nl.smartworkx.admin.model.FinancialFact;
@@ -18,7 +18,7 @@ public class CreateFinancialFactServiceImpl implements CreateFinancialFactServic
     }
 
     @Override
-    public void create(FinancialFact financialFact) {
-        repository.save(financialFact);
+    public FinancialFact create(FinancialFact financialFact) {
+        return repository.save(financialFact);
     }
 }

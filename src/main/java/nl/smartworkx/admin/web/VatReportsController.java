@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import nl.smartworkx.admin.application.VatReport;
-import nl.smartworkx.admin.application.VatReportService;
+import nl.smartworkx.admin.adapters.tax.vat.VatReport;
+import nl.smartworkx.admin.adapters.tax.vat.VatReportService;
 import nl.smartworkx.admin.model.Quarter;
 
 /**

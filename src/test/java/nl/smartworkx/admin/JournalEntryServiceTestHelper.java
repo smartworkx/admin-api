@@ -15,14 +15,14 @@ import nl.smartworkx.admin.model.*;
  * @since 1.0
  */
 @Component
-public class RepositoryJournalEntryHelper {
+public class JournalEntryServiceTestHelper {
 
 	private JournalEntryRepository repository;
 
 	private LedgerRepository ledgerRepository;
 
 	@Autowired
-	public RepositoryJournalEntryHelper(
+	public JournalEntryServiceTestHelper(
 			final JournalEntryRepository repository,
 			final LedgerRepository ledgerRepository) {
 

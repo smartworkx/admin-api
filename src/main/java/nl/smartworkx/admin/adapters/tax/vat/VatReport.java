@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.application;
+package nl.smartworkx.admin.adapters.tax.vat;
 
 import nl.smartworkx.admin.model.Quarter;
 

@@ -1,8 +1,7 @@
-package nl.smartworkx.admin.model.bank;
+package nl.smartworkx.admin.adapters.ing;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import nl.smartworkx.admin.model.FinancialFact;
 
 /**
  * @author Joris Wijlens

@@ -3,8 +3,8 @@ package nl.smartworkx.admin.glue.integration;
 import org.springframework.beans.factory.annotation.Autowired;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import nl.smartworkx.admin.MvcVatReportHelper;
-import nl.smartworkx.admin.MvcVatReportResult;
+import nl.smartworkx.admin.VatReportMvcTestHelper;
+import nl.smartworkx.admin.VatReportMvcResult;
 
 /**
  * @author Joris Wijlens
@@ -14,14 +14,14 @@ import nl.smartworkx.admin.MvcVatReportResult;
 public class VatReportStepdefs {
 
 	@Autowired
-	private MvcVatReportHelper mvcVatReportHelper;
+	private VatReportMvcTestHelper vatReportMvcTestHelper;
 
-	private MvcVatReportResult vatReportResult;
+	private VatReportMvcResult vatReportResult;
 
 	@And("^the entrepreneur asks for the VAT report for the (\\d+)nd quarter of (\\d+)$")
 	public void theEntrepreneurAsksForTheVATReportForTheNdQuarterOf(int quarterNumber, int year) throws Throwable {
 
-		vatReportResult = mvcVatReportHelper.getVatReport(year, quarterNumber);
+		vatReportResult = vatReportMvcTestHelper.getVatReport(year, quarterNumber);
 	}
 
 	@Then("^the vat report has an services taxed with high rate of \"([^\"]*)\"$")

@@ -1,6 +1,5 @@
-package nl.smartworkx.admin.model.bank;
+package nl.smartworkx.admin.adapters.ing;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 

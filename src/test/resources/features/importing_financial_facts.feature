@@ -2,7 +2,7 @@
 Feature:
 
   As an entrepreneur
-  I want to import the transaction from my bank account as financial facts
+  I want to import the transactions from my bank account as financial facts
   So that i can journalize my financial facts easier
 
   Scenario: # Enter scenario name here

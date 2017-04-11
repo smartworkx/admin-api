@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import nl.smartworkx.admin.IOUtils;
-import nl.smartworkx.admin.model.bank.Mt940ImporterService;
+import nl.smartworkx.admin.adapters.ing.Mt940ImporterService;
 
 /**
  * @author Joris Wijlens

@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model.bank;
+package nl.smartworkx.admin.adapters.ing;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;

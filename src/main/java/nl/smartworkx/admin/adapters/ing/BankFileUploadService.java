@@ -1,9 +1,9 @@
-package nl.smartworkx.admin.application;
+package nl.smartworkx.admin.adapters.ing;
 
 import org.springframework.stereotype.Service;
-import nl.smartworkx.admin.model.bank.BankFileUpload;
-import nl.smartworkx.admin.model.bank.BankFileUploadRepository;
-import nl.smartworkx.admin.model.bank.Mt940ImporterService;
+import nl.smartworkx.admin.adapters.ing.BankFileUpload;
+import nl.smartworkx.admin.adapters.ing.BankFileUploadRepository;
+import nl.smartworkx.admin.adapters.ing.Mt940ImporterService;
 
 /**
  *

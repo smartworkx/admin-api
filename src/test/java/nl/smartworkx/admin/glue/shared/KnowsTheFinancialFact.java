@@ -10,7 +10,7 @@ import nl.smartworkx.admin.model.FinancialFact;
  * @since 1.0
  */
 @Component
-@Scope(scopeName = KnowsTheFinancialFact.CUCUMBER_GLUE_SCOPE_NAME)
+@Scope(scopeName = BaseKnowsThe.CUCUMBER_GLUE_SCOPE_NAME)
 public class KnowsTheFinancialFact extends BaseKnowsThe<FinancialFact> {
 
 }

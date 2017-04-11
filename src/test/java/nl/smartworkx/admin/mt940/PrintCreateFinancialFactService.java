@@ -1,6 +1,6 @@
 package nl.smartworkx.admin.mt940;
 
-import nl.smartworkx.admin.CreateFinancialFactService;
+import nl.smartworkx.admin.application.CreateFinancialFactService;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.FinancialFact;
 
@@ -11,13 +11,14 @@ import nl.smartworkx.admin.model.FinancialFact;
  */
 class PrintCreateFinancialFactService implements CreateFinancialFactService {
     @Override
-    public void create(FinancialFact financialFact) {
+    public FinancialFact create(FinancialFact financialFact) {
 
         System.out.println(financialFact.getValueDate()
                 .toString() + "," + financialFact.getDescription() + ",," + convertDebitCredit(financialFact
                 .getDebitCredit()) + financialFact
                 .getAmount()
                 .getValue());
+        return financialFact;
     }
 
     private String convertDebitCredit(DebitCredit debitCredit) {
