@@ -5,9 +5,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.ResultMatcher;
 import nl.smartworkx.admin.glue.integration.FinancialFactStepdefs;
 
@@ -29,7 +27,7 @@ public class BaseMvcResult {
         return resultActions.andExpect(matcher);
     }
 
-    public ResultActions returnsOk(FinancialFactStepdefs financialFactStepdefs) throws Exception {
+    public ResultActions returnsOk() throws Exception {
         return andExpect(status().isOk());
     }
 }

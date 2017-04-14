@@ -78,7 +78,8 @@ dependencies {
 	compileOnly("org.projectlombok:lombok:1.12.6")
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile 'info.cukes:cucumber-java:1.2.4'
+	testCompile group: 'info.cukes', name: 'cucumber-java8', version: '1.2.4'
+
 	testCompile 'info.cukes:cucumber-junit:1.2.4'
 	testCompile 'info.cukes:cucumber-spring:1.2.4'
 	testCompile 'com.jayway.jsonpath:json-path:2.2.0'

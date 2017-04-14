@@ -1,6 +1,5 @@
 package nl.smartworkx.admin.interfaces.web.journal;
 
-import static nl.smartworkx.admin.model.MoneyUtils.toMoney;
 import static nl.smartworkx.admin.model.time.DateUtils.lenientToDate;
 
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFactOrigin;
 import nl.smartworkx.admin.model.time.DateUtils;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
@@ -53,14 +53,14 @@ public class JournalizeController {
 
 	private FinancialFact convert(final JournalizeForm form) {
 
-		return new FinancialFact(lenientToDate(form.getValueDate()), toMoney(form.getAmount()), form.getDescription(), new FinancialFactOrigin(form.getType()));
+		return new FinancialFact(lenientToDate(form.getValueDate()), new Amount(form.getAmount()), form.getDescription(), new FinancialFactOrigin(form.getType()));
 	}
 
 	private JournalEntry convert(final JournalizeForm form, Long financialFactId) {
 
 		List<Record> eur = form.getRecords().stream()
 				.map(recordFormLine -> new Record(recordFormLine.getLedger(), recordFormLine.getDebitCredit(),
-						toMoney(recordFormLine.getAmount()))).collect(Collectors.toList());
+						new Amount(recordFormLine.getAmount()))).collect(Collectors.toList());
 		return new JournalEntry(DateUtils.today(), financialFactId,
 				eur);
 	}

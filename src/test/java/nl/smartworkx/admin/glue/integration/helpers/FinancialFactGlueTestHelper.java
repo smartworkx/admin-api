@@ -6,9 +6,7 @@ import nl.smartworkx.admin.FinancialFactTestHelper;
 import nl.smartworkx.admin.FinancialFactServiceTestHelper;
 import nl.smartworkx.admin.glue.shared.BaseKnowsThe;
 import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
-import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
-import nl.smartworkx.admin.model.time.DateUtils;
 
 /**
  * @author Joris Wijlens
@@ -28,15 +26,20 @@ public class FinancialFactGlueTestHelper {
         this.knowsTheFinancialFact = knowsTheFinancialFact;
     }
 
-    public FinancialFact createFinancialFact(FinancialFact financialFact1) {
+    public FinancialFact createAFinancialFact(FinancialFact financialFact1) {
 
         FinancialFact financialFact = testHelper.createFinancialFact(financialFact1);
         knowsTheFinancialFact.setCurrent(financialFact);
         return financialFact;
     }
 
-
-    public FinancialFact createFinancialFact() {
-        return createFinancialFact(FinancialFactTestHelper.create().build());
+    public FinancialFact createAFinancialFact() {
+        return createAFinancialFact(FinancialFactTestHelper.create().build());
     }
+
+    public void createTheFinancialFact() {
+        knowsTheFinancialFact.makeBuilderCurrent();
+        testHelper.createFinancialFact(knowsTheFinancialFact.getCurrent());
+    }
+
 }

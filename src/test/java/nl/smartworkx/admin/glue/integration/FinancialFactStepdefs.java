@@ -1,40 +1,53 @@
 package nl.smartworkx.admin.glue.integration;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import nl.smartworkx.admin.FinancialFactMvcTestHelper;
-import nl.smartworkx.admin.InboxFinancialFactsMvcResult;
+import nl.smartworkx.admin.FinancialFactTestHelper;
 import nl.smartworkx.admin.glue.integration.helpers.FinancialFactGlueTestHelper;
+import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
+import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.financialfact.FinancialFactOrigin;
 
 /**
  *
  */
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public class FinancialFactStepdefs extends AbstractIntegrationStepdefs {
 
     @Autowired
     private FinancialFactGlueTestHelper testHelper;
 
     @Autowired
-    private FinancialFactMvcTestHelper mvcTestHelper;
+    private KnowsTheFinancialFact knowsTheFinancialFact;
 
-    private InboxFinancialFactsMvcResult inboxFinancialFactsMvcResult;
+    @Given("^a financial fact is created$")
+    public void aFinancialFactIsCreated() throws Throwable {
+        testHelper.createAFinancialFact();
+    }
 
     @Given("^a financial fact$")
     public void aFinancialFact() throws Throwable {
-        testHelper.createFinancialFact();
+        knowsTheFinancialFact.setBuilder(FinancialFactTestHelper.create());
     }
 
-    @When("^the entrepreneur asks for the journalization inbox$")
-    public void theEntrepreneurAsksForTheJournalizationInbox() throws Throwable {
-         inboxFinancialFactsMvcResult = mvcTestHelper.getInboxFinancialFacts();
+    @And("^the financial fact has an origin of \"([^\"]*)\"$")
+    public void theFinancialFasHasAnOriginOf(String originType) throws Throwable {
+        knowsTheFinancialFact.getBuilder().origin(new FinancialFactOrigin(originType));
     }
 
-    @Then("^(\\d+) financial facts? (is|are) shown in the journalization inbox$")
-    public void financialFactIsShownInTheJournalizationInbox(int numberOfItems, String bla) throws Throwable {
-        inboxFinancialFactsMvcResult.returnsOk(this);
-        inboxFinancialFactsMvcResult.arrayHasSizeOf(numberOfItems);
+    @And("^the financial fact has an amount of (\\d+.\\d+)$")
+    public void theFinancialFactHasAnAmountOfExVat(String amount) throws Throwable {
+        knowsTheFinancialFact.getBuilder().amount(new Amount(amount));
+    }
+
+    @And("^the financial fact is created$")
+    public void theFinancialFactIsCreated() throws Throwable {
+        testHelper.createTheFinancialFact();
+    }
+
+    @And("^the financial fact has a description of \"([^\"]*)\"$")
+    public void theFinancialFactHasADescriptionOf(String description) throws Throwable {
+        knowsTheFinancialFact.getBuilder().description(description);
     }
 }

@@ -40,7 +40,7 @@ public class JournalStepdefs extends AbstractIntegrationStepdefs {
     }
 
     @And("^there is a journal entry for an incoming invoice with an amount of (\\d+) ex VAT of (\\d+)%$")
-    public void thereIsAJournalEntryForAnIncomingInvoiceWithAnAmountOfExVATOf(double amount, int taxRate)
+    public void thereIsAJournalEntryForAnIncomingInvoiceWithAnAmountOfExVATOf(String amount, int taxRate)
             throws Throwable {
 
         glueTestHelper.createIncomingInvoiceJournalEntry(amount, taxRate);

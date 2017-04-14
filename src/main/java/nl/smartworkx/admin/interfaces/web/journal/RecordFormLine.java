@@ -1,5 +1,7 @@
 package nl.smartworkx.admin.interfaces.web.journal;
 
+import java.math.BigDecimal;
+
 import nl.smartworkx.admin.model.DebitCredit;
 
 /**
@@ -12,7 +14,7 @@ public class RecordFormLine {
 
 	private DebitCredit debitCredit;
 
-	private Double amount;
+	private BigDecimal amount;
 
 	public Long getLedger() {
 
@@ -34,12 +36,12 @@ public class RecordFormLine {
 		this.debitCredit = debitCredit;
 	}
 
-	public Double getAmount() {
+	public BigDecimal getAmount() {
 
 		return amount;
 	}
 
-	public void setAmount(final Double amount) {
+	public void setAmount(final BigDecimal amount) {
 
 		this.amount = amount;
 	}

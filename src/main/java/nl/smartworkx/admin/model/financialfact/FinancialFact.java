@@ -85,4 +85,8 @@ public class FinancialFact implements DddAggregate {
 
 		return id;
 	}
+
+	public FinancialFactOrigin getOrigin() {
+		return origin;
+	}
 }

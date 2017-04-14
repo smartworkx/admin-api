@@ -1,5 +1,7 @@
 package nl.smartworkx.admin;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -16,7 +18,7 @@ public class BaseMvcTestHelper {
     private MockMvc mvc;
 
     protected ResultActions performGet(String url) throws Exception {
-        return mvc().perform(MockMvcRequestBuilders.get(url));
+        return mvc().perform(MockMvcRequestBuilders.get(url)).andDo(print());
     }
 
     protected MockMvc mvc() {

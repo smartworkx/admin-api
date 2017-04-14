@@ -33,15 +33,15 @@ public class JournalEntryGlueTestHelper {
     }
 
     public void createOutgoingInvoiceJournalEntry(int taxRate, Amount amountExVat) {
-        FinancialFact financialFact = financialFactGlueTestHelper.createFinancialFact(FinancialFactTestHelper.create().amount(amountExVat).build());
+        FinancialFact financialFact = financialFactGlueTestHelper.createAFinancialFact(FinancialFactTestHelper.create().amount(amountExVat).build());
         JournalEntry journalEntry = serviceTestHelper
                 .createOutgoingInvoiceJournalEntry(financialFact.getId(), taxRate, amountExVat);
         knowsTheJournalEntry.setCurrent(journalEntry);
     }
 
-    public void createIncomingInvoiceJournalEntry(double amount, int taxRate) {
-        FinancialFact financialFact = financialFactGlueTestHelper.createFinancialFact(
-                FinancialFactTestHelper.create().amount(new Amount(amount, "EUR")).build());
+    public void createIncomingInvoiceJournalEntry(String amount, int taxRate) {
+        FinancialFact financialFact = financialFactGlueTestHelper.createAFinancialFact(
+                FinancialFactTestHelper.create().amount(new Amount(amount)).build());
         JournalEntry journalEntry = serviceTestHelper
                 .createIncomingInvoiceJournalEntry(financialFact.getId(), taxRate, amount);
         knowsTheJournalEntry.setCurrent(journalEntry);

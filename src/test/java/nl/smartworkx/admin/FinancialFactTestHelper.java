@@ -12,6 +12,6 @@ import nl.smartworkx.admin.model.time.DateUtils;
  */
 public class FinancialFactTestHelper {
     public static FinancialFact.FinancialFactBuilder create() {
-        return FinancialFact.builder().valueDate(DateUtils.today()).amount(new Amount(10.00)).description("bla").debitCredit(DebitCredit.CREDIT);
+        return FinancialFact.builder().valueDate(DateUtils.today()).amount(new Amount("10.00")).description("bla").debitCredit(DebitCredit.CREDIT);
     }
 }

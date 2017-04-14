@@ -1,12 +1,12 @@
 package nl.smartworkx.admin.model;
 
 import java.math.BigDecimal;
-import javax.money.MonetaryAmount;
+import javax.money.NumberValue;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import org.javamoney.moneta.Money;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.javamoney.moneta.function.MonetaryUtil;
 
 /**
  * Holds data about a (monetary) value and its currency.
@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Amount {
 
     public static final String DEFAULT_CURRENCY_CODE = "EUR";
+
     @Column(name = "amount")
     private BigDecimal value;
 
@@ -27,25 +28,28 @@ public class Amount {
     }
 
     public Amount(BigDecimal value, String currency) {
-        this.value = value;
-        this.currency = currency;
+        this(Money.of(value, currency));
     }
 
-    public Amount(Double amount, String currency) {
-        this(new BigDecimal(amount), currency);
+    public Amount(String value) {
+        this(new BigDecimal(value));
     }
 
-    public Amount(Double value) {
-        this.value = new BigDecimal(value);
-        this.currency = DEFAULT_CURRENCY_CODE;
+    public Amount(Money money) {
+        this.value = money.getNumberStripped();
+        this.currency = money.getCurrency().getCurrencyCode();
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public Amount(BigDecimal amount) {
+        this(amount, DEFAULT_CURRENCY_CODE);
+    }
+
+    public NumberValue getValue() {
+        return getMoney().getNumber();
     }
 
     public String getCurrency() {
-        return currency;
+        return getMoney().getCurrency().getCurrencyCode();
     }
 
     @Override
@@ -67,8 +71,15 @@ public class Amount {
         return result;
     }
 
-    @JsonIgnore
-    public MonetaryAmount getMoney() {
-        return Money.of(value,currency);
+    private Money getMoney() {
+        return Money.of(value, currency);
+    }
+
+    public Amount add(Amount amount) {
+        return new Amount(this.getMoney().add(amount.getMoney()));
+    }
+
+    public Amount calculateVat(double vatPercentage) {
+        return new Amount((Money) MonetaryUtil.percent(vatPercentage).apply(this.getMoney()));
     }
 }

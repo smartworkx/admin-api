@@ -13,4 +13,17 @@ import nl.smartworkx.admin.model.financialfact.FinancialFact;
 @Scope(scopeName = BaseKnowsThe.CUCUMBER_GLUE_SCOPE_NAME)
 public class KnowsTheFinancialFact extends BaseKnowsThe<FinancialFact> {
 
+    private FinancialFact.FinancialFactBuilder builder;
+
+    public void setBuilder(FinancialFact.FinancialFactBuilder builder) {
+        this.builder = builder;
+    }
+
+    public FinancialFact.FinancialFactBuilder getBuilder() {
+        return builder;
+    }
+
+    public void makeBuilderCurrent() {
+        setCurrent(getBuilder().build());
+    }
 }

@@ -1,5 +1,6 @@
 package nl.smartworkx.admin.interfaces.web.journal;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -15,18 +16,18 @@ public class JournalizeForm {
 
 	private String valueDate;
 
-	private Double amount;
+	private BigDecimal amount;
 
 	private List<RecordFormLine> records;
 
 	private String type;
 
-	public Double getAmount() {
+	public BigDecimal getAmount() {
 
 		return amount;
 	}
 
-	public void setAmount(final Double amount) {
+	public void setAmount(final BigDecimal amount) {
 
 		this.amount = amount;
 	}

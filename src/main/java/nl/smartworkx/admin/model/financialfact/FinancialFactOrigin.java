@@ -16,6 +16,9 @@ public class FinancialFactOrigin {
     @Column(name = "origin_type")
     private String type;
 
+    private FinancialFactOrigin() {
+    }
+
     public FinancialFactOrigin(UUID uuid, String type) {
         this.uuid = uuid;
         this.type = type;
