@@ -2,5 +2,7 @@
 Feature: #Enter feature name here
   # Enter feature description here
 
-  Scenario: # Enter scenario name here
-    # Enter steps here
+  Scenario: Create a financial fact
+    Given a financial fact
+    When the financial fact is created
+

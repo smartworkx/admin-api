@@ -1,6 +1,6 @@
 package nl.smartworkx.admin.interfaces.web.journal;
 
-import static nl.smartworkx.admin.model.time.DateUtils.lenientToDate;
+import static nl.smartworkx.admin.model.time.DateUtils.today;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import nl.smartworkx.admin.model.Amount;
-import nl.smartworkx.admin.model.financialfact.FinancialFactOrigin;
-import nl.smartworkx.admin.model.time.DateUtils;
-import nl.smartworkx.admin.model.financialfact.FinancialFact;
-import nl.smartworkx.admin.model.financialfact.FinancialFactRepository;
 import nl.smartworkx.admin.model.journal.JournalEntry;
 import nl.smartworkx.admin.model.journal.JournalEntryRepository;
 import nl.smartworkx.admin.model.journal.Record;
@@ -26,43 +22,32 @@ import nl.smartworkx.admin.model.journal.Record;
  * @since 1.0
  */
 @RestController
-@RequestMapping("/journalEntries")
+@RequestMapping("/journal-entries")
 public class JournalizeController {
 
-	private JournalEntryRepository journalEntryRepository;
+    private JournalEntryRepository journalEntryRepository;
 
-	private FinancialFactRepository financialFactRepository;
+    @Autowired
+    public JournalizeController(final JournalEntryRepository journalEntryRepository) {
 
-	@Autowired
-	public JournalizeController(final JournalEntryRepository journalEntryRepository,
-			final FinancialFactRepository financialFactRepository) {
+        this.journalEntryRepository = journalEntryRepository;
+    }
 
-		this.journalEntryRepository = journalEntryRepository;
-		this.financialFactRepository = financialFactRepository;
-	}
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity create(@RequestBody JournalizeForm form) {
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity findById(@RequestBody JournalizeForm form) {
+        JournalEntry journalEntry = convert(form);
+        journalEntryRepository.save(journalEntry);
+        return ResponseEntity.ok().build();
+    }
 
-		FinancialFact financialFact = convert(form);
-		financialFactRepository.save(financialFact);
-		JournalEntry journalEntry = convert(form, financialFact.getId());
-		journalEntryRepository.save(journalEntry);
-		return ResponseEntity.ok().build();
-	}
+    private JournalEntry convert(final JournalizeForm form) {
 
-	private FinancialFact convert(final JournalizeForm form) {
-
-		return new FinancialFact(lenientToDate(form.getValueDate()), new Amount(form.getAmount()), form.getDescription(), new FinancialFactOrigin(form.getType()));
-	}
-
-	private JournalEntry convert(final JournalizeForm form, Long financialFactId) {
-
-		List<Record> eur = form.getRecords().stream()
-				.map(recordFormLine -> new Record(recordFormLine.getLedger(), recordFormLine.getDebitCredit(),
-						new Amount(recordFormLine.getAmount()))).collect(Collectors.toList());
-		return new JournalEntry(DateUtils.today(), financialFactId,
-				eur);
-	}
+        List<Record> eur = form.getRecords().stream()
+                .map(recordFormLine -> new Record(recordFormLine.getLedger(), recordFormLine.getDebitCredit(),
+                        new Amount(recordFormLine.getAmount()))).collect(Collectors.toList());
+        return new JournalEntry(today(), form.getFinancialFactId(),
+                eur);
+    }
 
 }

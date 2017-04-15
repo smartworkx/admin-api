@@ -12,52 +12,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JournalizeForm {
-	private String description;
-
-	private String valueDate;
-
-	private BigDecimal amount;
 
 	private List<RecordFormLine> records;
+	private Long financialFactId;
 
-	private String type;
-
-	public BigDecimal getAmount() {
-
-		return amount;
-	}
-
-	public void setAmount(final BigDecimal amount) {
-
-		this.amount = amount;
-	}
-
-	public String getDescription() {
-
-		return description;
-	}
-
-	public void setDescription(final String description) {
-
-		this.description = description;
-	}
-
-	public String getValueDate() {
-
-		return valueDate;
-	}
-
-	public void setValueDate(final String valueDate) {
-
-		this.valueDate = valueDate;
-	}
 
 	@Override public String toString() {
 
 		return "JournalizeForm{" +
-				"description='" + description + '\'' +
-				", valueDate='" + valueDate + '\'' +
-				", amount='" + amount + '\'' +
 				", records=" + records +
 				'}';
 	}
@@ -72,11 +34,11 @@ public class JournalizeForm {
 		this.records = records;
 	}
 
-	public String getType() {
-		return type;
+	public Long getFinancialFactId() {
+		return financialFactId;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setFinancialFactId(Long financialFactId) {
+		this.financialFactId = financialFactId;
 	}
 }

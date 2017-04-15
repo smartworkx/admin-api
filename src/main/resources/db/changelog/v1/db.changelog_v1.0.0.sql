@@ -82,3 +82,15 @@ ALTER TABLE bank_file_upload ADD COLUMN uuid UUID;
 
 ALTER TABLE financial_fact ADD COLUMN origin_uuid UUID;
 ALTER TABLE financial_fact ADD COLUMN origin_type VARCHAR(128);
+
+--changeset joriswijlens:#1-9 Origin
+CREATE TABLE origin
+(
+  id   BIGSERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(64)
+);
+
+INSERT INTO origin (name) VALUES ('OUTGOING_INVOICE');
+
+GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
