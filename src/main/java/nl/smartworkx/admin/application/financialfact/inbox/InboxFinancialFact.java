@@ -20,4 +20,8 @@ public class InboxFinancialFact {
     public List<Record> getRecords() {
         return records;
     }
+
+    public FinancialFact getFinancialFact() {
+        return financialFact;
+    }
 }

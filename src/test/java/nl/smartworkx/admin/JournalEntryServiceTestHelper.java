@@ -2,10 +2,6 @@ package nl.smartworkx.admin;
 
 import static nl.smartworkx.admin.model.TaxCalculator.HIGH;
 
-import javax.money.MonetaryAmount;
-
-import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.MonetaryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import nl.smartworkx.admin.model.Amount;
@@ -42,7 +38,7 @@ public class JournalEntryServiceTestHelper {
 
     public JournalEntry createOutgoingInvoiceJournalEntry(Long financialFactId, int taxRate, Amount amountExVat) {
 
-        final Amount vatAmount = amountExVat.calculateVat(TaxCalculator.HIGH);
+        final Amount vatAmount = amountExVat.calculateExVat(TaxCalculator.HIGH);
         Amount totalAmount = vatAmount.add(amountExVat);
         Ledger deductedVatLedger = ledgerRepository.findByCode("VATS");
         Record deductedVatRecord = new Record(deductedVatLedger.getId(), DebitCredit.DEBIT, vatAmount);
@@ -61,7 +57,7 @@ public class JournalEntryServiceTestHelper {
              final String amount) {
 
         Amount amountExVat = new Amount(amount);
-        final Amount vatAmount = amountExVat.calculateVat(taxRate);
+        final Amount vatAmount = amountExVat.calculateExVat(taxRate);
         Amount totalAmount = vatAmount.add(amountExVat);
         // Use record builder
         Record deductedVatRecord = createRecord("DVAT", DebitCredit.DEBIT, vatAmount);
@@ -83,7 +79,7 @@ public class JournalEntryServiceTestHelper {
         Ledger telephoneCostsLedger = ledgerRepository.findByCode("TELC");
         Ledger bankLedger = ledgerRepository.findByCode("BANK");
         Amount amountExVat = new Amount("23.00");
-        final Amount vatAmount = amountExVat.calculateVat(HIGH);
+        final Amount vatAmount = amountExVat.calculateExVat(HIGH);
         Amount totalAmount = vatAmount.add(amountExVat);
         Record deductedVatRecord = new Record(deductedVatLedger.getId(), DebitCredit.DEBIT, vatAmount);
         Record telephoneCostRecord = new Record(telephoneCostsLedger.getId(), DebitCredit.CREDIT, amountExVat);

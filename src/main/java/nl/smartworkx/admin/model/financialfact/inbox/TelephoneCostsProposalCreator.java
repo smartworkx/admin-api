@@ -16,21 +16,21 @@ import nl.smartworkx.admin.model.journal.Record;
  *
  */
 @Component
-public class OutgoingInvoiceProposalCreator extends AbstractProposalCreator {
+public class TelephoneCostsProposalCreator extends AbstractProposalCreator {
     @Override
     public boolean matches(FinancialFact financialFact) {
-        return financialFact.getOrigin().getType().equals("OUTGOING_INVOICE");
+        return financialFact.getDescription().toLowerCase().contains("simyo");
     }
 
     @Override
     public List<Record> onCreate(FinancialFact financialFact) {
-        final Amount amountExVat = financialFact.getAmount();
-        final Amount amountVat = amountExVat.calculateExVat(HIGH);
-        final Amount amountVatIncluded = amountExVat.add(amountVat);
+        final Amount amountVatIncluded = financialFact.getAmount();
+        final Amount amountVat = amountVatIncluded.calculateIncVat(HIGH);
+        final Amount amountExVat = amountVatIncluded.subtract(amountVat);
         return builder(ledgerRepository)
-                .add("DEB", DEBIT, amountVatIncluded)
-                .add("TOJ", CREDIT, amountExVat)
-                .add("VATS", CREDIT, amountVat)
+                .add("TELC", DEBIT, amountExVat)
+                .add("DVAT", DEBIT, amountVat)
+                .add("BANK", CREDIT, amountVatIncluded)
                 .build();
     }
 

@@ -20,8 +20,8 @@ Feature: The journalization inbox has financial facts that are not journalized y
     And the financial fact has an origin of "ING_BANK_OPERATION"
     And the financial fact is created
     When the entrepreneur asks for the journalization inbox
-    And the financial fact has a record proposal for "TELC" "DEBIT" of 13.79
-    And the financial fact has a record proposal for "DVAT" "DEBIT" of 2.34
+    And the financial fact has a record proposal for "TELC" "DEBIT" of 15.25
+    And the financial fact has a record proposal for "DVAT" "DEBIT" of 3.20
     And the financial fact has a record proposal for "BANK" "CREDIT" of 18.45
 
   Scenario: When a proposal is approved the journal entry is created

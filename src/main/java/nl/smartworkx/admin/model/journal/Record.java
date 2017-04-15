@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
+import lombok.extern.java.Log;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 
@@ -22,6 +23,7 @@ import nl.smartworkx.admin.model.DebitCredit;
  */
 @Entity
 @Immutable
+@Log
 public class Record {
 
     @Id
@@ -40,7 +42,6 @@ public class Record {
     private Record() {}
 
     public Record(Long ledger, DebitCredit debitCredit, Amount amount) {
-
         this.ledger = ledger;
         this.debitCredit = debitCredit;
 
@@ -64,5 +65,15 @@ public class Record {
     public Amount getAmount() {
 
         return amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", ledger=" + ledger +
+                ", debitCredit=" + debitCredit +
+                ", amount=" + amount +
+                '}';
     }
 }

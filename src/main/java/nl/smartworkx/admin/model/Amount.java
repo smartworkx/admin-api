@@ -1,12 +1,20 @@
 package nl.smartworkx.admin.model;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.concurrent.atomic.AtomicLong;
+import javax.money.MonetaryAmount;
 import javax.money.NumberValue;
+import javax.money.format.MonetaryFormats;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import org.javamoney.moneta.Money;
+import org.javamoney.moneta.RoundedMoney;
 import org.javamoney.moneta.function.MonetaryUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Holds data about a (monetary) value and its currency.
@@ -35,8 +43,8 @@ public class Amount {
         this(new BigDecimal(value));
     }
 
-    public Amount(Money money) {
-        this.value = money.getNumberStripped();
+    public Amount(MonetaryAmount money) {
+        this.value = getBigDecimal(money.getNumber());
         this.currency = money.getCurrency().getCurrencyCode();
     }
 
@@ -71,15 +79,57 @@ public class Amount {
         return result;
     }
 
-    private Money getMoney() {
-        return Money.of(value, currency);
+    private MonetaryAmount getMoney() {
+        return RoundedMoney.of(value, currency);
     }
 
     public Amount add(Amount amount) {
         return new Amount(this.getMoney().add(amount.getMoney()));
     }
 
-    public Amount calculateVat(double vatPercentage) {
+    public Amount calculateExVat(double vatPercentage) {
         return new Amount((Money) MonetaryUtil.percent(vatPercentage).apply(this.getMoney()));
+    }
+
+    public Amount calculateIncVat(double taxRate) {
+        final double divisor = 1 / (1 + taxRate / 100);
+        return new Amount(RoundedMoney.of(this.getMoney().subtract(this.getMoney().multiply(divisor)).getNumber(), this.getMoney().getCurrency()));
+    }
+
+    public Amount subtract(Amount amount) {
+        return new Amount(this.getMoney().subtract(amount.getMoney()));
+    }
+
+    private static BigDecimal getBigDecimal(Number num) {
+        if (num instanceof BigDecimal) {
+            return (BigDecimal) num;
+        }
+        if (num instanceof Long || num instanceof Integer
+                || num instanceof Byte || num instanceof AtomicLong) {
+            return BigDecimal.valueOf(num.longValue());
+        }
+        if (num instanceof Float || num instanceof Double) {
+            return new BigDecimal(num.toString());
+        }
+        try {
+            // Avoid imprecise conversion to double value if at all possible
+            return new BigDecimal(num.toString(), MathContext.DECIMAL64);
+        } catch (NumberFormatException ignored) {
+        }
+        return BigDecimal.valueOf(num.doubleValue());
+    }
+
+    @Override
+    public String toString() {
+        return "Amount{" +
+                "value=" + value +
+                ", currency='" + currency + '\'' +
+                '}';
+    }
+
+    @JsonIgnore
+    public String getFormattedValue() {
+        DecimalFormat df = new DecimalFormat("####0.00");
+       return df.format(getValue());
     }
 }

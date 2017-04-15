@@ -8,6 +8,7 @@ import cucumber.api.java.en.When;
 import nl.smartworkx.admin.FinancialFactMvcTestHelper;
 import nl.smartworkx.admin.InboxFinancialFactsMvcResult;
 import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
+import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.journal.Ledger;
 import nl.smartworkx.admin.model.journal.LedgerRepository;
@@ -15,6 +16,7 @@ import nl.smartworkx.admin.model.journal.LedgerRepository;
 /**
  *
  */
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public class FinancialFactInboxStepdefs extends AbstractIntegrationStepdefs {
     private InboxFinancialFactsMvcResult inboxFinancialFactsMvcResult;
 
@@ -40,9 +42,9 @@ public class FinancialFactInboxStepdefs extends AbstractIntegrationStepdefs {
     }
 
     @Then("^the financial fact has a record proposal for \"([^\"]*)\" \"([^\"]*)\" of (\\d+.\\d+)$")
-    public void theFinancialFactHasARecordProposalForOf(String ledgerCode, DebitCredit debitCredit, double amount) throws Throwable {
+    public void theFinancialFactHasARecordProposalForOf(String ledgerCode, DebitCredit debitCredit, String amount) throws Throwable {
         Ledger ledger = ledgerRepository.findByCode(ledgerCode);
         final UUID uuid = knowsTheFinancialFact.getCurrent().getOrigin().getUuid();
-        inboxFinancialFactsMvcResult.hasRecord(uuid, debitCredit, amount, ledger);
+        inboxFinancialFactsMvcResult.hasRecord(uuid, debitCredit, new Amount(amount), ledger);
     }
 }
