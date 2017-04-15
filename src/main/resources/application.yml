@@ -14,7 +14,7 @@ spring:
     serialization:
       write-dates-as-timestamps: false
 
-cross-origin-addresses: http://localhost:3000/
+cross-origin-addresses: http://localhost:3000
 liquibase:
   user: admin-owner
   password: password

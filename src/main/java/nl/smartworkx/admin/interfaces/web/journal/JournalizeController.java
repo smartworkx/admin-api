@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.journal.JournalEntry;
 import nl.smartworkx.admin.model.journal.JournalEntryRepository;
+import nl.smartworkx.admin.model.journal.LedgerRepository;
 import nl.smartworkx.admin.model.journal.Record;
 
 /**
@@ -23,14 +25,17 @@ import nl.smartworkx.admin.model.journal.Record;
  */
 @RestController
 @RequestMapping("/journal-entries")
+@CrossOrigin
 public class JournalizeController {
 
-    private JournalEntryRepository journalEntryRepository;
+    private final JournalEntryRepository journalEntryRepository;
+    private final LedgerRepository ledgerRepository;
 
     @Autowired
-    public JournalizeController(final JournalEntryRepository journalEntryRepository) {
+    public JournalizeController(final JournalEntryRepository journalEntryRepository, LedgerRepository ledgerRepository) {
 
         this.journalEntryRepository = journalEntryRepository;
+        this.ledgerRepository = ledgerRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -44,7 +49,7 @@ public class JournalizeController {
     private JournalEntry convert(final JournalizeForm form) {
 
         List<Record> eur = form.getRecords().stream()
-                .map(recordFormLine -> new Record(recordFormLine.getLedger(), recordFormLine.getDebitCredit(),
+                .map(recordFormLine -> new Record(ledgerRepository.findByCode(recordFormLine.getLedger()).getId(), recordFormLine.getDebitCredit(),
                         new Amount(recordFormLine.getAmount()))).collect(Collectors.toList());
         return new JournalEntry(today(), form.getFinancialFactId(),
                 eur);

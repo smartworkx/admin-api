@@ -10,18 +10,18 @@ import nl.smartworkx.admin.model.DebitCredit;
  * @since 1.0
  */
 public class RecordFormLine {
-	private Long ledger;
+	private String ledger;
 
 	private DebitCredit debitCredit;
 
 	private BigDecimal amount;
 
-	public Long getLedger() {
+	public String getLedger() {
 
 		return ledger;
 	}
 
-	public void setLedger(final Long ledger) {
+	public void setLedger(final String ledger) {
 
 		this.ledger = ledger;
 	}
