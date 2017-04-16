@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
+import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.financialfact.inbox.JournalEntryProposalService;
@@ -31,7 +32,7 @@ public class JournalEntryProposalStepdefs extends AbstractIntegrationStepdefs {
     @Autowired
     private LedgerRepository ledgerRepository;
 
-    private List<Record> records;
+    private List<RecordFormLine> records;
 
     @When("^the system is asked to produce a proposal$")
     public void theSystemIsAskedToProduceAProposal() {

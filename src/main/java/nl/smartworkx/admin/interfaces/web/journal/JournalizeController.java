@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,7 +45,8 @@ public class JournalizeController {
 
         JournalEntry journalEntry = convert(form);
         journalEntryRepository.save(journalEntry);
-        return ResponseEntity.ok().build();
+
+        return new ResponseEntity<>(new Resource(journalEntry), HttpStatus.CREATED);
     }
 
     private JournalEntry convert(final JournalizeForm form) {

@@ -3,11 +3,9 @@ package nl.smartworkx.admin.model;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.money.MonetaryAmount;
 import javax.money.NumberValue;
-import javax.money.format.MonetaryFormats;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -52,8 +50,12 @@ public class Amount {
         this(amount, DEFAULT_CURRENCY_CODE);
     }
 
-    public NumberValue getValue() {
-        return getMoney().getNumber();
+    public Amount(NumberValue amount) {
+        this(Money.of(amount, DEFAULT_CURRENCY_CODE));
+    }
+
+    public BigDecimal getValue() {
+        return getBigDecimal(getMoney().getNumber());
     }
 
     public String getCurrency() {
@@ -88,7 +90,7 @@ public class Amount {
     }
 
     public Amount calculateExVat(double vatPercentage) {
-        return new Amount((Money) MonetaryUtil.percent(vatPercentage).apply(this.getMoney()));
+        return new Amount(MonetaryUtil.percent(vatPercentage).apply(this.getMoney()));
     }
 
     public Amount calculateIncVat(double taxRate) {
@@ -130,6 +132,6 @@ public class Amount {
     @JsonIgnore
     public String getFormattedValue() {
         DecimalFormat df = new DecimalFormat("####0.00");
-       return df.format(getValue());
+        return df.format(getValue());
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.financialfact.FinancialFactRepository;
 import nl.smartworkx.admin.model.financialfact.inbox.JournalEntryProposalService;
@@ -33,7 +34,7 @@ public class InboxFinancialFactService {
     }
 
     private InboxFinancialFact createProposal(FinancialFact financialFact) {
-        List<Record> records = journalEntryProposalService.createProposedRecords(financialFact);
+        List<RecordFormLine> records = journalEntryProposalService.createProposedRecords(financialFact);
         return new InboxFinancialFact(financialFact, records);
     }
 }

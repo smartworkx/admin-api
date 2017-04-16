@@ -2,6 +2,9 @@ package nl.smartworkx.admin.interfaces.web.journal;
 
 import java.math.BigDecimal;
 
+import javax.money.NumberValue;
+
+import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 
 /**
@@ -15,6 +18,16 @@ public class RecordFormLine {
 	private DebitCredit debitCredit;
 
 	private BigDecimal amount;
+
+	public RecordFormLine() {
+	}
+
+	public RecordFormLine(String ledger, DebitCredit debitCredit, Amount amount) {
+
+		this.ledger = ledger;
+		this.debitCredit = debitCredit;
+		this.amount = amount.getValue();
+	}
 
 	public String getLedger() {
 

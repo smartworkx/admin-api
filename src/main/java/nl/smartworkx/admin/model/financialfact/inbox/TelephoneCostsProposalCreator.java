@@ -8,6 +8,7 @@ import static nl.smartworkx.admin.model.financialfact.inbox.RecordsBuilder.build
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.journal.Record;
@@ -23,7 +24,7 @@ public class TelephoneCostsProposalCreator extends AbstractProposalCreator {
     }
 
     @Override
-    public List<Record> onCreate(FinancialFact financialFact) {
+    public List<RecordFormLine> onCreate(FinancialFact financialFact) {
         final Amount amountVatIncluded = financialFact.getAmount();
         final Amount amountVat = amountVatIncluded.calculateIncVat(HIGH);
         final Amount amountExVat = amountVatIncluded.subtract(amountVat);

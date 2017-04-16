@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.journal.Record;
 
@@ -21,7 +22,7 @@ public class JournalEntryProposalService {
     }
 
 
-    public List<Record> createProposedRecords(FinancialFact financialFact) {
+    public List<RecordFormLine> createProposedRecords(FinancialFact financialFact) {
         return this.proposalCreators.stream()
                 .filter(proposalCreator -> proposalCreator.matches(financialFact))
                 .findFirst()
