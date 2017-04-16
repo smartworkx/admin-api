@@ -94,3 +94,7 @@ INSERT INTO origin (name) VALUES ('OUTGOING_INVOICE');
 
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
+
+--changeset joriswijlens:#1-10 Added ledger priv
+INSERT INTO ledger (code, name) VALUES ('PRIVJ', 'Prive opname Joris');
+INSERT INTO ledger (code, name) VALUES ('PRIVL', 'Prive opname Leon');

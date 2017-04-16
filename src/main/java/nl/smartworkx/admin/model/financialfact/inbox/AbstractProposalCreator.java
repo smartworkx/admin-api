@@ -1,6 +1,7 @@
 package nl.smartworkx.admin.model.financialfact.inbox;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,10 @@ public abstract class AbstractProposalCreator implements ProposalCreator {
         List<RecordFormLine> records = onCreate(financialFact);
         log.info("{} proposing {}", this.getClass().getSimpleName(), records);
         return records;
+    }
+
+    boolean descriptionContainsAny(FinancialFact financialFact, String... stringsToContain) {
+        return Stream.of(stringsToContain).anyMatch(s -> financialFact.getDescription().toLowerCase().contains(s.toLowerCase()));
     }
 
     protected abstract List<RecordFormLine> onCreate(FinancialFact financialFact);
