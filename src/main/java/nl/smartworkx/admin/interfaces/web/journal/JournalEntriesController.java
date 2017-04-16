@@ -28,13 +28,13 @@ import nl.smartworkx.admin.model.journal.Record;
 @RestController
 @RequestMapping("/journal-entries")
 @CrossOrigin
-public class JournalizeController {
+public class JournalEntriesController {
 
     private final JournalEntryRepository journalEntryRepository;
     private final LedgerRepository ledgerRepository;
 
     @Autowired
-    public JournalizeController(final JournalEntryRepository journalEntryRepository, LedgerRepository ledgerRepository) {
+    public JournalEntriesController(final JournalEntryRepository journalEntryRepository, LedgerRepository ledgerRepository) {
 
         this.journalEntryRepository = journalEntryRepository;
         this.ledgerRepository = ledgerRepository;
