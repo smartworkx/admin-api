@@ -13,6 +13,7 @@ import org.javamoney.moneta.Money;
 import org.javamoney.moneta.RoundedMoney;
 import org.javamoney.moneta.function.MonetaryUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import nl.smartworkx.admin.model.financialfact.TaxRate;
 
 /**
  * Holds data about a (monetary) value and its currency.
@@ -93,8 +94,8 @@ public class Amount {
         return new Amount(MonetaryUtil.percent(vatPercentage).apply(this.getMoney()));
     }
 
-    public Amount calculateIncVat(double taxRate) {
-        final double divisor = 1 / (1 + taxRate / 100);
+    public Amount calculateIncVat(TaxRate taxRate) {
+        final double divisor = 1 / (1 + taxRate.getPercentage() / 100);
         return new Amount(RoundedMoney.of(this.getMoney().subtract(this.getMoney().multiply(divisor)).getNumber(), this.getMoney().getCurrency()));
     }
 

@@ -1,6 +1,7 @@
 package nl.smartworkx.admin.interfaces.web.journal;
 
 import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,7 +32,7 @@ public class JournalEntryProposalsController {
     public ResponseEntity create(JournalEntryProposalParameters parameters) {
 
 
-        return new ResponseEntity<>(new Resource(journalEntryProposalService.createProposedRecords(parameters)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new Resources<>(journalEntryProposalService.createProposedRecords(parameters)), HttpStatus.CREATED);
     }
 
 

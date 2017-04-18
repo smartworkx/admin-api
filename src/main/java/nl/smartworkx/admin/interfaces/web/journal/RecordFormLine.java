@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.money.NumberValue;
 
+import org.springframework.hateoas.core.Relation;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 
@@ -12,6 +13,7 @@ import nl.smartworkx.admin.model.DebitCredit;
  * @version 1.0
  * @since 1.0
  */
+@Relation(collectionRelation = "records")
 public class RecordFormLine {
 	private String ledger;
 

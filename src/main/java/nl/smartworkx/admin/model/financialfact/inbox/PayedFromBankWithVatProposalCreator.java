@@ -6,6 +6,7 @@ import java.util.List;
 
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.TaxRate;
 
 /**
  *
@@ -21,8 +22,8 @@ public abstract class PayedFromBankWithVatProposalCreator extends AbstractPropos
         return ProposalUtils.createRecordsFromBankWithVat(ledgerRepository, financialFact.getAmount(), vatTaxRate(), costLedger());
     }
 
-    protected double vatTaxRate() {
-        return HIGH;
+    protected TaxRate vatTaxRate() {
+        return TaxRate.HIGH;
     }
 
     protected abstract String descriptionContains();

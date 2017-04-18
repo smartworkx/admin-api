@@ -2,6 +2,7 @@ package nl.smartworkx.admin.model.financialfact.inbox;
 
 import org.springframework.stereotype.Component;
 import nl.smartworkx.admin.model.TaxCalculator;
+import nl.smartworkx.admin.model.financialfact.TaxRate;
 
 /**
  *
@@ -20,7 +21,7 @@ public class NsProposalCreator extends PayedFromBankWithVatProposalCreator {
     }
 
     @Override
-    protected double vatTaxRate() {
-        return TaxCalculator.LOW;
+    protected TaxRate vatTaxRate() {
+        return TaxRate.LOW;
     }
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.financialfact.TaxRate;
 
 /**
  *
@@ -11,7 +12,7 @@ import nl.smartworkx.admin.model.Amount;
 public class JournalEntryProposalParameters {
     private ProposalType type;
     private BigDecimal amount;
-    private Double taxRate;
+    private TaxRate taxRate;
 
     public ProposalType getType() {
         return type;
@@ -29,11 +30,11 @@ public class JournalEntryProposalParameters {
         this.amount = amount;
     }
 
-    public Double getTaxRate() {
+    public TaxRate getTaxRate() {
         return taxRate;
     }
 
-    public void setTaxRate(Double taxRate) {
+    public void setTaxRate(TaxRate taxRate) {
         this.taxRate = taxRate;
     }
 }

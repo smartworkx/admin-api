@@ -8,10 +8,11 @@ import java.util.List;
 
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.financialfact.TaxRate;
 import nl.smartworkx.admin.model.journal.LedgerRepository;
 
 public class ProposalUtils {
-    static List<RecordFormLine> createRecordsFromBankWithVat(LedgerRepository ledgerRepository, Amount amountVatIncluded, double taxRate, String ledgerCode) {
+    static List<RecordFormLine> createRecordsFromBankWithVat(LedgerRepository ledgerRepository, Amount amountVatIncluded, TaxRate taxRate, String ledgerCode) {
         final Amount amountVat = amountVatIncluded.calculateIncVat(taxRate);
         final Amount amountExVat = amountVatIncluded.subtract(amountVat);
         return RecordsBuilder.builder(ledgerRepository)
