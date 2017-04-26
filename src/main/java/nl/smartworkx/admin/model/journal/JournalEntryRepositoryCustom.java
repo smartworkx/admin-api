@@ -1,8 +1,7 @@
 package nl.smartworkx.admin.model.journal;
 
-import java.util.List;
-
-import nl.smartworkx.admin.model.Quarter;
+import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * @author Joris Wijlens
@@ -11,5 +10,5 @@ import nl.smartworkx.admin.model.Quarter;
  */
 public interface JournalEntryRepositoryCustom {
 
-	List<Object[]> findJournalEntriesForVatReport(Quarter quarter);
+	Set<JournalEntryFinancialFact> findJournalEntriesByDate(LocalDate firstDay, LocalDate lastDay);
 }

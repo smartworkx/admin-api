@@ -25,6 +25,7 @@ import nl.smartworkx.admin.model.financialfact.TaxRate;
 public class Amount {
 
     public static final String DEFAULT_CURRENCY_CODE = "EUR";
+    public static final Amount ZERO = new Amount("0.00");
 
     @Column(name = "amount")
     private BigDecimal value;
@@ -125,7 +126,7 @@ public class Amount {
     @Override
     public String toString() {
         return "Amount{" +
-                "value=" + value +
+                "value=" + value.doubleValue() +
                 ", currency='" + currency + '\'' +
                 '}';
     }

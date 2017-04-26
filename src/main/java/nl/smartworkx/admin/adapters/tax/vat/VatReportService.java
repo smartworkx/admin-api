@@ -3,13 +3,16 @@ package nl.smartworkx.admin.adapters.tax.vat;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
 
+import nl.smartworkx.admin.model.journal.JournalEntry;
 import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.journal.JournalEntryFinancialFact;
 import nl.smartworkx.admin.model.journal.JournalEntryRepository;
 import nl.smartworkx.admin.model.journal.LedgerCode;
 import nl.smartworkx.admin.model.Quarter;
@@ -33,18 +36,18 @@ public class VatReportService {
 
     public VatReport findVatReport(final Quarter period) {
 
-        List<Object[]> entries = journalEntryRepository
-                .findJournalEntriesForVatReport(period);
+        Set<JournalEntryFinancialFact> entries = journalEntryRepository
+                .findJournalEntriesByDate(period.getFirstDay(), period.getLastDay());
 
-        final String vatServiced = sumOfRecordsWithType(entries, LedgerCode.VATS);
-        final String deductedVat = sumOfRecordsWithType(entries, LedgerCode.DVAT);
+        final String vatServiced =  null; // sumOfRecordsWithType(entries, LedgerCode.VATS);
+        final String deductedVat = null; // sumOfRecordsWithType(entries, LedgerCode.DVAT);
         return new VatReport(period, vatServiced, deductedVat);
     }
 
-    private String sumOfRecordsWithType(final List<Object[]> entries, final LedgerCode ledgerCode) {
+    private String sumOfRecordsWithType(final List<JournalEntryFinancialFact> entries, final LedgerCode ledgerCode) {
         MonetaryAmountFormat format = MonetaryFormats.getAmountFormat(Locale.GERMAN);
-        return format.format(Money.of(entries.stream()
-                .filter(obj -> obj[0].equals(ledgerCode.name())).map(obj -> (BigDecimal)obj[1])
-                .reduce(BigDecimal.ZERO, BigDecimal::add), Amount.DEFAULT_CURRENCY_CODE));
+        return null; /*format.format(Money.of(entries.stream()
+                .filter(obj -> "".equals(ledgerCode.name())).map(obj -> (BigDecimal)obj[1])
+                .reduce(BigDecimal.ZERO, BigDecimal::add), Amount.DEFAULT_CURRENCY_CODE));*/
     }
 }

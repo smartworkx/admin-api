@@ -31,7 +31,7 @@ public class Record {
     @SequenceGenerator(name = "record", sequenceName = "record_id_seq")
     private Long id;
 
-    private Long ledger;
+    private Long ledgerId;
 
     @Enumerated(EnumType.STRING)
     private DebitCredit debitCredit;
@@ -41,8 +41,8 @@ public class Record {
 
     private Record() {}
 
-    public Record(Long ledger, DebitCredit debitCredit, Amount amount) {
-        this.ledger = ledger;
+    public Record(Long ledgerId, DebitCredit debitCredit, Amount amount) {
+        this.ledgerId = ledgerId;
         this.debitCredit = debitCredit;
 
         this.amount = amount;
@@ -52,9 +52,9 @@ public class Record {
         this(id, debit, new Amount(new BigDecimal(amount.getNumber().doubleValue()), amount.getCurrency().getCurrencyCode()));
     }
 
-    public Long getLedger() {
+    public Long getLedgerId() {
 
-        return ledger;
+        return ledgerId;
     }
 
     public DebitCredit getDebitCredit() {
@@ -71,7 +71,7 @@ public class Record {
     public String toString() {
         return "Record{" +
                 "id=" + id +
-                ", ledger=" + ledger +
+                ", ledgerId=" + ledgerId +
                 ", debitCredit=" + debitCredit +
                 ", amount=" + amount +
                 '}';

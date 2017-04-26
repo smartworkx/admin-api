@@ -36,7 +36,7 @@ public class JournalEntryServiceTestHelper {
         this.ledgerRepository = ledgerRepository;
     }
 
-    public JournalEntry createOutgoingInvoiceJournalEntry(Long financialFactId, int taxRate, Amount amountExVat) {
+    public JournalEntry createOutgoingInvoiceJournalEntry(Long financialFactId, Amount amountExVat) {
 
         final Amount vatAmount = amountExVat.calculateExVat(TaxCalculator.HIGH);
         Amount totalAmount = vatAmount.add(amountExVat);

@@ -2,6 +2,7 @@ package nl.smartworkx.admin.model.journal;
 
 import javax.persistence.*;
 
+import nl.smartworkx.admin.model.balance.BalanceHeadingName;
 import org.hibernate.annotations.Immutable;
 
 /**
@@ -23,6 +24,9 @@ public class Ledger {
 
 	private String name;
 
+	@Enumerated(EnumType.STRING)
+	private BalanceHeadingName balanceHeading;
+
 
 	public String getName() {
 
@@ -37,5 +41,10 @@ public class Ledger {
 	public String getCode() {
 
 		return code;
+	}
+
+
+	public BalanceHeadingName getBalanceHeading() {
+		return balanceHeading;
 	}
 }

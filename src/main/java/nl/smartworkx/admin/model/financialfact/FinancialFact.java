@@ -89,4 +89,23 @@ public class FinancialFact implements DddAggregate {
 	public FinancialFactOrigin getOrigin() {
 		return origin;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		FinancialFact that = (FinancialFact) o;
+
+		return id != null ? id.equals(that.id) : that.id == null;
+	}
+
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
 }

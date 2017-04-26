@@ -6,8 +6,8 @@ Feature: VAT report
 
   Scenario: Happy flow VAT with outgoing invoices and costs
     Given today is "2016-04-01"
-    And there is a journal entry for an outgoing invoice with an amount of 12500 ex VAT of 21%
-    And there is a journal entry for an outgoing invoice with an amount of 14500 ex VAT of 21%
+    And there is a journal entry for an outgoing invoice with an amount of 12500 ex VAT
+    And there is a journal entry for an outgoing invoice with an amount of 14500 ex VAT
     And today is "2016-06-30"
     And there is a journal entry for an incoming invoice with an amount of 300 ex VAT of 21%
     When today is "2016-07-26"

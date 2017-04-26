@@ -31,12 +31,10 @@ public class JournalStepdefs extends AbstractIntegrationStepdefs {
     @Autowired
     private JournalEntryGlueTestHelper glueTestHelper;
 
-    @And("^there is a journal entry for an outgoing invoice with an amount of (\\d+) ex VAT of (\\d+)%$")
+    @And("^there is a journal entry for an outgoing invoice with an amount of (\\d+) ex VAT$")
     public void thereIsAnOutgoingInvoiceWithAnAmountOfExVATOf(BigDecimal amount, int taxRate) throws Throwable {
-
         Amount amountExVat = new Amount(amount, "EUR");
         glueTestHelper.createOutgoingInvoiceJournalEntry(taxRate, amountExVat);
-
     }
 
     @And("^there is a journal entry for an incoming invoice with an amount of (\\d+) ex VAT of (\\d+)%$")

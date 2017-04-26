@@ -32,6 +32,6 @@ public class JournalStepdefs extends AbstractIntegrationStepdefs {
 		Amount amountExVat = new Amount(amount, "EUR");
 		FinancialFact financialFact = financialFactServiceTestHelper.createFinancialFact(FinancialFactTestHelper.create().amount(amountExVat).build());
 		journalEntryServiceTestHelper
-				.createOutgoingInvoiceJournalEntry(financialFact.getId(), taxRate, amountExVat);
+				.createOutgoingInvoiceJournalEntry(financialFact.getId(), amountExVat);
 	}
 }

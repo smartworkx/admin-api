@@ -14,8 +14,9 @@ CREATE TABLE financial_fact
 --changeset joriswijlens:#1-2 Create table financial fact
 CREATE TABLE ledger
 (
-  id   BIGINT PRIMARY KEY NOT NULL,
-  name VARCHAR(255)
+  id              BIGINT PRIMARY KEY NOT NULL,
+  name            VARCHAR(255),
+  balance_heading VARCHAR(64)
 );
 
 --changeset joriswijlens:#1-3 comment:Journal entry table
@@ -31,11 +32,11 @@ CREATE TABLE journal_entry
 --changeset joriswijlens:#1-4 Record
 CREATE TABLE record
 (
-  id            BIGINT PRIMARY KEY NOT NULL,
+  id            BIGSERIAL PRIMARY KEY NOT NULL,
   currency      VARCHAR(64),
   amount        NUMERIC(19, 2),
   debit_credit  VARCHAR(64),
-  ledger        BIGINT,
+  ledger_id     BIGINT,
   journal_entry BIGINT
 );
 
@@ -46,22 +47,22 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 --changeset joriswijlens:#1-6 comment:Ledger content
 ALTER TABLE ledger
   ADD COLUMN code VARCHAR(12);
-INSERT INTO ledger (id, code, name) VALUES (1, 'DEB', 'Debiteuren');
-INSERT INTO ledger (id, code, name) VALUES (2, 'VATS', 'Af te dragen BTW');
-INSERT INTO ledger (id, code, name) VALUES (3, 'DVAT', 'Te vorderen BTW');
-INSERT INTO ledger (id, code, name) VALUES (4, 'CRED', 'Crediteuren');
-INSERT INTO ledger (id, code, name) VALUES (5, 'BANK', 'Bank');
-INSERT INTO ledger (id, code, name) VALUES (6, 'INV', 'Inventaris');
-INSERT INTO ledger (id, code, name) VALUES (7, 'TOJ', 'Omzet Joris');
-INSERT INTO ledger (id, code, name) VALUES (8, 'TOL', 'Omzet Leon');
-INSERT INTO ledger (id, code, name) VALUES (9, 'TOS', 'Omzet gedeeld');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (1, 'DEB', 'Debiteuren', 'CLAIMS');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (2, 'VATS', 'Af te dragen BTW', 'SHORT_RUNNING_DEBT');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (3, 'DVAT', 'Te vorderen BTW', 'CLAIMS');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (4, 'CRED', 'Crediteuren', 'SHORT_RUNNING_DEBT');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (5, 'BANK', 'Bank', 'LIQUID_ASSETS');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (6, 'INV', 'Inventaris', 'TANGIBLE_FIXED_ASSETS');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (7, 'TOJ', 'Omzet Joris', 'VENTURE_CAPITAL');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (8, 'TOL', 'Omzet Leon', 'VENTURE_CAPITAL');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (9, 'TOS', 'Omzet gedeeld', 'VENTURE_CAPITAL');
 INSERT INTO ledger (id, code, name) VALUES (10, 'ITC', 'IT kosten');
 INSERT INTO ledger (id, code, name) VALUES (11, 'TRAC', 'Reiskosten');
 INSERT INTO ledger (id, code, name) VALUES (12, 'COSTS', 'Overige kosten');
 INSERT INTO ledger (id, code, name) VALUES (13, 'TELC', 'Telefoon kosten');
 INSERT INTO ledger (id, code, name) VALUES (14, 'EDUC', 'Opleiding');
 INSERT INTO ledger (id, code, name) VALUES (15, 'INSU', 'Verzekering');
-INSERT INTO ledger (id, code, name) VALUES (16, 'LOAN', 'Lening');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (16, 'LOAN', 'Lening', 'LOAN');
 INSERT INTO ledger (id, code, name) VALUES (17, 'INT', 'Rente');
 
 --changeset joriswijlens:#1-7 Bank file uploads
@@ -97,8 +98,8 @@ GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 
 --changeset joriswijlens:#1-10 Added ledger priv
-INSERT INTO ledger (id, code, NAME ) VALUES (18, 'PRIVJ', 'Prive opname Joris');
-INSERT INTO ledger (id, code, NAME ) VALUES (19, 'PRIVL', 'Prive opname Leon');
+INSERT INTO ledger (id, code, NAME) VALUES (18, 'PRIVJ', 'Prive opname Joris');
+INSERT INTO ledger (id, code, NAME) VALUES (19, 'PRIVL', 'Prive opname Leon');
 
 --changeset joriswijlens:#1-11 Added balance
 CREATE TABLE balance
@@ -110,30 +111,28 @@ CREATE TABLE balance
 
 CREATE TABLE balance_account
 (
-  id              BIGSERIAL PRIMARY KEY NOT NULL,
-  ledger          BIGINT,
-  balance         BIGINT,
-  balance_heading VARCHAR(64),
-  amount          NUMERIC(19, 2),
-  currency        CHAR(3),
-  CONSTRAINT fk_balance_account_ledger FOREIGN KEY (ledger) REFERENCES ledger (id),
+  id       BIGSERIAL PRIMARY KEY NOT NULL,
+  ledger_id BIGINT,
+  balance  BIGINT,
+  amount   NUMERIC(19, 2),
+  currency CHAR(3),
+  CONSTRAINT fk_balance_account_ledger FOREIGN KEY (ledger_id) REFERENCES ledger (id),
   CONSTRAINT fk_balance_account_balance FOREIGN KEY (balance) REFERENCES balance (id)
 );
-
 
 
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 
-INSERT INTO balance (date,description) VALUES (now(),'test balance');
+INSERT INTO balance (date, description) VALUES ('2014-12-31', 'test balance');
 
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (1, 1, 'CLAIMS', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (2, 1, 'SHORT_RUNNING_DEBT', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (3, 1, 'CLAIMS', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (4, 1, 'SHORT_RUNNING_DEBT', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (5, 1, 'LIQUID_ASSETS', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (6, 1, 'TANGIBLE_FIXED_ASSETS', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (7, 1, 'VENTURE_CAPITAL', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (8, 1, 'VENTURE_CAPITAL', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (9, 1, 'VENTURE_CAPITAL', 0, 'EUR');
-INSERT INTO balance_account (ledger, balance, balance_heading, amount, currency) VALUES (16, 1, 'LOAN', 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (1, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (2, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (3, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (4, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (5, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (6, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (7, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (8, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (9, 1, 0, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (16, 1, 0, 'EUR');

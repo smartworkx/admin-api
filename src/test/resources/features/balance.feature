@@ -2,5 +2,5 @@
 Feature: #Enter feature name here
   # Enter feature description here
 
-  Scenario: # Enter scenario name here
+  Scenario: Create balance after a period
     # Enter steps here

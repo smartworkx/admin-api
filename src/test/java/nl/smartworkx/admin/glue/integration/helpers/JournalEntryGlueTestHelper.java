@@ -35,7 +35,7 @@ public class JournalEntryGlueTestHelper {
     public void createOutgoingInvoiceJournalEntry(int taxRate, Amount amountExVat) {
         FinancialFact financialFact = financialFactGlueTestHelper.createAFinancialFact(FinancialFactTestHelper.create().amount(amountExVat).build());
         JournalEntry journalEntry = serviceTestHelper
-                .createOutgoingInvoiceJournalEntry(financialFact.getId(), taxRate, amountExVat);
+                .createOutgoingInvoiceJournalEntry(financialFact.getId(), amountExVat);
         knowsTheJournalEntry.setCurrent(journalEntry);
     }
 

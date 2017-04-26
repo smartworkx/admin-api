@@ -10,7 +10,7 @@ public enum BalanceHeadingName {
     VENTURE_CAPITAL(DebitCredit.CREDIT), PROVISION(DebitCredit.CREDIT), LONG_RUNNING_DEBT(DebitCredit.CREDIT), SHORT_RUNNING_DEBT(DebitCredit.CREDIT),
     // DEBIT
     LIQUID_ASSETS(DebitCredit.DEBIT), CLAIMS(DebitCredit.DEBIT), SUPPLIES(DebitCredit.DEBIT), FIXED_ASSETS(DebitCredit.DEBIT), TANGIBLE_FIXED_ASSETS(DebitCredit
-            .DEBIT), INTANGILE_FIXED_ASSETS(DebitCredit.DEBIT);
+            .DEBIT), INTANGILE_FIXED_ASSETS(DebitCredit.DEBIT), LOAN(DebitCredit.DEBIT);
 
 
     private DebitCredit debitCredit;
