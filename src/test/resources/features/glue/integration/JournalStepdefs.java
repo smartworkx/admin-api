@@ -1,15 +1,13 @@
-package nl.smartworkx.admin.glue.integration;
-
-import static nl.smartworkx.admin.model.time.DateUtils.today;
+package features.glue.integration;
 
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import cucumber.api.java.en.And;
 import nl.smartworkx.admin.JournalEntryServiceTestHelper;
-import nl.smartworkx.admin.glue.integration.helpers.JournalEntryGlueTestHelper;
-import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
-import nl.smartworkx.admin.glue.shared.KnowsTheJournalEntry;
+import features.glue.integration.helpers.JournalEntryGlueTestHelper;
+import features.glue.shared.KnowsTheFinancialFact;
+import features.glue.shared.KnowsTheJournalEntry;
 import nl.smartworkx.admin.model.Amount;
 
 /**

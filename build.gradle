@@ -13,26 +13,6 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 
-configurations {
-	cucumberRuntime {
-		extendsFrom testRuntime
-	}
-}
-
-task cucumberInt() {
-	dependsOn compileTestJava
-	doLast {
-		javaexec {
-			main = "cucumber.api.cli.Main"
-			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-			if (project.hasProperty('jvmArgs')) {
-				jvmArgs = [project.jvmArgs]
-			}
-			args = ['--plugin', 'pretty', '--glue', 'nl.smartworkx.admin.glue.integration', 'src/test/resources/features']
-		}
-	}
-}
-
 task javadocs(type: Javadoc) {
 	source = sourceSets.main.allJava
 }
@@ -40,13 +20,6 @@ task javadocs(type: Javadoc) {
 task testjavadocs(type: Javadoc) {
 	source = sourceSets.test.allJava
 	destinationDir = reporting.file("test-docs")
-}
-
-test {
-	filter {
-		includeTestsMatching "*Test"
-		exclude "*IntegrationTest"
-	}
 }
 
 jar {
@@ -78,10 +51,6 @@ dependencies {
 	compileOnly("org.projectlombok:lombok:1.12.6")
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile group: 'info.cukes', name: 'cucumber-java8', version: '1.2.4'
-
-	testCompile 'info.cukes:cucumber-junit:1.2.4'
-	testCompile 'info.cukes:cucumber-spring:1.2.4'
 	testCompile 'com.jayway.jsonpath:json-path:2.2.0'
 	testCompile group: 'junit', name: 'junit', version: '4.12'
 }

@@ -18,11 +18,6 @@ import nl.smartworkx.admin.model.DddAggregate;
 import nl.smartworkx.admin.model.Quarter;
 import nl.smartworkx.admin.model.time.DateUtils;
 
-/**
- * @author Joris Wijlens
- * @version 1.0
- * @since 1.0
- */
 @Entity
 @Immutable
 public class VatDeclaration implements DddAggregate {

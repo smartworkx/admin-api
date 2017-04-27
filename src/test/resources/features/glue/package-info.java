@@ -23,4 +23,4 @@
  * @version 1.0
  * @since 1.0
  */
-package nl.smartworkx.admin.glue;
+package features.glue;

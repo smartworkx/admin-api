@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.glue.integration;
+package features.glue.integration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import cucumber.api.java.en.And;

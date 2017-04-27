@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.glue.integration;
+package features.glue.integration;
 
 import java.util.UUID;
 
@@ -7,7 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import nl.smartworkx.admin.FinancialFactMvcTestHelper;
 import nl.smartworkx.admin.InboxFinancialFactsMvcResult;
-import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
+import features.glue.shared.KnowsTheFinancialFact;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.journal.Ledger;

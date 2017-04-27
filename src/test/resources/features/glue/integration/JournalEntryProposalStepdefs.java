@@ -1,21 +1,19 @@
-package nl.smartworkx.admin.glue.integration;
+package features.glue.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
+import features.glue.shared.KnowsTheFinancialFact;
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.financialfact.inbox.JournalEntryProposalService;
 import nl.smartworkx.admin.model.journal.LedgerRepository;
-import nl.smartworkx.admin.model.journal.Record;
 
 /**
  *

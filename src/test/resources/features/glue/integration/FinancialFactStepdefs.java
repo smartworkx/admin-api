@@ -1,11 +1,11 @@
-package nl.smartworkx.admin.glue.integration;
+package features.glue.integration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import nl.smartworkx.admin.FinancialFactTestHelper;
-import nl.smartworkx.admin.glue.integration.helpers.FinancialFactGlueTestHelper;
-import nl.smartworkx.admin.glue.shared.KnowsTheFinancialFact;
+import features.glue.integration.helpers.FinancialFactGlueTestHelper;
+import features.glue.shared.KnowsTheFinancialFact;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFactOrigin;
 

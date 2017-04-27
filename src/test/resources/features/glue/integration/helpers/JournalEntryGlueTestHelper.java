@@ -1,11 +1,11 @@
-package nl.smartworkx.admin.glue.integration.helpers;
+package features.glue.integration.helpers;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import nl.smartworkx.admin.FinancialFactTestHelper;
 import nl.smartworkx.admin.JournalEntryServiceTestHelper;
-import nl.smartworkx.admin.glue.shared.BaseKnowsThe;
-import nl.smartworkx.admin.glue.shared.KnowsTheJournalEntry;
+import features.glue.shared.BaseKnowsThe;
+import features.glue.shared.KnowsTheJournalEntry;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.journal.JournalEntry;

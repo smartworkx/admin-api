@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.glue.shared;
+package features.glue.shared;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

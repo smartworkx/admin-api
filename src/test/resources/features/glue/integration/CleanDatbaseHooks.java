@@ -1,11 +1,10 @@
-package nl.smartworkx.admin.glue.integration;
+package features.glue.integration;
 
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import cucumber.api.java.Before;
 
 /**
  * @author Joris Wijlens
@@ -19,7 +18,7 @@ public class CleanDatbaseHooks {
 	@Autowired
 	private DataSource ownerDataSource;
 
-	@Before
+	//@Before
 	public void cleanStoredProcedure() throws SQLException {
 
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(ownerDataSource);

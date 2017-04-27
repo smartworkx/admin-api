@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.glue.integration;
+package features.glue.integration;
 
 import cucumber.api.java.en.Given;
 import nl.smartworkx.admin.model.time.ClockHolder;

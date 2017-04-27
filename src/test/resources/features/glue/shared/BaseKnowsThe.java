@@ -1,11 +1,10 @@
-package nl.smartworkx.admin.glue.shared;
+package features.glue.shared;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.util.ReflectionUtils;
 import nl.smartworkx.admin.model.Identifiable;
 
 /**
