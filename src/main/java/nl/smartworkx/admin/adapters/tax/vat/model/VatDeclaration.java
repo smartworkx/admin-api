@@ -8,9 +8,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Immutable;
 import nl.smartworkx.admin.model.Amount;
@@ -22,6 +25,8 @@ import nl.smartworkx.admin.model.time.DateUtils;
 @Immutable
 public class VatDeclaration implements DddAggregate {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vat_declaration")
+    @SequenceGenerator(name = "vat_declaration", sequenceName = "vat_declaration_id_seq")
     private Long id;
 
     @Embedded

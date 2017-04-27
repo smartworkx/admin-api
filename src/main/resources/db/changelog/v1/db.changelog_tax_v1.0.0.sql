@@ -19,3 +19,8 @@ CREATE TABLE vat_journal_entry
   journal_entry_id BIGINT
 );
 
+GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
+
+--changeset joriswijlens:#1-2 Vat declaration unique
+CREATE UNIQUE INDEX vat_declaration_unique ON vat_declaration (year,quarter)
