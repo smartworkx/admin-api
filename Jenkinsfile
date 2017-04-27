@@ -28,7 +28,7 @@ node {
 }
 
 stage 'Deploy test'
-timeout(time: 1, unit: 'DAYS') {
+timeout(time: 1, unit: 'MONTHS') {
     input 'Do you want to install on test?'
 }
 
@@ -49,7 +49,7 @@ node {
 }
 
 stage 'Deploy prod'
-timeout(time: 1, unit: 'DAYS') {
+timeout(time: 1, unit: 'MONTHS') {
     input 'Do you want to install on prod?'
 }
 
