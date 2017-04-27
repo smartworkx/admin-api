@@ -2,6 +2,7 @@ package nl.smartworkx.admin.model.balance;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Immutable;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.journal.Ledger;
 
@@ -9,6 +10,7 @@ import nl.smartworkx.admin.model.journal.Ledger;
  *
  */
 @Entity
+@Immutable
 public class BalanceAccount {
 
     @Id
@@ -22,7 +24,7 @@ public class BalanceAccount {
     private BalanceAccount() {
     }
 
-    public BalanceAccount(Ledger ledgerId, Amount amount) {
+    BalanceAccount(Ledger ledgerId, Amount amount) {
         this.ledgerId = ledgerId.getId();
         this.amount = amount;
     }
@@ -31,7 +33,7 @@ public class BalanceAccount {
         return id;
     }
 
-    public Long getLedgerId() {
+    Long getLedgerId() {
         return ledgerId;
     }
 

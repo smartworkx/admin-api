@@ -1,6 +1,7 @@
 package nl.smartworkx.admin.model.balance;
 
-import nl.smartworkx.admin.model.Amount;
+import static nl.smartworkx.admin.model.journal.Record.sum;
+
 import nl.smartworkx.admin.model.journal.*;
 import org.springframework.stereotype.Component;
 
@@ -29,24 +30,16 @@ public class BalanceFactory {
     }
 
     public Balance create(LocalDate date, String description) {
-        List<BalanceAccount> balanceAccounts = new ArrayList<>();
         Balance previousBalance = balanceRepository.findPreviousBalance(date);
 
         Set<JournalEntryFinancialFact> journalEntriesByDate = journalEntryRepository.findJournalEntriesByDate(previousBalance.getDate(), date);
 
-        journalEntriesByDate.stream().flatMap(journalEntry -> journalEntry.getJournalEntry().getRecords().stream()).collect(Collectors.groupingBy(o -> o
-                .getLedgerId()))
-                .forEach
-                ((ledgerId, records) -> {
-            Ledger ledger = ledgerRepository.findOne(ledgerId);
-            BalanceHeadingName balanceHeading = ledger.getBalanceHeading();
-            if (balanceHeading != null) {
-                Amount sum = records.stream().map(record -> record.getAmount()).reduce(Amount.ZERO,(amount1, amount2) -> amount1.add(amount2));
-                balanceAccounts.add(new BalanceAccount(ledger,sum));
-            }
-        });
+        JournalEntryCalculator calculator = new JournalEntryCalculator(ledgerRepository, journalEntriesByDate);
 
+        Set<BalanceAccount> balanceAccounts = calculator.getRecordsByLedger().entrySet().stream().filter(e -> e.getKey().shouldShowOnBalance()).map(e -> new
+                BalanceAccount(e
+                .getKey(), sum(e
+                .getValue()))).collect(Collectors.toSet());
         return new Balance(date, description, balanceAccounts);
     }
-
 }

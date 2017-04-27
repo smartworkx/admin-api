@@ -1,6 +1,9 @@
 package nl.smartworkx.admin.model.financialfact;
 
+import static java.time.LocalDateTime.now;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Immutable;
@@ -22,90 +25,99 @@ import nl.smartworkx.admin.model.DebitCredit;
 @Immutable
 public class FinancialFact implements DddAggregate {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financial_fact")
-	@SequenceGenerator(name = "financial_fact", sequenceName = "financial_fact_id_seq")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financial_fact")
+    @SequenceGenerator(name = "financial_fact", sequenceName = "financial_fact_id_seq")
+    private Long id;
 
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	@JsonSerialize(using = LocalDateSerializer.class)
-	private LocalDate valueDate;
+    private LocalDateTime creationDateTime;
 
-	@Embedded
-	private Amount amount;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate valueDate;
 
-	private String description;
+    @Embedded
+    private Amount amount;
 
-	private DebitCredit debitCredit;
+    private String description;
 
-	@Embedded
-	private FinancialFactOrigin origin;
+    private DebitCredit debitCredit;
 
-	private FinancialFact() {}
+    @Embedded
+    private FinancialFactOrigin origin;
 
-	public FinancialFact(LocalDate valueDate,
-			Amount amount,
-			String description, FinancialFactOrigin origin) {
+    private FinancialFact() {
+        this.creationDateTime = now();
+    }
 
-		this.valueDate = valueDate;
-		this.amount = amount;
-		this.description = description;
-		this.origin = origin;
-	}
+    public FinancialFact(LocalDate valueDate,
+            Amount amount,
+            String description, FinancialFactOrigin origin) {
+        this();
+        this.valueDate = valueDate;
+        this.amount = amount;
+        this.description = description;
+        this.origin = origin;
+    }
 
-	@Builder
-	public FinancialFact(LocalDate valueDate, Amount amount, String description,
-			DebitCredit debitCredit, FinancialFactOrigin origin) {
+    @Builder
+    public FinancialFact(LocalDate valueDate, Amount amount, String description,
+            DebitCredit debitCredit, FinancialFactOrigin origin) {
 
-		this(valueDate, amount, description, origin);
-		this.debitCredit = debitCredit;
-	}
+        this(valueDate, amount, description, origin);
+        this.debitCredit = debitCredit;
+    }
 
-	public LocalDate getValueDate() {
+    public LocalDate getValueDate() {
 
-		return valueDate;
-	}
+        return valueDate;
+    }
 
-	public Amount getAmount() {
+    public Amount getAmount() {
 
-		return amount;
-	}
+        return amount;
+    }
 
-	public String getDescription() {
+    public String getDescription() {
 
-		return description;
-	}
+        return description;
+    }
 
-	public DebitCredit getDebitCredit() {
+    public DebitCredit getDebitCredit() {
 
-		return debitCredit;
-	}
+        return debitCredit;
+    }
 
-	public Long getId() {
+    public Long getId() {
 
-		return id;
-	}
+        return id;
+    }
 
-	public FinancialFactOrigin getOrigin() {
-		return origin;
-	}
+    public FinancialFactOrigin getOrigin() {
+        return origin;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-		FinancialFact that = (FinancialFact) o;
+        FinancialFact that = (FinancialFact) o;
 
-		return id != null ? id.equals(that.id) : that.id == null;
-	}
+        return id != null ? id.equals(that.id) : that.id == null;
+    }
 
-	@Override
-	public int hashCode() {
-		return id != null ? id.hashCode() : 0;
-	}
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public LocalDateTime getCreationDateTime() {
+        return creationDateTime;
+    }
 }

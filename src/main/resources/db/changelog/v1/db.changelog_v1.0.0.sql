@@ -3,12 +3,13 @@
 --changeset joriswijlens:#1-1 Create table financial fact
 CREATE TABLE financial_fact
 (
-  id           BIGSERIAL PRIMARY KEY NOT NULL,
-  currency     VARCHAR(64),
-  amount       NUMERIC(19, 2),
-  debit_credit INTEGER,
-  description  VARCHAR(255),
-  value_date   DATE
+  id                 BIGSERIAL PRIMARY KEY NOT NULL,
+  creation_date_time TIMESTAMP             NOT NULL,
+  currency           VARCHAR(64),
+  amount             NUMERIC(19, 2),
+  debit_credit       INTEGER,
+  description        VARCHAR(255),
+  value_date         DATE
 );
 
 --changeset joriswijlens:#1-2 Create table financial fact
@@ -22,22 +23,23 @@ CREATE TABLE ledger
 --changeset joriswijlens:#1-3 comment:Journal entry table
 CREATE TABLE journal_entry
 (
-  id                BIGSERIAL PRIMARY KEY NOT NULL,
-  description       VARCHAR(255),
-  financial_fact_id BIGINT                NOT NULL,
-  book_date         DATE                  NOT NULL,
+  id                 BIGSERIAL PRIMARY KEY NOT NULL,
+  creation_date_time TIMESTAMP             NOT NULL,
+  description        VARCHAR(255),
+  financial_fact_id  BIGINT                NOT NULL,
+  book_date          DATE                  NOT NULL,
   CONSTRAINT fk_financial_fact FOREIGN KEY (financial_fact_id) REFERENCES financial_fact (id)
 );
 
 --changeset joriswijlens:#1-4 Record
 CREATE TABLE record
 (
-  id            BIGSERIAL PRIMARY KEY NOT NULL,
-  currency      VARCHAR(64),
-  amount        NUMERIC(19, 2),
-  debit_credit  VARCHAR(64),
-  ledger_id     BIGINT,
-  journal_entry BIGINT
+  id               BIGSERIAL PRIMARY KEY NOT NULL,
+  currency         VARCHAR(64),
+  amount           NUMERIC(19, 2),
+  debit_credit     VARCHAR(64),
+  ledger_id        BIGINT,
+  journal_entry_id BIGINT
 );
 
 --changeset joriswijlens:#1-5 comment:Add index for searching
@@ -70,7 +72,7 @@ CREATE TABLE bank_file_upload
 (
   id                 BIGSERIAL PRIMARY KEY NOT NULL,
   content            TEXT,
-  creation_date_time TIMESTAMP
+  creation_date_time TIMESTAMP             NOT NULL
 );
 
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
@@ -104,18 +106,19 @@ INSERT INTO ledger (id, code, NAME) VALUES (19, 'PRIVL', 'Prive opname Leon');
 --changeset joriswijlens:#1-11 Added balance
 CREATE TABLE balance
 (
-  id          BIGSERIAL PRIMARY KEY NOT NULL,
-  date        DATE,
-  description VARCHAR(512)
+  id                 BIGSERIAL PRIMARY KEY NOT NULL,
+  creation_date_time TIMESTAMP             NOT NULL,
+  date               DATE,
+  description        VARCHAR(512)
 );
 
 CREATE TABLE balance_account
 (
-  id       BIGSERIAL PRIMARY KEY NOT NULL,
+  id        BIGSERIAL PRIMARY KEY NOT NULL,
   ledger_id BIGINT,
-  balance  BIGINT,
-  amount   NUMERIC(19, 2),
-  currency CHAR(3),
+  balance   BIGINT,
+  amount    NUMERIC(19, 2),
+  currency  CHAR(3),
   CONSTRAINT fk_balance_account_ledger FOREIGN KEY (ledger_id) REFERENCES ledger (id),
   CONSTRAINT fk_balance_account_balance FOREIGN KEY (balance) REFERENCES balance (id)
 );
@@ -124,7 +127,7 @@ CREATE TABLE balance_account
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 
-INSERT INTO balance (date, description) VALUES ('2014-12-31', 'test balance');
+INSERT INTO balance (creation_date_time, date, description) VALUES (CURRENT_TIMESTAMP,'2014-12-31', 'test balance');
 
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (1, 1, 0, 'EUR');
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (2, 1, 0, 'EUR');
