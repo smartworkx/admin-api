@@ -1,5 +1,6 @@
 package nl.smartworkx.admin.adapters.tax.vat.model;
 
+import static java.util.stream.Collectors.toSet;
 import static nl.smartworkx.admin.model.journal.LedgerCode.DVAT;
 import static nl.smartworkx.admin.model.journal.LedgerCode.VATS;
 
@@ -16,11 +17,6 @@ import nl.smartworkx.admin.model.journal.LedgerCode;
 import nl.smartworkx.admin.model.Quarter;
 import nl.smartworkx.admin.model.journal.LedgerRepository;
 
-/**
- * @author Joris Wijlens
- * @version 1.0
- * @since 1.0
- */
 @Service
 public class VatDeclarationFactory {
 
@@ -39,9 +35,10 @@ public class VatDeclarationFactory {
                 .findJournalEntriesByDate(period.getFirstDay(), period.getLastDay());
         JournalEntryCalculator calculator = new JournalEntryCalculator(ledgerRepository, entries);
 
-        final Amount vatServiced = calculator.sum(VATS.name());
-        final Amount deductedVat = calculator.sum(DVAT.name());
-        Set<VatJournalEntry> vatJournalEntries = calculator.getJournalEntryIds(DVAT.name(), VATS.name()).stream().map(VatJournalEntry::new).collect(Collectors.toSet());
+        final Amount vatServiced = calculator.sum(VATS);
+        final Amount deductedVat = calculator.sum(DVAT);
+        Set<VatJournalEntry> vatJournalEntries = calculator.getJournalEntryIds(DVAT, VATS).stream().map(VatJournalEntry::new).collect
+                (toSet());
         return new VatDeclaration(period, vatServiced, deductedVat, vatJournalEntries);
     }
 }

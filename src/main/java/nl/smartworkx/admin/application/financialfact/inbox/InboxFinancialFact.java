@@ -16,9 +16,6 @@ public class InboxFinancialFact {
     public InboxFinancialFact(FinancialFact financialFact, List<RecordFormLine> records) {
         this.financialFact = financialFact;
 
-
-
-
         this.records = records;
     }
 

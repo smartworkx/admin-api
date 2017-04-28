@@ -1,6 +1,5 @@
-package nl.smartworkx.admin.application;
+package nl.smartworkx.admin.model.financialfact;
 
-import nl.smartworkx.admin.model.financialfact.FinancialFact;
 
 /**
  * @author Joris Wijlens

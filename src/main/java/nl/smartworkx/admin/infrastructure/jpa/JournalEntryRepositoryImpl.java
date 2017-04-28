@@ -29,7 +29,7 @@ public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom 
                 + "join fetch j.records r, "
                 + "FinancialFact ff "
                 + "where ff.valueDate >= :first "
-                + "and ff.valueDate <= :last "
+                + "and j.valueDate <= :last "
                 + "and j.financialFactId = ff.id "
                 + "and j.bookDate <= :today")
                 .setParameter("first", firstDay)

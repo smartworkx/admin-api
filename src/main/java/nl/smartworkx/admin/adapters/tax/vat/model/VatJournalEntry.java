@@ -1,7 +1,10 @@
 package nl.smartworkx.admin.adapters.tax.vat.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Immutable;
 import nl.smartworkx.admin.model.DddEntity;
@@ -10,6 +13,8 @@ import nl.smartworkx.admin.model.DddEntity;
 @Immutable
 public class VatJournalEntry implements DddEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vat_journal_entry")
+    @SequenceGenerator(name = "vat_journal_entry", sequenceName = "journal_entry_id_seq")
     private Long id;
 
     private Long journalEntryId;
@@ -37,12 +42,12 @@ public class VatJournalEntry implements DddEntity {
 
         VatJournalEntry that = (VatJournalEntry) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return journalEntryId.equals(that.journalEntryId);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return journalEntryId.hashCode();
     }
 
     public Long getJournalEntryId() {

@@ -4,11 +4,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.experimental.Builder;
 import nl.smartworkx.admin.model.DddAggregate;
+import nl.smartworkx.admin.model.time.DateUtils;
 
 /**
  * @author Joris Wijlens
@@ -24,9 +30,13 @@ public class JournalEntry implements DddAggregate {
     @SequenceGenerator(name = "journal_entry", sequenceName = "journal_entry_id_seq")
     private Long id;
 
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime creationDateTime;
 
     private LocalDate bookDate;
+
+    private LocalDate valueDate;
 
     private Long financialFactId;
 
@@ -35,13 +45,14 @@ public class JournalEntry implements DddAggregate {
     private List<Record> records;
 
     private JournalEntry() {
-        this.creationDateTime = LocalDateTime.now();
+        this.creationDateTime = DateUtils.now();
+        this.bookDate = DateUtils.today();
     }
 
     @Builder
-    public JournalEntry(final LocalDate bookDate, final Long financialFactId, final List<Record> records) {
+    public JournalEntry(final LocalDate valueDate, final Long financialFactId, final List<Record> records) {
         this();
-        this.bookDate = bookDate;
+        this.valueDate = valueDate;
 
         this.financialFactId = financialFactId;
         this.records = records;
@@ -86,5 +97,15 @@ public class JournalEntry implements DddAggregate {
     @Override
     public LocalDateTime getCreationDateTime() {
         return creationDateTime;
+    }
+
+    boolean hasRecordMatching(Set<Long> ledgerIds) {
+        return getRecords()
+                .stream()
+                .anyMatch(r -> ledgerIds.stream().anyMatch(n -> r.hasLedger(n)));
+    }
+
+    public LocalDate getValueDate() {
+        return valueDate;
     }
 }

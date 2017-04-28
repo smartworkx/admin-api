@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model.financialfact.inbox;
+package nl.smartworkx.admin.model.financialfact.inbox.proposalcreator;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -10,7 +10,6 @@ import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.journal.Ledger;
 import nl.smartworkx.admin.model.journal.LedgerRepository;
-import nl.smartworkx.admin.model.journal.Record;
 
 /**
  *
@@ -38,4 +37,8 @@ public abstract class AbstractProposalCreator implements ProposalCreator {
     }
 
     protected abstract List<RecordFormLine> onCreate(FinancialFact financialFact);
+
+    protected String[] descriptions(String... s) {
+        return s;
+    }
 }

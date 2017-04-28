@@ -15,12 +15,15 @@ CREATE TABLE vat_declaration
 
 CREATE TABLE vat_journal_entry
 (
-  id               BIGSERIAL PRIMARY KEY NOT NULL,
-  journal_entry_id BIGINT
+  id                 BIGSERIAL PRIMARY KEY NOT NULL,
+  vat_declaration_id BIGINT,
+  journal_entry_id   BIGINT,
+  CONSTRAINT fk_vat_journal_entry_to_journal_entry FOREIGN KEY (journal_entry_id) REFERENCES journal_entry (id)
 );
 
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 
 --changeset joriswijlens:#1-2 Vat declaration unique
-CREATE UNIQUE INDEX vat_declaration_unique ON vat_declaration (year,quarter)
+CREATE UNIQUE INDEX vat_declaration_unique
+  ON vat_declaration (year, quarter)

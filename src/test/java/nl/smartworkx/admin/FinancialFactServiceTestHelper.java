@@ -2,7 +2,7 @@ package nl.smartworkx.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import nl.smartworkx.admin.application.CreateFinancialFactService;
+import nl.smartworkx.admin.model.financialfact.CreateFinancialFactService;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 
 /**

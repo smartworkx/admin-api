@@ -5,7 +5,8 @@ package nl.smartworkx.admin.model.journal;
  * @version 1.0
  * @since 1.0
  */
-public enum LedgerCode {
-	DVAT,
-	VATS
+public final class LedgerCode {
+	public final static String DVAT = "DVAT";
+	public final static String VATS = "VATS";
+	public static final String CRED = "CRED";
 }

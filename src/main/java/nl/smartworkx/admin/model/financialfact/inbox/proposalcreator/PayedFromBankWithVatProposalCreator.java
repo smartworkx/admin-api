@@ -1,12 +1,12 @@
-package nl.smartworkx.admin.model.financialfact.inbox;
-
-import static nl.smartworkx.admin.model.TaxCalculator.HIGH;
+package nl.smartworkx.admin.model.financialfact.inbox.proposalcreator;
 
 import java.util.List;
 
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.financialfact.TaxRate;
+import nl.smartworkx.admin.model.financialfact.inbox.ProposalUtils;
+import nl.smartworkx.admin.model.financialfact.inbox.proposalcreator.AbstractProposalCreator;
 
 /**
  *
@@ -19,7 +19,7 @@ public abstract class PayedFromBankWithVatProposalCreator extends AbstractPropos
 
     @Override
     public List<RecordFormLine> onCreate(FinancialFact financialFact) {
-        return ProposalUtils.createRecordsFromBankWithVat(ledgerRepository, financialFact.getAmount(), vatTaxRate(), costLedger());
+        return ProposalUtils.createRecordsFromBankWithVat(ledgerRepository, financialFact.getAmount(), vatTaxRate(), counterLedger());
     }
 
     protected TaxRate vatTaxRate() {
@@ -28,5 +28,5 @@ public abstract class PayedFromBankWithVatProposalCreator extends AbstractPropos
 
     protected abstract String descriptionContains();
 
-    protected abstract String costLedger();
+    protected abstract String counterLedger();
 }

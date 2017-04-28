@@ -1,9 +1,10 @@
-package nl.smartworkx.admin.interfaces.web.journal;
+package nl.smartworkx.admin.model.journal;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 
 /**
  * @author Joris Wijlens
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @since 1.0
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class JournalizeForm {
+public class JournalEntryCreatedEvent {
 
 	private List<RecordFormLine> records;
 	private Long financialFactId;
@@ -19,7 +20,7 @@ public class JournalizeForm {
 
 	@Override public String toString() {
 
-		return "JournalizeForm{" +
+		return "JournalEntryCreatedEvent{" +
 				", records=" + records +
 				'}';
 	}

@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model.financialfact.inbox;
+package nl.smartworkx.admin.model.financialfact.inbox.proposalcreator;
 
 import java.util.List;
 

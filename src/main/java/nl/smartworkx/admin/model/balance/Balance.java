@@ -12,6 +12,10 @@ import nl.smartworkx.admin.model.time.DateUtils;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Immutable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 /**
  *
@@ -21,6 +25,8 @@ import org.hibernate.annotations.Immutable;
 public class Balance implements DddAggregate {
     @Id
     private Long id;
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime creationDateTime;
     private LocalDate date;
     private String description;

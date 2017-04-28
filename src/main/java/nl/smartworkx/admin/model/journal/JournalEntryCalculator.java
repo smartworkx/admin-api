@@ -5,12 +5,9 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toSet;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import nl.smartworkx.admin.model.Amount;
@@ -30,13 +27,10 @@ public class JournalEntryCalculator {
     }
 
     private Stream<Record> getRecords(String name) {
+
         return getJournalEntryStream()
                 .flatMap(je -> je.getRecords().stream())
-                .filter(r -> recordHasLedgerCode(r, name));
-    }
-
-    private boolean recordHasLedgerCode(Record r, String name) {
-        return ledgerRepository.findOne(r.getLedgerId()).getCode().equals(name);
+                .filter(r -> r.hasLedger(ledgerCodeToId(name)));
     }
 
     private Stream<JournalEntry> getJournalEntryStream() {
@@ -45,11 +39,19 @@ public class JournalEntryCalculator {
     }
 
     public Set<Long> getJournalEntryIds(String... names) {
-        return getJournalEntryStream().filter(je -> je.getRecords()
-                .stream()
-                .anyMatch(r -> stream(names).anyMatch(n -> recordHasLedgerCode(r, n))))
+        Stream<JournalEntry> journalEntryStream = getJournalEntryStream().filter(je -> je.hasRecordMatching(ledgerCodeToIds(names)));
+        Set<Long> set = journalEntryStream
                 .map(JournalEntry::getId)
                 .collect(toSet());
+        return set;
+    }
+
+    private Set<Long> ledgerCodeToIds(String[] names) {
+        return stream(names).map(s -> ledgerCodeToId(s)).collect(toSet());
+    }
+
+    private Long ledgerCodeToId(String s) {
+        return ledgerRepository.findByCode(s).getId();
     }
 
     public Map<Ledger, List<Record>> getRecordsByLedger() {

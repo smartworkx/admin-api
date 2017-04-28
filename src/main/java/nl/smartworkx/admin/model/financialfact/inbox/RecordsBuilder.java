@@ -23,7 +23,8 @@ public class RecordsBuilder {
     }
 
     public RecordsBuilder add(String ledgerCode, DebitCredit debitCredit, Amount amount) {
-        records.add(new RecordFormLine(ledgerRepository.findByCode(ledgerCode).getCode(), debitCredit, amount));
+        String code = ledgerCode  == null ? "" : ledgerRepository.findByCode(ledgerCode).getCode();
+        records.add(new RecordFormLine(code, debitCredit, amount));
         return this;
     }
 

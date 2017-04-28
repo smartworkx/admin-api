@@ -39,6 +39,7 @@ public class VatDeclarationFactoryIntegrationTest extends AbstractIntegrationTes
 
         assertThat(vatDeclaration).isNotNull();
         assertThat(vatDeclaration.getVatServicedAmount()).isEqualTo(new Amount("4.20"));
+        assertThat(vatDeclaration.getJournalEntries()).hasSize(2);
     }
 
 }

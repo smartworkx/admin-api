@@ -95,7 +95,7 @@ public class Amount {
         return new Amount(MonetaryUtil.percent(vatPercentage).apply(this.getMoney()));
     }
 
-    public Amount calculateIncVat(TaxRate taxRate) {
+    public Amount calculateVatForAmountWithVatIncluded(TaxRate taxRate) {
         final double divisor = 1 / (1 + taxRate.getPercentage() / 100);
         return new Amount(RoundedMoney.of(this.getMoney().subtract(this.getMoney().multiply(divisor)).getNumber(), this.getMoney().getCurrency()));
     }

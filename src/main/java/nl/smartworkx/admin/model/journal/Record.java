@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
+import lombok.experimental.Builder;
 import lombok.extern.java.Log;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
@@ -42,6 +43,7 @@ public class Record {
 
     private Record() {}
 
+    @Builder
     public Record(Long ledgerId, DebitCredit debitCredit, Amount amount) {
         this.ledgerId = ledgerId;
         this.debitCredit = debitCredit;
@@ -81,5 +83,9 @@ public class Record {
                 ", debitCredit=" + debitCredit +
                 ", amount=" + amount +
                 '}';
+    }
+
+    boolean hasLedger(Long ledgerId) {
+        return getLedgerId().equals(ledgerId);
     }
 }

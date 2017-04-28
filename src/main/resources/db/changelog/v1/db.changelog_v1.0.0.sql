@@ -7,7 +7,7 @@ CREATE TABLE financial_fact
   creation_date_time TIMESTAMP             NOT NULL,
   currency           VARCHAR(64),
   amount             NUMERIC(19, 2),
-  debit_credit       INTEGER,
+  debit_credit       VARCHAR(16),
   description        VARCHAR(255),
   value_date         DATE
 );
@@ -28,6 +28,7 @@ CREATE TABLE journal_entry
   description        VARCHAR(255),
   financial_fact_id  BIGINT                NOT NULL,
   book_date          DATE                  NOT NULL,
+  value_date         DATE                  NOT NULL,
   CONSTRAINT fk_financial_fact FOREIGN KEY (financial_fact_id) REFERENCES financial_fact (id)
 );
 
@@ -50,7 +51,7 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 ALTER TABLE ledger
   ADD COLUMN code VARCHAR(12);
 INSERT INTO ledger (id, code, name, balance_heading) VALUES (1, 'DEB', 'Debiteuren', 'CLAIMS');
-INSERT INTO ledger (id, code, name, balance_heading) VALUES (2, 'VATS', 'Af te dragen BTW', 'SHORT_RUNNING_DEBT');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (2, 'VATS', 'Te betalen BTW', 'SHORT_RUNNING_DEBT');
 INSERT INTO ledger (id, code, name, balance_heading) VALUES (3, 'DVAT', 'Te vorderen BTW', 'CLAIMS');
 INSERT INTO ledger (id, code, name, balance_heading) VALUES (4, 'CRED', 'Crediteuren', 'SHORT_RUNNING_DEBT');
 INSERT INTO ledger (id, code, name, balance_heading) VALUES (5, 'BANK', 'Bank', 'LIQUID_ASSETS');
@@ -66,6 +67,9 @@ INSERT INTO ledger (id, code, name) VALUES (14, 'EDUC', 'Opleiding');
 INSERT INTO ledger (id, code, name) VALUES (15, 'INSU', 'Verzekering');
 INSERT INTO ledger (id, code, name, balance_heading) VALUES (16, 'LOAN', 'Lening', 'LOAN');
 INSERT INTO ledger (id, code, name) VALUES (17, 'INT', 'Rente');
+INSERT INTO ledger (id, code, NAME) VALUES (18, 'PRIVJ', 'Prive opname Joris');
+INSERT INTO ledger (id, code, NAME) VALUES (19, 'PRIVL', 'Prive opname Leon');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (20, 'VATP', 'Af te dragen BTW', 'SHORT_RUNNING_DEBT');
 
 --changeset joriswijlens:#1-7 Bank file uploads
 CREATE TABLE bank_file_upload
@@ -95,13 +99,11 @@ CREATE TABLE origin
 );
 
 INSERT INTO origin (name) VALUES ('OUTGOING_INVOICE');
+INSERT INTO origin (name) VALUES ('INCOMING_INVOICE');
+INSERT INTO origin (name) VALUES ('VAT_DECLARATION');
 
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
-
---changeset joriswijlens:#1-10 Added ledger priv
-INSERT INTO ledger (id, code, NAME) VALUES (18, 'PRIVJ', 'Prive opname Joris');
-INSERT INTO ledger (id, code, NAME) VALUES (19, 'PRIVL', 'Prive opname Leon');
 
 --changeset joriswijlens:#1-11 Added balance
 CREATE TABLE balance
@@ -127,7 +129,7 @@ CREATE TABLE balance_account
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 
-INSERT INTO balance (creation_date_time, date, description) VALUES (CURRENT_TIMESTAMP,'2014-12-31', 'test balance');
+INSERT INTO balance (creation_date_time, date, description) VALUES (CURRENT_TIMESTAMP, '2014-12-31', 'test balance');
 
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (1, 1, 0, 'EUR');
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (2, 1, 0, 'EUR');

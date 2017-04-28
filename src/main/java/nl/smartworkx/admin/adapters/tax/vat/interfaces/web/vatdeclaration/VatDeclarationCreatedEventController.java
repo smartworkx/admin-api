@@ -1,10 +1,6 @@
 package nl.smartworkx.admin.adapters.tax.vat.interfaces.web.vatdeclaration;
 
-import static nl.smartworkx.admin.model.time.DateUtils.today;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +14,13 @@ import nl.smartworkx.admin.adapters.tax.vat.model.VatDeclaration;
 import nl.smartworkx.admin.model.Quarter;
 
 @RestController
-@RequestMapping("/vat-declarations")
+@RequestMapping("/vat-declaration-created-events")
 @CrossOrigin
-public class VatDeclarationController {
+public class VatDeclarationCreatedEventController {
 
     private final CreateVatDeclarationService createVatDeclarationService;
 
-    public VatDeclarationController(CreateVatDeclarationService createVatDeclarationService) {
+    public VatDeclarationCreatedEventController(CreateVatDeclarationService createVatDeclarationService) {
         this.createVatDeclarationService = createVatDeclarationService;
     }
 

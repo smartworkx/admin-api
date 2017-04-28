@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
+import nl.smartworkx.admin.model.financialfact.inbox.proposalcreator.ProposalCreator;
 import nl.smartworkx.admin.model.journal.LedgerRepository;
 
 /**
@@ -38,12 +39,14 @@ public class JournalEntryProposalService {
         final Amount amount = new Amount(parameters.getAmount());
         if (parameters.getType().equals(ProposalType.COSTS)) {
             if (parameters.getTaxRate() != null) {
-                return ProposalUtils.createRecordsFromBankWithVat(ledgerRepository, amount, parameters.getTaxRate(), "COSTS");
+                return ProposalUtils.createRecordsFromBankWithVat(ledgerRepository, amount, parameters.getTaxRate(), null);
             } else {
-                return ProposalUtils.createRecordsFromBank(ledgerRepository, amount,"COSTS");
+                return ProposalUtils.createRecordsFromBank(ledgerRepository, amount, null);
             }
-        } else if (parameters.getType() == ProposalType.PRIVATE){
+        } else if (parameters.getType() == ProposalType.PRIVATE) {
             return ProposalUtils.createRecordsFromBank(ledgerRepository, amount, "PRIVJ");
+        } else if (parameters.getType() == ProposalType.CREDIT) {
+            return ProposalUtils.createRecordsFromBank(ledgerRepository, amount, "CRED");
         } else {
             return Collections.emptyList();
         }

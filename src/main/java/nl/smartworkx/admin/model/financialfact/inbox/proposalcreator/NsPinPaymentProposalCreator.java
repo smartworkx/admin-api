@@ -1,14 +1,13 @@
-package nl.smartworkx.admin.model.financialfact.inbox;
+package nl.smartworkx.admin.model.financialfact.inbox.proposalcreator;
 
 import org.springframework.stereotype.Component;
-import nl.smartworkx.admin.model.TaxCalculator;
 import nl.smartworkx.admin.model.financialfact.TaxRate;
 
 /**
  *
  */
 @Component
-public class NsProposalCreator extends PayedFromBankWithVatProposalCreator {
+public class NsPinPaymentProposalCreator extends PayedFromBankWithVatProposalCreator {
 
     @Override
     protected String descriptionContains() {
@@ -16,7 +15,7 @@ public class NsProposalCreator extends PayedFromBankWithVatProposalCreator {
     }
 
     @Override
-    protected String costLedger() {
+    protected String counterLedger() {
         return "TRAC";
     }
 

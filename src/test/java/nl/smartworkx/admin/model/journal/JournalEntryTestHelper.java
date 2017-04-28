@@ -12,4 +12,8 @@ public class JournalEntryTestHelper {
     public static JournalEntry.JournalEntryBuilder createAnonymous(Long id, Record... records) {
         return JournalEntry.builder().bookDate(DateUtils.today()).financialFactId(id).records(Arrays.asList(records));
     }
+
+    public static JournalEntry.JournalEntryBuilder createAnonymous(Record... records) {
+        return createAnonymous(1L, records);
+    }
 }

@@ -11,10 +11,11 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import nl.smartworkx.admin.adapters.ing.BankFileUploadEventHandler;
+import nl.smartworkx.admin.adapters.tax.vat.model.VatDeclaration;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 
 @SpringBootApplication
-@EnableHypermediaSupport(type = { EnableHypermediaSupport.HypermediaType.HAL})
+@EnableHypermediaSupport(type = { EnableHypermediaSupport.HypermediaType.HAL })
 public class AdminApplication extends RepositoryRestMvcConfiguration {
 
     @Value("${cross-origin-addresses}")
@@ -23,7 +24,7 @@ public class AdminApplication extends RepositoryRestMvcConfiguration {
     @Override
     public RepositoryRestConfiguration config() {
         final RepositoryRestConfiguration config = super.config();
-        config.exposeIdsFor(FinancialFact.class);
+        config.exposeIdsFor(FinancialFact.class, VatDeclaration.class);
         return config;
     }
 

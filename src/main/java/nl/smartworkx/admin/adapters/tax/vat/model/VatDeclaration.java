@@ -16,6 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Immutable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DddAggregate;
 import nl.smartworkx.admin.model.Quarter;
@@ -32,6 +36,8 @@ public class VatDeclaration implements DddAggregate {
     @Embedded
     private Quarter period;
 
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private final LocalDateTime creationDateTime;
 
     @Embedded

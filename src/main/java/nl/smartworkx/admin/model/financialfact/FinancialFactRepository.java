@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 @RepositoryRestResource(collectionResourceRel = "financial-facts", path = "financial-facts")
 public interface FinancialFactRepository extends CrudRepository<FinancialFact, Long> {
-    @Query("select ff from FinancialFact ff where not exists (select je from JournalEntry je where je.financialFactId = ff.id)")
+    @Query("select ff from FinancialFact ff where not exists (select je from JournalEntry je where je.financialFactId = ff.id) order by ff.valueDate")
     List<FinancialFact> findNonJournalizedFinancialFacts();
 }

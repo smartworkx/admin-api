@@ -1,6 +1,6 @@
 package nl.smartworkx.admin.mt940;
 
-import nl.smartworkx.admin.application.CreateFinancialFactService;
+import nl.smartworkx.admin.model.financialfact.CreateFinancialFactService;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 

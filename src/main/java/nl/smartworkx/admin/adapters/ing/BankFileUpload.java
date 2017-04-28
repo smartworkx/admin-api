@@ -11,6 +11,10 @@ import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Type;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import nl.smartworkx.admin.model.time.DateUtils;
 import nl.smartworkx.admin.model.DddDomainEvent;
 
@@ -25,6 +29,8 @@ public class BankFileUpload implements DddDomainEvent {
     @SequenceGenerator(name = "bank_file_upload", sequenceName = "bank_file_upload_id_seq")
     private Long id;
 
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime creationDateTime;
 
     @Lob

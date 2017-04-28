@@ -12,8 +12,9 @@ import nl.smartworkx.admin.model.financialfact.TaxRate;
 import nl.smartworkx.admin.model.journal.LedgerRepository;
 
 public class ProposalUtils {
-    static List<RecordFormLine> createRecordsFromBankWithVat(LedgerRepository ledgerRepository, Amount amountVatIncluded, TaxRate taxRate, String ledgerCode) {
-        final Amount amountVat = amountVatIncluded.calculateIncVat(taxRate);
+    public static List<RecordFormLine> createRecordsFromBankWithVat(LedgerRepository ledgerRepository, Amount amountVatIncluded, TaxRate taxRate, String
+            ledgerCode) {
+        final Amount amountVat = amountVatIncluded.calculateVatForAmountWithVatIncluded(taxRate);
         final Amount amountExVat = amountVatIncluded.subtract(amountVat);
         return RecordsBuilder.builder(ledgerRepository)
                 .add(ledgerCode, DEBIT, amountExVat)
@@ -22,7 +23,7 @@ public class ProposalUtils {
                 .build();
     }
 
-    static List<RecordFormLine> createRecordsFromBank(LedgerRepository ledgerRepository, Amount amount, String ledgerCode) {
+    public static List<RecordFormLine> createRecordsFromBank(LedgerRepository ledgerRepository, Amount amount, String ledgerCode) {
         return builder(ledgerRepository)
                 .add(ledgerCode, DEBIT, amount)
                 .add("BANK", CREDIT, amount)

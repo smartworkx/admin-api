@@ -17,7 +17,7 @@ import com.google.common.collect.Lists;
 import com.prowidesoftware.swift.model.field.Field61;
 import com.prowidesoftware.swift.model.field.Field86;
 import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
-import nl.smartworkx.admin.application.CreateFinancialFactService;
+import nl.smartworkx.admin.model.financialfact.CreateFinancialFactService;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
