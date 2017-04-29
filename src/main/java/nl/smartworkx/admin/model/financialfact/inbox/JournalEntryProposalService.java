@@ -39,9 +39,9 @@ public class JournalEntryProposalService {
         final Amount amount = new Amount(parameters.getAmount());
         if (parameters.getType().equals(ProposalType.COSTS)) {
             if (parameters.getTaxRate() != null) {
-                return ProposalUtils.createRecordsFromBankWithVat(ledgerRepository, amount, parameters.getTaxRate(), null);
+                return ProposalUtils.createRecordsToCredWithVat(ledgerRepository, amount, parameters.getTaxRate(), null);
             } else {
-                return ProposalUtils.createRecordsFromBank(ledgerRepository, amount, null);
+                return ProposalUtils.createRecordsToCred(ledgerRepository, amount, null);
             }
         } else if (parameters.getType() == ProposalType.PRIVATE) {
             return ProposalUtils.createRecordsFromBank(ledgerRepository, amount, "PRIVJ");

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import nl.smartworkx.admin.adapters.ing.BankFileUploadEventHandler;
 import nl.smartworkx.admin.adapters.tax.vat.model.VatDeclaration;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
+import nl.smartworkx.admin.model.journal.JournalEntry;
 
 @SpringBootApplication
 @EnableHypermediaSupport(type = { EnableHypermediaSupport.HypermediaType.HAL })
@@ -24,7 +25,7 @@ public class AdminApplication extends RepositoryRestMvcConfiguration {
     @Override
     public RepositoryRestConfiguration config() {
         final RepositoryRestConfiguration config = super.config();
-        config.exposeIdsFor(FinancialFact.class, VatDeclaration.class);
+        config.exposeIdsFor(FinancialFact.class, VatDeclaration.class, JournalEntry.class);
         return config;
     }
 

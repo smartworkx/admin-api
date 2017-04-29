@@ -9,7 +9,9 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.experimental.Builder;
@@ -34,8 +36,12 @@ public class JournalEntry implements DddAggregate {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime creationDateTime;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate bookDate;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate valueDate;
 
     private Long financialFactId;
