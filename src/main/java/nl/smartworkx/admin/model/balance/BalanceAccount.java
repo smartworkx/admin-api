@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.Immutable;
 import nl.smartworkx.admin.model.Amount;
-import nl.smartworkx.admin.model.journal.Ledger;
+import nl.smartworkx.admin.model.ledger.Ledger;
 
 /**
  *

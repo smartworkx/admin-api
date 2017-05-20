@@ -6,11 +6,9 @@ import nl.smartworkx.admin.FinancialFactTestHelper;
 import nl.smartworkx.admin.JournalEntryServiceTestHelper;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
-import nl.smartworkx.admin.model.financialfact.TaxRate;
-import nl.smartworkx.admin.model.journal.Ledger;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
+import nl.smartworkx.admin.model.ledger.Ledger;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 import nl.smartworkx.admin.model.time.ClockHolder;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

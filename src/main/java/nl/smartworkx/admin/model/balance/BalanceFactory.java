@@ -3,11 +3,11 @@ package nl.smartworkx.admin.model.balance;
 import static nl.smartworkx.admin.model.journal.Record.sum;
 
 import nl.smartworkx.admin.model.journal.*;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
+import nl.smartworkx.admin.model.time.DatePeriod;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,7 +32,7 @@ public class BalanceFactory {
     public Balance create(LocalDate date, String description) {
         Balance previousBalance = balanceRepository.findPreviousBalance(date);
 
-        Set<JournalEntryFinancialFact> journalEntriesByDate = journalEntryRepository.findJournalEntriesByDate(previousBalance.getDate(), date);
+        Set<JournalEntryFinancialFact> journalEntriesByDate = journalEntryRepository.findJournalEntriesByDate(new DatePeriod(previousBalance.getDate(), date));
 
         JournalEntryCalculator calculator = new JournalEntryCalculator(ledgerRepository, journalEntriesByDate);
 

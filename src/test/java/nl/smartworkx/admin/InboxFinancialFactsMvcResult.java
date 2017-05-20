@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.springframework.test.web.servlet.ResultActions;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
-import nl.smartworkx.admin.model.journal.Ledger;
+import nl.smartworkx.admin.model.ledger.Ledger;
 
 /**
  *

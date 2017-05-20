@@ -2,11 +2,10 @@ package nl.smartworkx.admin.model.balance;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 import nl.smartworkx.admin.model.DddAggregate;
-import nl.smartworkx.admin.model.journal.Ledger;
+import nl.smartworkx.admin.model.ledger.Ledger;
 import nl.smartworkx.admin.model.time.DateUtils;
 
 import javax.persistence.*;

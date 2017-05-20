@@ -10,8 +10,8 @@ import nl.smartworkx.admin.InboxFinancialFactsMvcResult;
 import features.glue.shared.KnowsTheFinancialFact;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
-import nl.smartworkx.admin.model.journal.Ledger;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
+import nl.smartworkx.admin.model.ledger.Ledger;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 /**
  *

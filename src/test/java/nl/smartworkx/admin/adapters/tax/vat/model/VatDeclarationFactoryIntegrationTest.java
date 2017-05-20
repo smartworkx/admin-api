@@ -9,7 +9,7 @@ import nl.smartworkx.admin.FinancialFactServiceTestHelper;
 import nl.smartworkx.admin.FinancialFactTestHelper;
 import nl.smartworkx.admin.JournalEntryServiceTestHelper;
 import nl.smartworkx.admin.model.Amount;
-import nl.smartworkx.admin.model.Quarter;
+import nl.smartworkx.admin.model.time.Quarter;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.time.ClockHolder;
 

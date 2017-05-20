@@ -1,6 +1,10 @@
 package nl.smartworkx.admin.model.financialfact.inbox;
 
-import java.util.Collections;
+import static java.util.Collections.emptyList;
+import static nl.smartworkx.admin.model.financialfact.inbox.ProposalUtils.createRecordsFromBank;
+import static nl.smartworkx.admin.model.financialfact.inbox.ProposalUtils.createRecordsToCred;
+import static nl.smartworkx.admin.model.financialfact.inbox.ProposalUtils.createRecordsToCredWithVat;
+
 import java.util.List;
 import java.util.Set;
 
@@ -9,7 +13,7 @@ import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.financialfact.inbox.proposalcreator.ProposalCreator;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 /**
  *
@@ -32,23 +36,23 @@ public class JournalEntryProposalService {
                 .findFirst()
                 .map(proposalCreator -> proposalCreator
                         .create(financialFact))
-                .orElse(Collections.emptyList());
+                .orElse(emptyList());
     }
 
     public List<RecordFormLine> createProposedRecords(JournalEntryProposalParameters parameters) {
         final Amount amount = new Amount(parameters.getAmount());
         if (parameters.getType().equals(ProposalType.COSTS)) {
             if (parameters.getTaxRate() != null) {
-                return ProposalUtils.createRecordsToCredWithVat(ledgerRepository, amount, parameters.getTaxRate(), null);
+                return createRecordsToCredWithVat(ledgerRepository, amount, parameters.getTaxRate(), null);
             } else {
-                return ProposalUtils.createRecordsToCred(ledgerRepository, amount, null);
+                return createRecordsToCred(ledgerRepository, amount, null);
             }
         } else if (parameters.getType() == ProposalType.PRIVATE) {
-            return ProposalUtils.createRecordsFromBank(ledgerRepository, amount, "PRIVJ");
+            return createRecordsFromBank(ledgerRepository, amount, "PRIVJ");
         } else if (parameters.getType() == ProposalType.CREDIT) {
-            return ProposalUtils.createRecordsFromBank(ledgerRepository, amount, "CRED");
+            return createRecordsFromBank(ledgerRepository, amount, "CRED");
         } else {
-            return Collections.emptyList();
+            return emptyList();
         }
     }
 }

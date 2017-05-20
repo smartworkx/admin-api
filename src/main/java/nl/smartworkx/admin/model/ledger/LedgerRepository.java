@@ -1,4 +1,6 @@
-package nl.smartworkx.admin.model.journal;
+package nl.smartworkx.admin.model.ledger;
+
+import java.util.stream.Stream;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -20,4 +22,6 @@ public interface LedgerRepository extends CrudRepository<Ledger, Long> {
 	 * @return the ledger for the code
 	 */
 	Ledger findByCode(String code);
+
+	Stream<Ledger> findAllBy();
 }

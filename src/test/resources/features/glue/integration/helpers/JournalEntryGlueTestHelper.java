@@ -48,6 +48,6 @@ public class JournalEntryGlueTestHelper {
     }
 
     public void createJournalEntry(FinancialFact current) {
-        serviceTestHelper.createJournalEntry(current);
+        serviceTestHelper.createCostJournalEntry(current, "23.00", "TELC");
     }
 }

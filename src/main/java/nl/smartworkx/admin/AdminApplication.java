@@ -14,7 +14,7 @@ import nl.smartworkx.admin.adapters.ing.BankFileUploadEventHandler;
 import nl.smartworkx.admin.adapters.tax.vat.model.VatDeclaration;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.journal.JournalEntry;
-import nl.smartworkx.admin.model.journal.Ledger;
+import nl.smartworkx.admin.model.ledger.Ledger;
 
 @SpringBootApplication
 @EnableHypermediaSupport(type = { EnableHypermediaSupport.HypermediaType.HAL })

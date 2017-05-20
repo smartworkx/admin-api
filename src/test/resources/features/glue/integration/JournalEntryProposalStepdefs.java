@@ -13,7 +13,7 @@ import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.financialfact.inbox.JournalEntryProposalService;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 /**
  *

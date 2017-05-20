@@ -2,6 +2,7 @@ package nl.smartworkx.admin.model.journal;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import javax.money.MonetaryAmount;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -57,6 +58,11 @@ public class Record {
 
     public static Amount sum(List<Record> records) {
         return records.stream().map(Record::getAmount).reduce(Amount.ZERO, Amount::add);
+    }
+
+    public static Amount sum(Stream<Record> records) {
+        return new Amount(records.map(record -> record.getAmount().getValue())
+                .reduce(BigDecimal.ZERO, BigDecimal::add), Amount.DEFAULT_CURRENCY_CODE);
     }
 
     @SuppressWarnings("WeakerAccess")

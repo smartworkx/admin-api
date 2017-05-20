@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
-import nl.smartworkx.admin.model.journal.Ledger;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
+import nl.smartworkx.admin.model.ledger.Ledger;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 /**
  *

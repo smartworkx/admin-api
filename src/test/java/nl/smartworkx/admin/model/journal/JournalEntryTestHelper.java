@@ -1,16 +1,22 @@
 package nl.smartworkx.admin.model.journal;
 
-import java.time.LocalDate;
-import java.util.Arrays;
+import static java.util.Arrays.asList;
+import static nl.smartworkx.admin.model.time.DateUtils.today;
 
-import nl.smartworkx.admin.model.time.DateUtils;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
  */
 public class JournalEntryTestHelper {
     public static JournalEntry.JournalEntryBuilder createAnonymous(Long id, Record... records) {
-        return JournalEntry.builder().bookDate(DateUtils.today()).financialFactId(id).records(Arrays.asList(records));
+        return createAnonymous(id, asList(records));
+    }
+
+    public static JournalEntry.JournalEntryBuilder createAnonymous(Long id, List<Record> records) {
+        return JournalEntry.builder().financialFactId(id).records(records).valueDate
+                (today());
     }
 
     public static JournalEntry.JournalEntryBuilder createAnonymous(Record... records) {

@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model.journal;
+package nl.smartworkx.admin.model.ledger;
 
 /**
  * @author Joris Wijlens

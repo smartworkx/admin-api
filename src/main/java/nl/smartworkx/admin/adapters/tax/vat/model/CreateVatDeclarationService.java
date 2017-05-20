@@ -1,7 +1,7 @@
 package nl.smartworkx.admin.adapters.tax.vat.model;
 
 import org.springframework.stereotype.Service;
-import nl.smartworkx.admin.model.Quarter;
+import nl.smartworkx.admin.model.time.Quarter;
 
 @Service
 public class CreateVatDeclarationService {

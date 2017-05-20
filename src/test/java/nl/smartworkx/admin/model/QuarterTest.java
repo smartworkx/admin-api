@@ -5,8 +5,8 @@ import static org.junit.Assert.assertThat;
 import java.time.LocalDate;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
+import nl.smartworkx.admin.model.time.Quarter;
 
 /**
  * @author Joris Wijlens

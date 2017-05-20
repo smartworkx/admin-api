@@ -3,13 +3,10 @@ package nl.smartworkx.admin.model.financialfact.inbox;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.money.MonetaryAmount;
-
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DebitCredit;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
-import nl.smartworkx.admin.model.journal.Record;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 /**
  *

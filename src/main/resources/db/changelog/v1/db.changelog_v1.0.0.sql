@@ -141,3 +141,74 @@ INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (7, 1,
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (8, 1, 0, 'EUR');
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (9, 1, 0, 'EUR');
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (16, 1, 0, 'EUR');
+
+--changeset joriswijlens:#1-12 Profit and loss
+ALTER TABLE ledger
+  ADD COLUMN profit_and_loss_heading VARCHAR(64);
+
+UPDATE ledger
+SET (profit_and_loss_heading) = ('OTHER_COSTS')
+WHERE code = 'ITC';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('OTHER_COSTS')
+WHERE code = 'TRAC';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('OTHER_COSTS')
+WHERE code = 'COSTS';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('OTHER_COSTS')
+WHERE code = 'TELC';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('OTHER_COSTS')
+WHERE code = 'EDUC';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('OTHER_COSTS')
+WHERE code = 'INSU';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('INTEREST')
+WHERE code = 'INT';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('TURNOVER')
+WHERE code = 'TOJ';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('TURNOVER')
+WHERE code = 'TOL';
+UPDATE ledger
+SET (profit_and_loss_heading) = ('TURNOVER')
+WHERE code = 'TOS';
+
+CREATE TABLE profit_and_loss_statement
+(
+  id                 BIGSERIAL PRIMARY KEY NOT NULL,
+  creation_date_time TIMESTAMP             NOT NULL,
+  start_date         DATE,
+  end_date           DATE,
+  description        VARCHAR(512),
+  amount             NUMERIC(19, 2),
+  currency           CHAR(3)
+);
+
+CREATE TABLE profit_and_loss_heading
+(
+  id                           BIGSERIAL PRIMARY KEY NOT NULL,
+  name                         VARCHAR(64),
+  profit_and_loss_statement_id BIGINT,
+  CONSTRAINT fk_profit_and_loss_heading FOREIGN KEY (profit_and_loss_statement_id) REFERENCES ledger (id)
+);
+
+--changeset joriswijlens:#1-13 Grants
+GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
+
+--changeset joriswijlens:#1-14 Grants
+
+CREATE TABLE profit_and_loss_heading_record
+(
+  profit_and_loss_heading_id BIGINT NOT NULL,
+  record_id                  BIGINT NOT NULL
+);
+
+GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
+
+

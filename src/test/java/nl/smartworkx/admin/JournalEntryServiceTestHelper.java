@@ -11,8 +11,9 @@ import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.journal.JournalEntry;
 import nl.smartworkx.admin.model.journal.JournalEntryRepository;
 import nl.smartworkx.admin.model.journal.JournalEntryTestHelper;
-import nl.smartworkx.admin.model.journal.Ledger;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
+import nl.smartworkx.admin.model.ledger.Ledger;
+import nl.smartworkx.admin.model.ledger.LedgerCode;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 import nl.smartworkx.admin.model.journal.Record;
 
 /**
@@ -42,25 +43,26 @@ public class JournalEntryServiceTestHelper {
         Amount totalAmount = vatAmount.add(amountExVat);
         Ledger deductedVatLedger = ledgerRepository.findByCode("VATS");
         Record deductedVatRecord = new Record(deductedVatLedger.getId(), DebitCredit.DEBIT, vatAmount);
-        Ledger toJoriesLedger = ledgerRepository.findByCode("TOJ");
-        Record telephoneCostRecord = new Record(toJoriesLedger.getId(), DebitCredit.CREDIT, amountExVat);
-        Ledger bankLedger = ledgerRepository.findByCode("DEB");
-        Record bankRecord = new Record(bankLedger.getId(), DebitCredit.DEBIT, amountExVat.add(totalAmount));
+        Ledger toJorisLedger = ledgerRepository.findByCode("TOJ");
+        Record toJorisRecord = new Record(toJorisLedger.getId(), DebitCredit.CREDIT, amountExVat);
+        Ledger debtorLedger = ledgerRepository.findByCode("DEB");
+        Record debtorRecord = new Record(debtorLedger.getId(), DebitCredit.DEBIT, amountExVat.add(totalAmount));
 
-        JournalEntry journalEntry = JournalEntryTestHelper.createAnonymous(financialFactId, bankRecord, telephoneCostRecord, deductedVatRecord).build();
+        JournalEntry journalEntry = JournalEntryTestHelper.createAnonymous(financialFactId, debtorRecord, toJorisRecord, deductedVatRecord)
+                .build();
         repository.save(journalEntry);
         return journalEntry;
 
     }
 
     public JournalEntry createIncomingInvoiceJournalEntry(final Long financialFactId, final double taxRate,
-             final String amount) {
+            final String amount) {
 
         Amount amountExVat = new Amount(amount);
         final Amount vatAmount = amountExVat.calculateExVat(taxRate);
         Amount totalAmount = vatAmount.add(amountExVat);
         // Use record builder
-        Record deductedVatRecord = createRecord("DVAT", DebitCredit.DEBIT, vatAmount);
+        Record deductedVatRecord = createRecord(LedgerCode.DVAT, DebitCredit.DEBIT, vatAmount);
         Record telephoneCostRecord = createRecord("TELC", DebitCredit.CREDIT, amountExVat);
         Record bankRecord = createRecord("BANK", DebitCredit.CREDIT, amountExVat.add(totalAmount));
 
@@ -74,20 +76,32 @@ public class JournalEntryServiceTestHelper {
         return new Record(ledger.getId(), debitCredit, amount);
     }
 
-    public JournalEntry createJournalEntry(FinancialFact financialFact) {
-        Ledger deductedVatLedger = ledgerRepository.findByCode("DVAT");
-        Ledger telephoneCostsLedger = ledgerRepository.findByCode("TELC");
-        Ledger bankLedger = ledgerRepository.findByCode("BANK");
-        Amount amountExVat = new Amount("23.00");
+    public JournalEntry createCostJournalEntry(FinancialFact financialFact, String amount, String ledgerCode) {
+        Ledger deductedVatLedger = ledgerRepository.findByCode(LedgerCode.DVAT);
+        Ledger telephoneCostsLedger = ledgerRepository.findByCode(ledgerCode);
+        Ledger bankLedger = ledgerRepository.findByCode("CRED");
+        Amount amountExVat = new Amount(amount);
         final Amount vatAmount = amountExVat.calculateExVat(HIGH);
         Amount totalAmount = vatAmount.add(amountExVat);
         Record deductedVatRecord = new Record(deductedVatLedger.getId(), DebitCredit.DEBIT, vatAmount);
-        Record telephoneCostRecord = new Record(telephoneCostsLedger.getId(), DebitCredit.CREDIT, amountExVat);
-        Record bankRecord = new Record(bankLedger.getId(), DebitCredit.CREDIT, amountExVat.add(totalAmount));
+        Record costRecord = new Record(telephoneCostsLedger.getId(), DebitCredit.CREDIT, amountExVat);
+        Record creditRecord = new Record(bankLedger.getId(), DebitCredit.CREDIT, amountExVat.add(totalAmount));
 
-        JournalEntry journalEntry = JournalEntryTestHelper.createAnonymous(financialFact.getId(), deductedVatRecord, telephoneCostRecord, bankRecord).build();
+        JournalEntry journalEntry = JournalEntryTestHelper.createAnonymous(financialFact.getId(), deductedVatRecord, costRecord, creditRecord).build();
 
         return repository.save(journalEntry);
     }
+
+    public JournalEntry createDebtorPaymentJournalEntry(Long financialFactId, Amount amount) {
+        Ledger bankLedger = ledgerRepository.findByCode("BANK");
+        Ledger debtorLedger = ledgerRepository.findByCode("DEB");
+        Record debtorRecord = new Record(debtorLedger.getId(), DebitCredit.CREDIT, amount);
+        Record bankRecord = new Record(bankLedger.getId(), DebitCredit.DEBIT, amount);
+
+        JournalEntry journalEntry = JournalEntryTestHelper.createAnonymous(financialFactId, debtorRecord, bankRecord).build();
+
+        return repository.save(journalEntry);
+    }
+
 
 }

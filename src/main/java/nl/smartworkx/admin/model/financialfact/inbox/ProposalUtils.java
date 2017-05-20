@@ -9,8 +9,8 @@ import java.util.List;
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.TaxRate;
-import nl.smartworkx.admin.model.journal.LedgerCode;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
+import nl.smartworkx.admin.model.ledger.LedgerCode;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 public class ProposalUtils {
     public static List<RecordFormLine> createRecordsFromBankWithVat(LedgerRepository ledgerRepository, Amount amountVatIncluded, TaxRate taxRate, String

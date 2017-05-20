@@ -1,8 +1,9 @@
-package nl.smartworkx.admin.model.journal;
+package nl.smartworkx.admin.model.ledger;
 
 import javax.persistence.*;
 
 import nl.smartworkx.admin.model.balance.BalanceHeadingName;
+import nl.smartworkx.admin.model.profitandlossstatement.ProfitAndLossHeadingName;
 import org.hibernate.annotations.Immutable;
 
 /**
@@ -27,22 +28,20 @@ public class Ledger {
 	@Enumerated(EnumType.STRING)
 	private BalanceHeadingName balanceHeading;
 
+	@Enumerated(EnumType.STRING)
+	private ProfitAndLossHeadingName profitAndLossHeading;
 
 	public String getName() {
-
 		return name;
 	}
 
 	public Long getId() {
-
 		return id;
 	}
 
 	public String getCode() {
-
 		return code;
 	}
-
 
 	@SuppressWarnings("WeakerAccess")
 	public BalanceHeadingName getBalanceHeading() {
@@ -70,5 +69,13 @@ public class Ledger {
 	@Override
 	public int hashCode() {
 		return code.hashCode();
+	}
+
+	public ProfitAndLossHeadingName getProfitAndLossHeading() {
+		return profitAndLossHeading;
+	}
+
+	public boolean shouldShowOnProfitAndLossStatement() {
+		return getProfitAndLossHeading() != null;
 	}
 }

@@ -22,7 +22,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DddAggregate;
-import nl.smartworkx.admin.model.Quarter;
+import nl.smartworkx.admin.model.time.Quarter;
 import nl.smartworkx.admin.model.time.DateUtils;
 
 @Entity

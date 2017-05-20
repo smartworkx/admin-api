@@ -1,7 +1,11 @@
 package nl.smartworkx.admin.model.journal;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
+
+import nl.smartworkx.admin.model.ledger.Ledger;
+import nl.smartworkx.admin.model.time.DatePeriod;
 
 /**
  * @author Joris Wijlens
@@ -10,5 +14,6 @@ import java.util.Set;
  */
 public interface JournalEntryRepositoryCustom {
 
-	Set<JournalEntryFinancialFact> findJournalEntriesByDate(LocalDate firstDay, LocalDate lastDay);
+	Set<JournalEntryFinancialFact> findJournalEntriesByDate(DatePeriod datePeriod);
+
 }

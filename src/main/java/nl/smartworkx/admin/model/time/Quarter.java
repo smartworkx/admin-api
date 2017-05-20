@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model;
+package nl.smartworkx.admin.model.time;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -9,7 +9,7 @@ import java.time.YearMonth;
  * @version 1.0
  * @since 1.0
  */
-public class Quarter {
+public class Quarter{
 	private Integer year;
 
 	private Integer quarter;
@@ -53,5 +53,9 @@ public class Quarter {
 	public LocalDate getLastDay() {
 
 		return getLastMonth().atEndOfMonth();
+	}
+
+	public DatePeriod getPeriod(){
+		return new DatePeriod(getFirstDay(),getLastDay());
 	}
 }

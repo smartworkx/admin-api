@@ -1,6 +1,5 @@
 package nl.smartworkx.admin.adapters.tax.vat.interfaces.web.vatdeclaration;
 
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import nl.smartworkx.admin.adapters.tax.vat.model.CreateVatDeclarationService;
 import nl.smartworkx.admin.adapters.tax.vat.model.VatDeclaration;
-import nl.smartworkx.admin.model.Quarter;
+import nl.smartworkx.admin.model.time.Quarter;
 
 @RestController
 @RequestMapping("/vat-declaration-created-events")

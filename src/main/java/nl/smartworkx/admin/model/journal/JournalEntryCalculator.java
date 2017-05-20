@@ -4,13 +4,14 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toSet;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.ledger.Ledger;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 public class JournalEntryCalculator {
     private LedgerRepository ledgerRepository;
@@ -22,12 +23,11 @@ public class JournalEntryCalculator {
     }
 
     public Amount sum(String name) {
-        return new Amount(getRecords(name).map(record -> record.getAmount().getValue())
-                .reduce(BigDecimal.ZERO, BigDecimal::add), Amount.DEFAULT_CURRENCY_CODE);
+        final Stream<Record> records = getRecords(name);
+        return Record.sum(records);
     }
 
     private Stream<Record> getRecords(String name) {
-
         return getJournalEntryStream()
                 .flatMap(je -> je.getRecords().stream())
                 .filter(r -> r.hasLedger(ledgerCodeToId(name)));

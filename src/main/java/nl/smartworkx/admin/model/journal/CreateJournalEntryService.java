@@ -1,7 +1,5 @@
 package nl.smartworkx.admin.model.journal;
 
-import static nl.smartworkx.admin.model.time.DateUtils.today;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +7,7 @@ import org.springframework.stereotype.Service;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.financialfact.FinancialFactRepository;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 /**
  * Created by joris on 28-4-17.

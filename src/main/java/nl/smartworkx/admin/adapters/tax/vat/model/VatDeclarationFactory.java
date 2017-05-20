@@ -1,11 +1,10 @@
 package nl.smartworkx.admin.adapters.tax.vat.model;
 
 import static java.util.stream.Collectors.toSet;
-import static nl.smartworkx.admin.model.journal.LedgerCode.DVAT;
-import static nl.smartworkx.admin.model.journal.LedgerCode.VATS;
+import static nl.smartworkx.admin.model.ledger.LedgerCode.DVAT;
+import static nl.smartworkx.admin.model.ledger.LedgerCode.VATS;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +12,8 @@ import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.journal.JournalEntryCalculator;
 import nl.smartworkx.admin.model.journal.JournalEntryFinancialFact;
 import nl.smartworkx.admin.model.journal.JournalEntryRepository;
-import nl.smartworkx.admin.model.journal.LedgerCode;
-import nl.smartworkx.admin.model.Quarter;
-import nl.smartworkx.admin.model.journal.LedgerRepository;
+import nl.smartworkx.admin.model.time.Quarter;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 @Service
 public class VatDeclarationFactory {
@@ -29,16 +27,16 @@ public class VatDeclarationFactory {
         this.ledgerRepository = ledgerRepository;
     }
 
-    public VatDeclaration create(final Quarter period) {
+    public VatDeclaration create(final Quarter quarter) {
 
         Set<JournalEntryFinancialFact> entries = journalEntryRepository
-                .findJournalEntriesByDate(period.getFirstDay(), period.getLastDay());
+                .findJournalEntriesByDate(quarter.getPeriod());
         JournalEntryCalculator calculator = new JournalEntryCalculator(ledgerRepository, entries);
 
         final Amount vatServiced = calculator.sum(VATS);
         final Amount deductedVat = calculator.sum(DVAT);
         Set<VatJournalEntry> vatJournalEntries = calculator.getJournalEntryIds(DVAT, VATS).stream().map(VatJournalEntry::new).collect
                 (toSet());
-        return new VatDeclaration(period, vatServiced, deductedVat, vatJournalEntries);
+        return new VatDeclaration(quarter, vatServiced, deductedVat, vatJournalEntries);
     }
 }
