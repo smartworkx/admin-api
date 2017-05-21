@@ -2,6 +2,7 @@ package nl.smartworkx.admin.model.balance;
 
 import static nl.smartworkx.admin.model.journal.Record.sum;
 
+import nl.smartworkx.admin.interfaces.web.BalanceCreationRequestedEvent;
 import nl.smartworkx.admin.model.journal.*;
 import nl.smartworkx.admin.model.ledger.LedgerRepository;
 import nl.smartworkx.admin.model.time.DatePeriod;
@@ -41,5 +42,9 @@ public class BalanceFactory {
                 .getKey(), sum(e
                 .getValue()))).collect(Collectors.toSet());
         return new Balance(date, description, balanceAccounts);
+    }
+
+    public Balance create(BalanceCreationRequestedEvent event) {
+        return create(event.getDate(), event.getDescription());
     }
 }
