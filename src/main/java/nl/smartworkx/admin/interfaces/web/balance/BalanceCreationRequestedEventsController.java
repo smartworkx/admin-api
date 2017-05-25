@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.interfaces.web;
+package nl.smartworkx.admin.interfaces.web.balance;
 
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
-import nl.smartworkx.admin.model.balance.Balance;
-import nl.smartworkx.admin.model.balance.BalanceFactory;
+import nl.smartworkx.admin.model.balance.BalanceDetails;
+import nl.smartworkx.admin.model.balance.CreateBalanceService;
 
 /**
  * Created by joris on 21-5-17.
@@ -19,13 +19,13 @@ import nl.smartworkx.admin.model.balance.BalanceFactory;
 @RequestMapping("balance-creation-requested-events")
 public class BalanceCreationRequestedEventsController {
 
-    private BalanceFactory balanceFactory;
+    private final CreateBalanceService createBalanceService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody BalanceCreationRequestedEvent event) {
 
-        Balance balance = balanceFactory.create(event);
-
-        return new ResponseEntity<>(new Resource(balance), HttpStatus.CREATED);
+        final BalanceDetails balanceDetails = createBalanceService.createBalanceDetails(event);
+        return new ResponseEntity<>(new Resource(balanceDetails), HttpStatus.CREATED);
     }
+
 }

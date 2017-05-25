@@ -18,4 +18,8 @@ public enum BalanceHeadingName {
     BalanceHeadingName(DebitCredit debitCredit) {
         this.debitCredit = debitCredit;
     }
+
+    public DebitCredit getDebitCredit() {
+        return debitCredit;
+    }
 }

@@ -1,0 +1,14 @@
+package nl.smartworkx.admin.interfaces.web.balance;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+
+/**
+ * Created by joris on 22-5-17.
+ */
+@RestController
+@AllArgsConstructor
+@RequestMapping("balance-details")
+public class BalanceDetailsController {
+}

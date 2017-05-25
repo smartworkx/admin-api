@@ -11,6 +11,7 @@ import nl.smartworkx.admin.model.time.DateUtils;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Immutable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -64,15 +65,18 @@ public class Balance implements DddAggregate {
     }
 
     @SuppressWarnings("WeakerAccess")
+    @JsonIgnore
     public Set<BalanceAccount> getAccounts() {
         return accounts;
     }
 
-    BalanceAccount findBalanceAccountByLedger(Ledger ledger) {
+    public BalanceAccount findBalanceAccountByLedger(Ledger ledger) {
         return getAccounts().stream().filter(balanceAccount -> balanceAccount.getLedgerId().equals(ledger.getId())).findFirst().orElse(null);
     }
 
     public LocalDateTime getCreationDateTime() {
         return creationDateTime;
     }
+
+
 }
