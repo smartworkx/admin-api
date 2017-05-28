@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.journal.CreateJournalEntryService;
 import nl.smartworkx.admin.model.journal.JournalEntry;
@@ -27,18 +28,13 @@ import nl.smartworkx.admin.model.journal.Record;
 @RestController
 @RequestMapping("/journal-entry-created-events")
 @CrossOrigin
+@AllArgsConstructor
 public class JournalEntryCreatedEventController {
 
     private final CreateJournalEntryService createJournalEntryService;
 
-    public JournalEntryCreatedEventController(CreateJournalEntryService createJournalEntryService) {
-        this.createJournalEntryService = createJournalEntryService;
-    }
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody JournalEntryCreatedEvent form) {
-
-
         return new ResponseEntity<>(new Resource(createJournalEntryService.create(form)), HttpStatus.CREATED);
     }
 

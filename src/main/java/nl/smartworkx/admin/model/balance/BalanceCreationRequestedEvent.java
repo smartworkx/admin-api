@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.interfaces.web.balance;
+package nl.smartworkx.admin.model.balance;
 
 import java.time.LocalDate;
 

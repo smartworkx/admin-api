@@ -23,7 +23,7 @@ import nl.smartworkx.admin.model.time.DateUtils;
 /**
  * Created by joris on 16-5-17.
  */
-public class CreateProfitAndLossStatementServiceIntegrationTest extends AbstractIntegrationTest{
+public class CreateProfitAndLossStatementServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     private CreateProfitAndLossStatementService createProfitAndLossStatementService;
@@ -35,7 +35,7 @@ public class CreateProfitAndLossStatementServiceIntegrationTest extends Abstract
     private FinancialFactServiceTestHelper financialFactServiceTestHelper;
 
     @Test
-    public void createProfitAndLossAccount(){
+    public void createProfitAndLossAccount() {
 
         final String feb2 = "2015-02-02";
         ClockHolder.setClock(feb2);
@@ -58,9 +58,10 @@ public class CreateProfitAndLossStatementServiceIntegrationTest extends Abstract
 
         ClockHolder.resetClock();
 
-        DatePeriod period = new DatePeriod(DateUtils.toDate("2015-01-01"),DateUtils.toDate("2015-12-31"));
+        DatePeriod period = new DatePeriod(DateUtils.toDate("2015-01-01"), DateUtils.toDate("2015-12-31"));
 
-        final ProfitAndLossStatement profitAndLossStatement = createProfitAndLossStatementService.create(period);
+        final ProfitAndLossStatement profitAndLossStatement = createProfitAndLossStatementService.create(new ProfitAndLossStatementCreationRequestedEvent
+                (period, ""));
 
         final List<ProfitAndLossHeading> headings = profitAndLossStatement.getHeadings();
         assertThat(headings.size()).isEqualTo(3);
@@ -72,7 +73,6 @@ public class CreateProfitAndLossStatementServiceIntegrationTest extends Abstract
         assertThat(otherCostsHeading.get().getAmount()).isEqualTo(new Amount("14.00"));
 
         assertThat(profitAndLossStatement.getProfit()).isEqualTo(new Amount("7.00"));
-
 
 
     }

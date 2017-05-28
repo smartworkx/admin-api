@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
 import nl.smartworkx.admin.model.financialfact.inbox.JournalEntryProposalParameters;
 import nl.smartworkx.admin.model.financialfact.inbox.JournalEntryProposalService;
 
@@ -19,19 +20,13 @@ import nl.smartworkx.admin.model.financialfact.inbox.JournalEntryProposalService
 @RestController
 @RequestMapping("/journal-entry-proposals")
 @CrossOrigin
+@AllArgsConstructor
 public class JournalEntryProposalsController {
 
     private final JournalEntryProposalService journalEntryProposalService;
 
-    public JournalEntryProposalsController(JournalEntryProposalService journalEntryProposalService) {
-        this.journalEntryProposalService = journalEntryProposalService;
-    }
-
-
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity create(JournalEntryProposalParameters parameters) {
-
-
         return new ResponseEntity<>(new Resources<>(journalEntryProposalService.createProposedRecords(parameters)), HttpStatus.CREATED);
     }
 

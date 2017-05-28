@@ -4,7 +4,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
-import nl.smartworkx.admin.interfaces.web.balance.BalanceCreationRequestedEvent;
 import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 @Service

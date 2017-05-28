@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import nl.smartworkx.admin.model.journal.JournalEntryCalculator;
@@ -31,7 +33,9 @@ public class CreateProfitAndLossStatementService {
 
     private final ProfitAndLossStatementRepository profitAndLossStatementRepository;
 
-    public ProfitAndLossStatement create(DatePeriod period) {
+    @Transactional
+    public ProfitAndLossStatement create(ProfitAndLossStatementCreationRequestedEvent event) {
+        DatePeriod period = event.getPeriod();
         final Set<JournalEntryFinancialFact> journalEntryFinancialFacts = journalEntryRepository.findJournalEntriesByDate(period);
 
         JournalEntryCalculator calculator = new JournalEntryCalculator(ledgerRepository, journalEntryFinancialFacts);
@@ -47,8 +51,6 @@ public class CreateProfitAndLossStatementService {
                 }).collect(toList());
 
         final ProfitAndLossStatement profitAndLossStatement = new ProfitAndLossStatement(period, profitAndLossHeadings, "");
-
-        profitAndLossStatementRepository.save(profitAndLossStatement);
 
         return profitAndLossStatement;
     }

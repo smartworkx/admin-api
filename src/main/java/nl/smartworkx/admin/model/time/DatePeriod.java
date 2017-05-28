@@ -5,6 +5,14 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import nl.smartworkx.admin.model.DddValueObject;
 
 /**
@@ -13,14 +21,19 @@ import nl.smartworkx.admin.model.DddValueObject;
 @Embeddable
 public class DatePeriod implements DddValueObject {
     @Column(name = "start_date")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate start;
     @Column(name = "end_date")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate end;
 
     public DatePeriod() {
     }
 
-    public DatePeriod(LocalDate start, LocalDate end) {
+    @JsonCreator
+    public DatePeriod(@JsonProperty("start") LocalDate start, @JsonProperty("end") LocalDate end) {
         this.start = start;
         this.end = end;
     }

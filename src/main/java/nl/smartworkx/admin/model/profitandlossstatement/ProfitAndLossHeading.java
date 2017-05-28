@@ -1,6 +1,7 @@
 package nl.smartworkx.admin.model.profitandlossstatement;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import org.hibernate.annotations.Immutable;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DddEntity;
+import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.journal.Record;
 
 
@@ -58,5 +60,13 @@ public class ProfitAndLossHeading implements DddEntity{
 
     public Amount getAmount(){
         return Record.sum(records);
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public DebitCredit getDebitCredit(){
+        return name.getDebitCredit();
     }
 }
