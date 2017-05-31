@@ -12,6 +12,7 @@ import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import nl.smartworkx.admin.adapters.ing.BankFileUploadEventHandler;
 import nl.smartworkx.admin.adapters.tax.vat.model.VatDeclaration;
+import nl.smartworkx.admin.model.balance.Balance;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
 import nl.smartworkx.admin.model.journal.JournalEntry;
 import nl.smartworkx.admin.model.ledger.Ledger;
@@ -26,7 +27,7 @@ public class AdminApplication extends RepositoryRestMvcConfiguration {
     @Override
     public RepositoryRestConfiguration config() {
         final RepositoryRestConfiguration config = super.config();
-        config.exposeIdsFor(FinancialFact.class, VatDeclaration.class, JournalEntry.class, Ledger.class);
+        config.exposeIdsFor(Balance.class,FinancialFact.class, VatDeclaration.class, JournalEntry.class, Ledger.class);
         return config;
     }
 

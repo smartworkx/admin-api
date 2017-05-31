@@ -8,14 +8,19 @@ import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class CreateBalanceService {
+    private final BalanceRepository balanceRepository;
     BalanceFactory balanceFactory;
     LedgerRepository ledgerRepository;
 
-    @Transactional
     public BalanceDetails createBalanceDetails(BalanceCreationRequestedEvent event) {
         Balance balance = balanceFactory.create(event);
 
         return new BalanceDetails(ledgerRepository, balance);
+    }
+
+    public BalanceDetails createBalanceDetails(Long id) {
+        return new BalanceDetails(ledgerRepository, balanceRepository.findOne(id));
     }
 }
