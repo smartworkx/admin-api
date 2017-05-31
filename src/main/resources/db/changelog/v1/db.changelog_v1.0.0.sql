@@ -211,4 +211,19 @@ CREATE TABLE profit_and_loss_heading_record
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO "admin-api";
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 
+--changeset joriswijlens:#1-15 Update opening balance 2014
+UPDATE ledger SET balance_heading = null where id = 7;
+DELETE FROM balance_account WHERE id in (7,8,9);
+DELETE FROM ledger WHERE id IN (8,9);
+
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (21, 'ODR', 'Oudedagreserve', 'VENTURE_CAPITAL');
+INSERT INTO ledger (id, code, name, balance_heading) VALUES (22, 'EVM', 'Eigen vermogen', 'VENTURE_CAPITAL');
+
+UPDATE balance_account set (amount) = (15931.21) WHERE balance = 1 and ledger_id = 1;
+UPDATE balance_account set (amount) = (18763.82) WHERE balance = 1 and ledger_id = 5;
+UPDATE balance_account set (amount) = (50000) WHERE balance = 1 and ledger_id = 16;
+UPDATE balance_account set (amount) = (63818) WHERE balance = 1 and ledger_id = 21;
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (20, 1, 7562.89, 'EUR');
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (22, 1, 13314.14, 'EUR');
+
 
