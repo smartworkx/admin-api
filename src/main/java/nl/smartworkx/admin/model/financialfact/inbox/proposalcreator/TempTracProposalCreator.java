@@ -8,27 +8,26 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 import nl.smartworkx.admin.interfaces.web.journal.RecordFormLine;
-import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
-import nl.smartworkx.admin.model.financialfact.inbox.proposalcreator.AbstractProposalCreator;
+import nl.smartworkx.admin.model.financialfact.TaxRate;
 
 /**
  *
  */
 @Component
-public class PayedInvoiceProposalCreator extends AbstractProposalCreator {
+public class TempTracProposalCreator extends AbstractProposalCreator {
+
 
     @Override
     public boolean matches(FinancialFact financialFact) {
-        return descriptionContainsAny(financialFact, "first eight", "fixedtoday", "fixed today", "DELTA R", "BRAINNET BV");
+        return descriptionContainsAny(financialFact, " OV-Chipkaart","NS GROEP","Ryw Shop Stat Nym");
     }
 
     @Override
-    public List<RecordFormLine> onCreate(FinancialFact financialFact) {
-        final Amount amount = financialFact.getAmount();
+    protected List<RecordFormLine> onCreate(FinancialFact financialFact) {
         return builder(ledgerRepository)
-                .add("BANK", DEBIT, amount)
-                .add("DEB", CREDIT, amount)
+                .add("TRAC", DEBIT, financialFact.getAmount())
+                .add("BANK", CREDIT, financialFact.getAmount())
                 .build();
     }
 }

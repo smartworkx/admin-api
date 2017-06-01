@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import nl.smartworkx.admin.adapters.ing.BankFileUploadEventHandler;
 import nl.smartworkx.admin.adapters.tax.vat.model.VatDeclaration;
@@ -31,6 +33,11 @@ public class AdminApplication extends RepositoryRestMvcConfiguration {
         return config;
     }
 
+    @Bean
+    public javax.validation.Validator localValidatorFactoryBean() {
+        return new LocalValidatorFactoryBean();
+    }
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedOrigins(crossOriginAddresses);
@@ -49,4 +56,7 @@ public class AdminApplication extends RepositoryRestMvcConfiguration {
     public void addFormatters(FormatterRegistry registry) {
         super.addFormatters(registry);
     }
+
+
+
 }

@@ -1,11 +1,13 @@
 package nl.smartworkx.admin.model.journal;
 
+import static nl.smartworkx.admin.model.journal.Record.sum;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -15,7 +17,9 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.experimental.Builder;
+import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DddAggregate;
+import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.time.DateUtils;
 
 /**
@@ -62,6 +66,19 @@ public class JournalEntry implements DddAggregate {
 
         this.financialFactId = financialFactId;
         this.records = records;
+    }
+
+    @AssertTrue
+    public boolean isRecordsBalance() {
+        Amount debitAmount = getSum(DebitCredit.DEBIT);
+        Amount creditAmount = getSum(DebitCredit.CREDIT);
+        return debitAmount.equals(creditAmount);
+    }
+
+    private Amount getSum(DebitCredit debitCredit) {
+        return sum(this.records.stream().filter(record -> {
+            return record.getDebitCredit() == debitCredit;
+        }));
     }
 
     public Long getFinancialFactId() {
