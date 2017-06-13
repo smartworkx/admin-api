@@ -248,3 +248,10 @@ UPDATE ledger set (balance_heading) = ('VENTURE_CAPITAL') WHERE id = 18;
 --changeset joriswijlens:#1-22 Adding balance account in start balance for private joris
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (18, 1, 0, 'EUR');
 
+
+--changeset joriswijlens:#1-23 Correcting eigen vermogen to equal balance
+UPDATE balance_account set (amount) = (14441.03) WHERE balance = 1 and ledger_id = 22;
+
+--changeset joriswijlens:#1-24 Book profit and loss to balance
+INSERT INTO ledger (id, code, name) VALUES (23, 'POL', 'Winst of verlies');
+

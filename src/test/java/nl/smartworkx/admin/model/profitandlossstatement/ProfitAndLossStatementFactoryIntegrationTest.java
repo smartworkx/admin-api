@@ -2,11 +2,9 @@ package nl.smartworkx.admin.model.profitandlossstatement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import nl.smartworkx.admin.AbstractIntegrationTest;
@@ -15,7 +13,6 @@ import nl.smartworkx.admin.FinancialFactTestHelper;
 import nl.smartworkx.admin.JournalEntryServiceTestHelper;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.financialfact.FinancialFact;
-import nl.smartworkx.admin.model.ledger.LedgerCode;
 import nl.smartworkx.admin.model.time.ClockHolder;
 import nl.smartworkx.admin.model.time.DatePeriod;
 import nl.smartworkx.admin.model.time.DateUtils;
@@ -23,10 +20,10 @@ import nl.smartworkx.admin.model.time.DateUtils;
 /**
  * Created by joris on 16-5-17.
  */
-public class CreateProfitAndLossStatementServiceIntegrationTest extends AbstractIntegrationTest {
+public class ProfitAndLossStatementFactoryIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
-    private CreateProfitAndLossStatementService createProfitAndLossStatementService;
+    private ProfitAndLossStatementFactory profitAndLossStatementFactory;
 
     @Autowired
     private JournalEntryServiceTestHelper journalEntryServiceTestHelper;
@@ -60,7 +57,7 @@ public class CreateProfitAndLossStatementServiceIntegrationTest extends Abstract
 
         DatePeriod period = new DatePeriod(DateUtils.toDate("2015-01-01"), DateUtils.toDate("2015-12-31"));
 
-        final ProfitAndLossStatement profitAndLossStatement = createProfitAndLossStatementService.create(new ProfitAndLossStatementCreationRequestedEvent
+        final ProfitAndLossStatement profitAndLossStatement = profitAndLossStatementFactory.create(new ProfitAndLossStatementCreationRequestedEvent
                 (period, ""));
 
         final List<ProfitAndLossHeading> headings = profitAndLossStatement.getHeadings();

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
-import nl.smartworkx.admin.model.profitandlossstatement.CreateProfitAndLossStatementService;
+import nl.smartworkx.admin.model.profitandlossstatement.ProfitAndLossStatementFactory;
 import nl.smartworkx.admin.model.profitandlossstatement.ProfitAndLossStatement;
 import nl.smartworkx.admin.model.profitandlossstatement.ProfitAndLossStatementCreationRequestedEvent;
 
@@ -22,7 +22,7 @@ import nl.smartworkx.admin.model.profitandlossstatement.ProfitAndLossStatementCr
 @CrossOrigin
 public class ProfitAndLossStatementCreationRequestedEventsController {
 
-    private final CreateProfitAndLossStatementService service;
+    private final ProfitAndLossStatementFactory service;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody ProfitAndLossStatementCreationRequestedEvent event) {

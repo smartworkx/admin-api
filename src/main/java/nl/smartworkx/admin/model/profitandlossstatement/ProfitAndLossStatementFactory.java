@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import nl.smartworkx.admin.model.journal.JournalEntryCalculator;
@@ -23,15 +24,13 @@ import nl.smartworkx.admin.model.time.DatePeriod;
 /**
  * Created by joris on 16-5-17.
  */
-@Service
+@Component
 @AllArgsConstructor
-public class CreateProfitAndLossStatementService {
+public class ProfitAndLossStatementFactory {
 
     private final LedgerRepository ledgerRepository;
 
     private final JournalEntryRepository journalEntryRepository;
-
-    private final ProfitAndLossStatementRepository profitAndLossStatementRepository;
 
     @Transactional
     public ProfitAndLossStatement create(ProfitAndLossStatementCreationRequestedEvent event) {
