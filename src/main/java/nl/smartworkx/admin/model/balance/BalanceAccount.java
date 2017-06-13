@@ -24,8 +24,8 @@ public class BalanceAccount {
     private BalanceAccount() {
     }
 
-    BalanceAccount(Ledger ledgerId, Amount amount) {
-        this.ledgerId = ledgerId.getId();
+    BalanceAccount(Ledger ledger, Amount amount) {
+        this.ledgerId = ledger.getId();
         this.amount = amount;
     }
 

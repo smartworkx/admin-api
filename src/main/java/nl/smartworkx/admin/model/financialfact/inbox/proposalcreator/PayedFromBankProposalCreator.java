@@ -12,7 +12,8 @@ import nl.smartworkx.admin.model.financialfact.FinancialFact;
 public abstract class PayedFromBankProposalCreator extends AbstractProposalCreator {
     @Override
     public boolean matches(FinancialFact financialFact) {
-        return financialFact.getOrigin().getType().contains("ING_BANK_OPERATION") && financialFact.getDebitCredit().equals(DebitCredit.DEBIT) &&
+        return financialFact.getOrigin() != null && financialFact.getOrigin().getType().contains("ING_BANK_OPERATION") && financialFact.getDebitCredit().equals
+                (DebitCredit.DEBIT) &&
                 descriptionContainsAny(financialFact,descriptions());
     }
 

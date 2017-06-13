@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -16,6 +15,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.DebitCredit;
 import nl.smartworkx.admin.model.ledger.Ledger;
 import nl.smartworkx.admin.model.ledger.LedgerRepository;
 
@@ -25,14 +26,24 @@ import nl.smartworkx.admin.model.ledger.LedgerRepository;
 public class BalanceDetails {
     private final List<BalanceHeading> balanceHeadings;
     private Balance balance;
+    private Amount debitAmount;
+    private Amount creditAmount;
 
     public BalanceDetails(LedgerRepository ledgerRepo, Balance balance) {
         this.balance = balance;
 
         this.balanceHeadings = getHeadings(ledgerRepo.findAllBy());
+
+        this.debitAmount = sumOfHeadings(DebitCredit.DEBIT);
+        this.creditAmount = sumOfHeadings(DebitCredit.CREDIT);
     }
 
-    public List<BalanceHeading> getHeadings(Stream<Ledger> ledgerStream) {
+    private Amount sumOfHeadings(DebitCredit debit) {
+        return this.balanceHeadings.stream().filter(balanceHeading -> balanceHeading.getDebitCredit().equals(debit)).map
+                (balanceHeading -> balanceHeading.getAmount()).reduce(Amount.ZERO, Amount::add);
+    }
+
+    private List<BalanceHeading> getHeadings(Stream<Ledger> ledgerStream) {
         return ledgerStream
                 .filter(Ledger::shouldShowOnBalance)
                 .collect(groupingBy(Ledger::getBalanceHeading))
@@ -68,5 +79,13 @@ public class BalanceDetails {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     public LocalDateTime getCreationDateTime() {
         return balance.getCreationDateTime();
+    }
+
+    public Amount getDebitAmount() {
+        return debitAmount;
+    }
+
+    public Amount getCreditAmount() {
+        return creditAmount;
     }
 }

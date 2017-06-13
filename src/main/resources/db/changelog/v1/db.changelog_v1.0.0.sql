@@ -226,4 +226,25 @@ UPDATE balance_account set (amount) = (63818) WHERE balance = 1 and ledger_id = 
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (20, 1, 7562.89, 'EUR');
 INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (22, 1, 13314.14, 'EUR');
 
+--changeset joriswijlens:#1-16 Correct balance vatp
+UPDATE balance_account set (amount) = (8974) WHERE balance = 1 and ledger_id = 20;
+
+--changeset joriswijlens:#1-17 Correct balance oude dag reserve
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (21, 1, 63818, 'EUR');
+
+--changeset joriswijlens:#1-18 Correct balance eigen vermogen
+UPDATE balance_account set (amount) = (11903.03) WHERE balance = 1 and ledger_id = 22;
+
+--changeset joriswijlens:#1-19 Correct balance vatp and vats
+UPDATE balance_account set (amount) = (0) WHERE balance = 1 and ledger_id = 20;
+UPDATE balance_account set (amount) = (8974) WHERE balance = 1 and ledger_id = 2;
+
+--changeset joriswijlens:#1-20 Correct balance vats for double counted invoice 2014
+UPDATE balance_account set (amount) = (6436) WHERE balance = 1 and ledger_id = 2;
+
+--changeset joriswijlens:#1-21 Adding private joris to vwnture capital on balance
+UPDATE ledger set (balance_heading) = ('VENTURE_CAPITAL') WHERE id = 18;
+
+--changeset joriswijlens:#1-22 Adding balance account in start balance for private joris
+INSERT INTO balance_account (ledger_id, balance, amount, currency) VALUES (18, 1, 0, 'EUR');
 

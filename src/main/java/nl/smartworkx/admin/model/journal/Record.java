@@ -42,7 +42,8 @@ public class Record {
     @Embedded
     private Amount amount;
 
-    private Record() {}
+    private Record() {
+    }
 
     @Builder
     public Record(Long ledgerId, DebitCredit debitCredit, Amount amount) {
@@ -57,11 +58,11 @@ public class Record {
     }
 
     public static Amount sum(List<Record> records) {
-        return records.stream().map(Record::getAmount).reduce(Amount.ZERO, Amount::add);
+        return records == null ? Amount.ZERO :  sum(records.stream());
     }
 
     public static Amount sum(Stream<Record> records) {
-        return new Amount(records.map(record -> record.getAmount().getValue())
+        return records == null ? Amount.ZERO : new Amount(records.map(record -> record.getAmount().getValue())
                 .reduce(BigDecimal.ZERO, BigDecimal::add), Amount.DEFAULT_CURRENCY_CODE);
     }
 

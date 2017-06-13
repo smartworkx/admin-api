@@ -104,6 +104,9 @@ public class Amount {
         return new Amount(this.getMoney().subtract(amount.getMoney()));
     }
 
+    public Amount abs(){
+        return new Amount(this.getMoney().abs());
+    }
     private static BigDecimal getBigDecimal(Number num) {
         if (num instanceof BigDecimal) {
             return (BigDecimal) num;

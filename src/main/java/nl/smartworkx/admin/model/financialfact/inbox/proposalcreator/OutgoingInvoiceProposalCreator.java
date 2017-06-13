@@ -21,7 +21,7 @@ import nl.smartworkx.admin.model.financialfact.inbox.proposalcreator.AbstractPro
 public class OutgoingInvoiceProposalCreator extends AbstractProposalCreator {
     @Override
     public boolean matches(FinancialFact financialFact) {
-        return financialFact.getOrigin().getType().equals("OUTGOING_INVOICE");
+        return financialFact.getOrigin() != null && financialFact.getOrigin().getType().equals("OUTGOING_INVOICE");
     }
 
     @Override

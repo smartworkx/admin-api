@@ -21,7 +21,7 @@ public class IncomingInvoiceProposalCreator extends AbstractProposalCreator {
 
     @Override
     public boolean matches(FinancialFact financialFact) {
-        return financialFact.getOrigin().getType().equals("INCOMING_INVOICE");
+        return financialFact.getOrigin() != null && financialFact.getOrigin().getType().equals("INCOMING_INVOICE");
     }
 
     @Override

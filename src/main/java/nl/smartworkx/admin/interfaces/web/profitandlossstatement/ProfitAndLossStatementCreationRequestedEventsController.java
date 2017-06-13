@@ -27,8 +27,8 @@ public class ProfitAndLossStatementCreationRequestedEventsController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody ProfitAndLossStatementCreationRequestedEvent event) {
 
-        final ProfitAndLossStatement balanceDetails = service.create(event);
-        return new ResponseEntity<>(new Resource(balanceDetails), HttpStatus.CREATED);
+        final ProfitAndLossStatement profitAndLossStatement = service.create(event);
+        return new ResponseEntity<>(new Resource(profitAndLossStatement), HttpStatus.CREATED);
     }
 
 }
