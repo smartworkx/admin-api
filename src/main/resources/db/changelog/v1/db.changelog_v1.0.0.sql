@@ -255,3 +255,14 @@ UPDATE balance_account set (amount) = (14441.03) WHERE balance = 1 and ledger_id
 --changeset joriswijlens:#1-24 Book profit and loss to balance
 INSERT INTO ledger (id, code, name) VALUES (23, 'POL', 'Winst of verlies');
 
+--changeset joriswijlens:#1-25 Removing private joris to vwnture capital on balance
+UPDATE ledger set (balance_heading) = (null) WHERE id = 18;
+
+--changeset joriswijlens:#1-26 Adding private joris to venture capital on balance
+UPDATE ledger set (balance_heading) = ('VENTURE_CAPITAL') WHERE id = 18;
+
+--changeset joriswijlens:#1-27 Removing private joris to vwnture capital on balance
+UPDATE ledger set (balance_heading) = (null) WHERE id = 18;
+
+--changeset joriswijlens:#1-28 Adding private joris to venture capital on balance
+UPDATE ledger set (balance_heading) = ('VENTURE_CAPITAL') WHERE id = 18;
