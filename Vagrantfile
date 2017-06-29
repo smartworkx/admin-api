@@ -36,7 +36,4 @@ config.vm.define "api" do |api|
        }
     end
   end
-
-
-
 end
