@@ -1,6 +1,7 @@
 package nl.smartworkx.admin.model.journal;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -11,5 +12,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  */
 @CrossOrigin
 @RepositoryRestResource(collectionResourceRel = "journal-entries", path = "journal-entries")
-public interface JournalEntryRepository extends CrudRepository<JournalEntry, Long>, JournalEntryRepositoryCustom {
+public interface JournalEntryRepository extends PagingAndSortingRepository<JournalEntry, Long>, JournalEntryRepositoryCustom {
 }
