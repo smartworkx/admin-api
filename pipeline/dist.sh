@@ -2,5 +2,5 @@
 echo "Building dist"
 cd sources
 gradle clean assemble
-npm run deploy:prod
+mkdir dist
 cp ./dist/* ../dist
