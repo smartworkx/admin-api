@@ -1,0 +1,16 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: gradle
+
+inputs:
+  - name: sources
+
+outputs:
+  - name: dist
+
+run:
+  path: sources/pipeline/dist.sh

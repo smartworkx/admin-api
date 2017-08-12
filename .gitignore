@@ -13,3 +13,4 @@ npm-debug.log
 /.vagrant/
 tmp
 /provisioning/credentials/
+/pipeline/io/

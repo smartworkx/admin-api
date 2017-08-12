@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: smartworkx/gcloud-alpine
+    email: joris@smartworkx.nl
+    username: smartworkx
+    password: j4UNXqMlNoj7j62STXFB
+
+inputs:
+  - name: sources
+  - name: admin-web-image
+  - name: staging
+
+outputs:
+  - name: deploy
+
+run:
+  path: sources/pipeline/deploy.sh

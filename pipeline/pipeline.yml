@@ -1,0 +1,41 @@
+resources:
+  - name: sources
+    type: git
+    source:
+      uri: https://github.com/smartworkx/admin-api.git
+      branch: master
+  - name: staging
+    type: git
+    source:
+      uri: https://github.com/smartworkx/staging.git
+      branch: master
+  - name: admin-api-image
+    type: docker-image
+    source:
+      repository: smartworkx/admin-api
+      email: {{docker_mail}}
+      username: {{docker_user}}
+      password: {{docker_pass}}
+
+jobs:
+- name: build
+  plan:
+  - get: sources
+    trigger: true
+  - task: dist
+    file: sources/pipeline/dist.yml
+  - task: prepare-build
+    file: sources/pipeline/prepare-build.yml
+  - put: admin-api-image
+    params: {build: build, tag: build/tag}
+- name: deploy-staging
+  plan:
+  - get: admin-api-image
+    trigger: false
+  - get: sources
+    trigger: false
+  - get: staging
+    trigger: true
+  - task: deploy
+    file: sources/pipeline/deploy-to-staging.yml
+

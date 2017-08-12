@@ -24,7 +24,7 @@ task testjavadocs(type: Javadoc) {
 
 jar {
 	baseName = 'admin-api'
-	version = "1.0." + getTimestamp()
+	version = ""
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
