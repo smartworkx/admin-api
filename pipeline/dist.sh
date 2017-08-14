@@ -1,5 +1,5 @@
 #!/bin/sh
 echo "Building dist"
 cd sources
-gradle clean assemble
+gradle assemble
 cp ./build/libs/* ../dist
