@@ -4,8 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: gradle
-    tag: alpine
+    repository: smartworkx/gradle-alpine
 
 inputs:
   - name: sources
