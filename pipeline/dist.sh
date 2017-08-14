@@ -2,4 +2,4 @@
 echo "Building dist"
 cd sources
 gradle assemble
-cp ./build/libs/* ../dist
+cp ./build/libs/admin-api.jar ../dist
