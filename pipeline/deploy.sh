@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 project_name='admin-api'
-image_tag=$(jq ".kubernetes.deployments[] | select(.id==$project_name).version" ./staging/env.json)
+image_tag=$(jq '.kubernetes.deployments[] | select(.id=="admin-api").version' ./staging/env.json)
 zone=europe-west1-c
 cluster=smartworkx-cluster
 echo "deploy $image_tag"
