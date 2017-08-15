@@ -11,7 +11,7 @@ image_resource:
 
 inputs:
   - name: sources
-  - name: admin-web-image
+  - name: admin-api-image
   - name: staging
 
 outputs:
