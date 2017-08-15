@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-project_name='admin-api'
-image_tag=$(jq '.kubernetes.deployments[] | select(.id=="admin-api").version' ./staging/env.json)
-zone=europe-west1-c
-cluster=smartworkx-cluster
-echo "deploy $image_tag"
-/init_gcloud.sh
-gcloud container clusters get-credentials --zone $zone $cluster
-sed s/IMAGE_TAG/$image_tag/g; ./sources/kubernetes/kubernetes.tpl > ./deploy/kubernetes.yml
-echo "Create yaml in $(pwd) $(cat ./kubernetes.yml)"
+IMAGE_TAG=$(jq '.kubernetes.deployments[] | select(.id=="admin-api").version' ./staging/env.json)
+echo "deploy $IMAGE_TAG"
+gcloud auth activate-service-account --key-file /tmp/service-account.json
+gcloud config set project smartworkx-173909
+gcloud container clusters get-credentials --zone europe-west1-c smartworkx-cluster
+sed s/IMAGE_TAG/$IMAGE_TAG/g ./sources/kubernetes/kubernetes.tpl > ./deploy/kubernetes.yml
+echo "Create yaml in $(pwd) $(cat ./admin-web.yml)"
 kubectl apply -f ./deploy/kubernetes.yml
