@@ -12,7 +12,7 @@ spec:
     targetPort: 8080
   selector:
     app: admin-api
-  type: "LoadBalancer"
+  type: "NodePort"
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
