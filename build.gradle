@@ -39,6 +39,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.data:spring-data-rest-webmvc')
 	compile('org.postgresql:postgresql:9.4-1206-jdbc42')
+	compile 'com.google.cloud.sql:postgres-socket-factory:1.0.4'
 	compile('org.javamoney:moneta:1.0')
 	compile('javax.money:money-api:1.0')
 	compile('commons-lang:commons-lang:2.6')
