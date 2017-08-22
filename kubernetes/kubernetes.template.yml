@@ -66,15 +66,15 @@ spec:
             mountPath: /cloudsql
       # [END proxy_container]
     # [START volumes]
-    volumes:
-      - name: cloudsql-instance-credentials
-        secret:
-          secretName: cloudsql-instance-credentials
-      - name: ssl-certs
-        hostPath:
-          path: /etc/ssl/certs
-      - name: cloudsql
-        emptyDir:
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: cloudsql
+          emptyDir:
     # [END volumes]
 ---
 apiVersion: extensions/v1beta1
