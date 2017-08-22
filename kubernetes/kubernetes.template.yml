@@ -34,9 +34,7 @@ spec:
         image: smartworkx/admin-api:IMAGE_TAG
         env:
           - name: DB_URL
-            value: jdbc:postgresql://google/admin?socketFactory=com.google.cloud.sql.postgres.SocketFactory&socketFactoryArg=smartworkx-173909:europe-west1:smartworkx
-          - name: DB_HOST
-            value: 127.0.0.1:5432
+            value: jdbc:postgresql://127.0.0.1:5432/admin
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
