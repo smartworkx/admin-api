@@ -10,3 +10,7 @@ Opmerkingen inkomsten belasting:
 Pas op vul in de mutaties op reserveringen voor de for
 Zelfstandigen aftrek en mkb winst vrij stelling
 Zeg dat je het op persoonlijk niveau wil invullen
+
+## Technical
+
+- When getting compiling issues that have to do with lombok in intellij enable annotation processing.

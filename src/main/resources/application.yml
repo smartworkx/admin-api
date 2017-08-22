@@ -7,32 +7,15 @@ spring:
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://smartworkx-postgres:5432/admin
-    username: admin-api
-    password: password
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   jackson:
     serialization:
       write-dates-as-timestamps: false
 
 cross-origin-addresses: http://localhost:3000
 liquibase:
-  user: admin-owner
-  password: password
-  url: jdbc:postgresql://smartworkx-postgres:5432/admin
-
-
----
-
-spring:
-  profiles: test
-
----
-
-spring:
-  profiles: ci
-  datasource:
-    url: jdbc:postgresql://smartworkx-postgres:5432/admin
-liquibase:
-  url: jdbc:postgresql://smartworkx-postgres:5432/admin
-server:
-  port: 8081
+  user: ${DB_USER}
+  password: ${DB_PASSWORD}
+  url: ${DB_URL}
