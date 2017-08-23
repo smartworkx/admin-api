@@ -18,7 +18,7 @@ import nl.smartworkx.admin.model.financialfact.inbox.JournalEntryProposalService
  * @since 1.0
  */
 @RestController
-@RequestMapping("/journal-entry-proposals")
+@RequestMapping("/api/journal-entry-proposals")
 @CrossOrigin
 @AllArgsConstructor
 public class JournalEntryProposalsController {

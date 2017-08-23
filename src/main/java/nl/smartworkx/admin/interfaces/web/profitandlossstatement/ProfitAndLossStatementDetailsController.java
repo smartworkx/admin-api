@@ -9,6 +9,6 @@ import lombok.AllArgsConstructor;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("profit-and-loss-statement-details")
+@RequestMapping("/api/profit-and-loss-statement-details")
 public class ProfitAndLossStatementDetailsController {
 }

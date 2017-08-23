@@ -18,7 +18,7 @@ import nl.smartworkx.admin.model.profitandlossstatement.ProfitAndLossStatementCr
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("profit-and-loss-statement-creation-requested-events")
+@RequestMapping("/api/profit-and-loss-statement-creation-requested-events")
 @CrossOrigin
 public class ProfitAndLossStatementCreationRequestedEventsController {
 

@@ -26,7 +26,7 @@ import nl.smartworkx.admin.model.journal.Record;
  * @since 1.0
  */
 @RestController
-@RequestMapping("/journal-entry-created-events")
+@RequestMapping("/api/journal-entry-created-events")
 @CrossOrigin
 @AllArgsConstructor
 public class JournalEntryCreatedEventController {
