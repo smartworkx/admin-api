@@ -75,14 +75,12 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
   name: admin-api-ingress
 spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /api/*
         backend:
           serviceName: admin-api
           servicePort: 8080
