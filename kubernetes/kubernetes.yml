@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: admin-api
-        image: smartworkx/admin-api:IMAGE_TAG
+        image: smartworkx/admin-api:20170822203627
         env:
           - name: DB_URL
             value: jdbc:postgresql://127.0.0.1:5432/admin
@@ -75,14 +75,12 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
   name: admin-api-ingress
 spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /api/*
         backend:
           serviceName: admin-api
           servicePort: 8080

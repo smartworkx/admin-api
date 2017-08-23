@@ -30,6 +30,7 @@ public class AdminApplication extends RepositoryRestMvcConfiguration {
     public RepositoryRestConfiguration config() {
         final RepositoryRestConfiguration config = super.config();
         config.exposeIdsFor(Balance.class,FinancialFact.class, VatDeclaration.class, JournalEntry.class, Ledger.class);
+        config.setBasePath("/api");
         return config;
     }
 
