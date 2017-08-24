@@ -19,3 +19,7 @@ liquibase:
   user: ${DB_USER}
   password: ${DB_PASSWORD}
   url: ${DB_URL}
+
+endpoints:
+  health:
+    path: /
