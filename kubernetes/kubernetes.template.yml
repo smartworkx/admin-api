@@ -71,10 +71,4 @@ spec:
             path: /etc/ssl/certs
         - name: cloudsql
           emptyDir:
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: admin-api-ingress
-spec:
-  rules:
+
