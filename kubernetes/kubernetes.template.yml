@@ -78,9 +78,3 @@ metadata:
   name: admin-api-ingress
 spec:
   rules:
-  - http:
-      paths:
-      - path: /api/*
-        backend:
-          serviceName: admin-api
-          servicePort: 8080
