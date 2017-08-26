@@ -19,7 +19,7 @@ import nl.smartworkx.admin.model.balance.CreateBalanceService;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/balance-details")
+@RequestMapping("/balance-details")
 @CrossOrigin
 public class BalanceDetailsController {
     private final CreateBalanceService createBalanceService;

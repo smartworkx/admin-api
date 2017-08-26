@@ -1,5 +1,3 @@
-server:
-  contextPath: admin-api
 spring:
   jpa:
     database: POSTGRESQL

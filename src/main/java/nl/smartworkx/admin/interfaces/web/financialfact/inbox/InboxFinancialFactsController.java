@@ -14,7 +14,7 @@ import nl.smartworkx.admin.application.financialfact.inbox.InboxFinancialFactSer
  *
  */
 @RestController
-@RequestMapping("/api/inbox-financial-facts")
+@RequestMapping("/inbox-financial-facts")
 @CrossOrigin
 public class InboxFinancialFactsController {
 

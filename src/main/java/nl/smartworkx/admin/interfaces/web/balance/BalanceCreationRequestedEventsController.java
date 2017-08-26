@@ -17,7 +17,7 @@ import nl.smartworkx.admin.model.balance.CreateBalanceService;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/balance-creation-requested-events")
+@RequestMapping("/balance-creation-requested-events")
 public class BalanceCreationRequestedEventsController {
 
     private final CreateBalanceService createBalanceService;
