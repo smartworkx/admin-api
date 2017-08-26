@@ -47,6 +47,11 @@ spec:
                 key: username
 
         imagePullPolicy: IfNotPresent
+        readinessProbe:
+          httpGet:
+            path: /admin-api/
+            port: 8080
+          initialDelaySeconds: 30
         ports:
         - containerPort: 8080
       - image: gcr.io/cloudsql-docker/gce-proxy:1.09
