@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-api
+  labels:
+    app: admin-api
+    visualize: "true"
+    name: "admin-api"
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: admin-api
+  type: "NodePort"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: admin-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  minReadySeconds: 20
+  template:
+    metadata:
+      labels:
+        app: admin-api
+        visualize: "true"
+        name: "admin-api"
+    spec:
+      containers:
+      - name: admin-api
+        image: smartworkx/admin-api:20170826235238
+        env:
+          - name: DB_URL
+            value: jdbc:postgresql://127.0.0.1:5432/admin
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: cloudsql-db-credentials
+                key: password
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: cloudsql-db-credentials
+                key: username
+
+        imagePullPolicy: IfNotPresent
+        readinessProbe:
+          httpGet:
+            path: /admin-api/
+            port: 8080
+          periodSeconds: 1
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 10
+        ports:
+        - containerPort: 8080
+      - image: gcr.io/cloudsql-docker/gce-proxy:1.09
+        name: cloudsql-proxy
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=smartworkx-173909:europe-west1:smartworkx=tcp:5432",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql
+            mountPath: /cloudsql
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: cloudsql
+          emptyDir:
+
