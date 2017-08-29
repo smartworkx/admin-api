@@ -45,16 +45,7 @@ spec:
               secretKeyRef:
                 name: cloudsql-db-credentials
                 key: username
-
         imagePullPolicy: IfNotPresent
-        readinessProbe:
-          httpGet:
-            path: /admin-api/
-            port: 8080
-          periodSeconds: 1
-          timeoutSeconds: 1
-          successThreshold: 1
-          failureThreshold: 10
         ports:
         - containerPort: 8080
       - image: gcr.io/cloudsql-docker/gce-proxy:1.09
