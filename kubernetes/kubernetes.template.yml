@@ -49,7 +49,7 @@ spec:
         imagePullPolicy: IfNotPresent
         readinessProbe:
           httpGet:
-            path: /admin-api/
+            path: /
             port: 8080
           initialDelaySeconds: 30
         ports:
