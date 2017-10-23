@@ -14,3 +14,5 @@ Zeg dat je het op persoonlijk niveau wil invullen
 ## Technical
 
 - When getting compiling issues that have to do with lombok in intellij enable annotation processing.
+
+- Buitenlandse uitgaven geen btw boeken niet de moeite waard om terug te vragen.
