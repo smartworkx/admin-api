@@ -23,3 +23,12 @@ liquibase:
 endpoints:
   health:
     path: /
+
+github:
+    clientId: 40b8bbcbd569eb863c18
+    clientSecret: 525d925f1a21ccf82093f14b7a96436fee513f01
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user

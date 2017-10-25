@@ -23,7 +23,6 @@ import nl.smartworkx.admin.model.ledger.Ledger;
 
 @SpringBootApplication
 @EnableHypermediaSupport(type = { EnableHypermediaSupport.HypermediaType.HAL })
-@EnableAuthorizationServer
 @EnableResourceServer
 public class AdminApplication extends RepositoryRestMvcConfiguration {
 
