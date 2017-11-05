@@ -11,12 +11,19 @@ import nl.smartworkx.admin.model.ledger.LedgerRepository;
 @Transactional
 public class CreateBalanceService {
     private final BalanceRepository balanceRepository;
-    BalanceFactory balanceFactory;
-    LedgerRepository ledgerRepository;
+    private final BalanceFactory balanceFactory;
+    private final LedgerRepository ledgerRepository;
 
-    public BalanceDetails createBalanceDetails(BalanceCreationRequestedEvent event) {
-        Balance balance = balanceFactory.create(event);
+    public BalanceDetails createBalanceDetails(BalanceCreationCommand command) {
+        Balance balance = balanceFactory.create(command);
 
+        return new BalanceDetails(ledgerRepository, balance);
+    }
+
+    public BalanceDetails confirmBalanceDetails(BalanceCreationCommand command) {
+        Balance balance = balanceFactory.create(command);
+
+        balanceRepository.save(balance);
         return new BalanceDetails(ledgerRepository, balance);
     }
 

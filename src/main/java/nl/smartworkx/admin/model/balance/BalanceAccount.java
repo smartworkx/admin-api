@@ -1,6 +1,10 @@
 package nl.smartworkx.admin.model.balance;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Immutable;
 import nl.smartworkx.admin.model.Amount;
@@ -14,7 +18,8 @@ import nl.smartworkx.admin.model.ledger.Ledger;
 public class BalanceAccount {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balance_account")
+    @SequenceGenerator(name = "balance_account", sequenceName = "balance_account_id_seq")
     private Long id;
 
     private Long ledgerId;

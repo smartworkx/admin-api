@@ -3,19 +3,22 @@ package nl.smartworkx.admin.model.balance;
 import static java.util.stream.Collectors.groupingBy;
 import static nl.smartworkx.admin.model.journal.Record.sum;
 
-import nl.smartworkx.admin.model.Amount;
-import nl.smartworkx.admin.model.DebitCredit;
-import nl.smartworkx.admin.model.journal.*;
-import nl.smartworkx.admin.model.ledger.Ledger;
-import nl.smartworkx.admin.model.ledger.LedgerRepository;
-import nl.smartworkx.admin.model.time.DatePeriod;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
+import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.DebitCredit;
+import nl.smartworkx.admin.model.journal.JournalEntryCalculator;
+import nl.smartworkx.admin.model.journal.JournalEntryFinancialFact;
+import nl.smartworkx.admin.model.journal.JournalEntryRepository;
+import nl.smartworkx.admin.model.journal.Record;
+import nl.smartworkx.admin.model.ledger.Ledger;
+import nl.smartworkx.admin.model.ledger.LedgerRepository;
+import nl.smartworkx.admin.model.time.DatePeriod;
 
 /**
  *
@@ -69,7 +72,7 @@ public class BalanceFactory {
         }
     }
 
-    public Balance create(BalanceCreationRequestedEvent event) {
+    public Balance create(BalanceCreationCommand event) {
         return create(event.getDate(), event.getDescription());
     }
 }

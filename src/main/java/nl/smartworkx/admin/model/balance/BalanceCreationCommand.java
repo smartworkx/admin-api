@@ -12,7 +12,7 @@ import lombok.Data;
  * Created by joris on 21-5-17.
  */
 @Data
-public class BalanceCreationRequestedEvent {
+public class BalanceCreationCommand {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;

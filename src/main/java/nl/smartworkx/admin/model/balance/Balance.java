@@ -3,12 +3,15 @@ package nl.smartworkx.admin.model.balance;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
-
-import nl.smartworkx.admin.model.DddAggregate;
-import nl.smartworkx.admin.model.ledger.Ledger;
-import nl.smartworkx.admin.model.time.DateUtils;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Immutable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,6 +21,9 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import nl.smartworkx.admin.model.DddAggregate;
+import nl.smartworkx.admin.model.ledger.Ledger;
+import nl.smartworkx.admin.model.time.DateUtils;
 
 /**
  *
@@ -26,6 +32,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 @Immutable
 public class Balance implements DddAggregate {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balance")
+    @SequenceGenerator(name = "balance", sequenceName = "balance_id_seq")
     private Long id;
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
