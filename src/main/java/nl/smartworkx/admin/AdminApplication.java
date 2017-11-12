@@ -3,10 +3,10 @@ package nl.smartworkx.admin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
@@ -21,6 +21,7 @@ import nl.smartworkx.admin.model.ledger.Ledger;
 
 @SpringBootApplication
 @EnableHypermediaSupport(type = { EnableHypermediaSupport.HypermediaType.HAL })
+@EnableCaching
 public class AdminApplication extends RepositoryRestMvcConfiguration {
 
     @Value("${cross-origin-addresses}")
