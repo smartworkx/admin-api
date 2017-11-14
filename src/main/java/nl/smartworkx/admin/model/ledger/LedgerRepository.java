@@ -27,4 +27,5 @@ public interface LedgerRepository extends CrudRepository<Ledger, Long> {
 
 	@Cacheable("allLedgersStream")
 	Stream<Ledger> findAllBy();
+
 }
