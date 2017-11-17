@@ -76,15 +76,7 @@ public class JournalEntry implements DddAggregate {
 
     @AssertTrue
     public boolean isRecordsBalance() {
-        Amount debitAmount = getSum(DebitCredit.DEBIT);
-        Amount creditAmount = getSum(DebitCredit.CREDIT);
-        return debitAmount.equals(creditAmount);
-    }
-
-    private Amount getSum(DebitCredit debitCredit) {
-        return sum(this.records.stream().filter(record -> {
-            return record.getDebitCredit() == debitCredit;
-        }));
+        return sum(this.records, DebitCredit.DEBIT).equals(Amount.ZERO);
     }
 
     public Long getFinancialFactId() {

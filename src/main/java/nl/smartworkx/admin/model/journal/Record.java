@@ -57,13 +57,18 @@ public class Record {
         this(id, debit, new Amount(new BigDecimal(amount.getNumber().doubleValue()), amount.getCurrency().getCurrencyCode()));
     }
 
-    public static Amount sum(List<Record> records) {
-        return records == null ? Amount.ZERO :  sum(records.stream());
+    public static Amount sum(List<Record> records, DebitCredit debitCredit) {
+        return records == null ? Amount.ZERO : sum(records.stream(), debitCredit);
     }
 
-    public static Amount sum(Stream<Record> records) {
-        return records == null ? Amount.ZERO : new Amount(records.map(record -> record.getAmount().getValue())
-                .reduce(BigDecimal.ZERO, BigDecimal::add), Amount.DEFAULT_CURRENCY_CODE);
+    public static Amount sum(Stream<Record> records, DebitCredit debitCredit) {
+        return records == null ? Amount.ZERO : new Amount(records.map(record -> {
+            if (debitCredit == record.getDebitCredit()) {
+                return record.getAmount().getValue();
+            } else {
+                return record.getAmount().getValue().negate();
+            }
+        }).reduce(BigDecimal.ZERO, BigDecimal::add), Amount.DEFAULT_CURRENCY_CODE);
     }
 
     @SuppressWarnings("WeakerAccess")

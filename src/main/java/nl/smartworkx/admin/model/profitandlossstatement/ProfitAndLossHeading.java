@@ -27,7 +27,7 @@ import nl.smartworkx.admin.model.journal.Record;
  */
 @Entity
 @Immutable
-public class ProfitAndLossHeading implements DddEntity{
+public class ProfitAndLossHeading implements DddEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profit_and_loss_heading")
     @SequenceGenerator(name = "profit_and_loss_heading", sequenceName = "profit_and_loss_heading_id_seq")
@@ -38,9 +38,9 @@ public class ProfitAndLossHeading implements DddEntity{
 
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
-            name="profit_and_loss_heading_record",
-            joinColumns = @JoinColumn( name="profit_and_loss_heading_id"),
-            inverseJoinColumns = @JoinColumn( name="record_id")
+            name = "profit_and_loss_heading_record",
+            joinColumns = @JoinColumn(name = "profit_and_loss_heading_id"),
+            inverseJoinColumns = @JoinColumn(name = "record_id")
     )
     private List<Record> records;
 
@@ -58,15 +58,15 @@ public class ProfitAndLossHeading implements DddEntity{
         return name;
     }
 
-    public Amount getAmount(){
-        return Record.sum(records);
+    public Amount getAmount() {
+        return Record.sum(records, name.getDebitCredit());
     }
 
     public List<Record> getRecords() {
         return records;
     }
 
-    public DebitCredit getDebitCredit(){
+    public DebitCredit getDebitCredit() {
         return name.getDebitCredit();
     }
 }

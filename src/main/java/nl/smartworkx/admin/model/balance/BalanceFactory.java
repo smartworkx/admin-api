@@ -58,18 +58,11 @@ public class BalanceFactory {
     }
 
     Amount calculateBalanceAmount(Amount startAmount, DebitCredit debitCredit, List<Record> records) {
-        if(records == null){
+        if (records == null) {
             return startAmount;
         }
-        final Map<DebitCredit, List<Record>> recordsGroupedByDebitCredit = records.stream().collect(groupingBy(o -> o.getDebitCredit()));
 
-        if (debitCredit == DebitCredit.DEBIT) {
-            return startAmount.add(sum(recordsGroupedByDebitCredit.get(DebitCredit.DEBIT))
-                    .subtract(sum(recordsGroupedByDebitCredit.get(DebitCredit.CREDIT))));
-        } else {
-            return startAmount.add(sum(recordsGroupedByDebitCredit.get(DebitCredit.CREDIT))
-                    .subtract(sum(recordsGroupedByDebitCredit.get(DebitCredit.DEBIT))));
-        }
+        return startAmount.add(sum(records, debitCredit));
     }
 
     public Balance create(BalanceCreationCommand event) {
