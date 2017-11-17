@@ -1,5 +1,6 @@
 package nl.smartworkx.admin.model.ledger;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -26,6 +27,6 @@ public interface LedgerRepository extends CrudRepository<Ledger, Long> {
 	Ledger findByCode(String code);
 
 	@Cacheable("allLedgersStream")
-	Stream<Ledger> findAllBy();
+	List<Ledger> findAll();
 
 }

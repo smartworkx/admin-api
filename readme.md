@@ -5,11 +5,17 @@ https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zake
 
 https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/verandering_inkomstenbelasting_vorige_jaren/veranderingen_inkomstenbelasting_2015/ondernemersaftrek_2015/zelfstandigenaftrek_2015
 
+Opmerkingen btw afdracht vergeet niet te boeken aan het eind
+van het kwartaal zie doc/btw 
+
 Opmerkingen inkomsten belasting:
 
-Pas op vul in de mutaties op reserveringen voor de for
-Zelfstandigen aftrek en mkb winst vrij stelling
-Zeg dat je het op persoonlijk niveau wil invullen
+- Pas op vul in de mutaties op reserveringen voor de for
+- Zelfstandigen aftrek
+- mkb winst vrij stelling
+- Zeg dat je het op persoonlijk niveau wil invullen
+- investeringsaftrek
+
 
 ## Technical
 

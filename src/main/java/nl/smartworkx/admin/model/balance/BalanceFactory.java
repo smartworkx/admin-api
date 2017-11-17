@@ -47,7 +47,7 @@ public class BalanceFactory {
 
         Map<Ledger, List<Record>> recordsByLedger = calculator.getRecordsByLedger();
 
-        final Set<BalanceAccount> balanceAccounts = ledgerRepository.findAllBy()
+        final Set<BalanceAccount> balanceAccounts = ledgerRepository.findAll().stream()
                 .filter(Ledger::shouldShowOnBalance)
                 .map(ledger -> new BalanceAccount(ledger, calculateBalanceAmount(previousBalance
                         .findBalanceAccountByLedger(ledger).getAmount(), ledger

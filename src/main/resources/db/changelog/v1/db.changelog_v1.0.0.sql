@@ -266,3 +266,6 @@ UPDATE ledger set (balance_heading) = (null) WHERE id = 18;
 
 --changeset joriswijlens:#1-28 Adding private joris to venture capital on balance
 UPDATE ledger set (balance_heading) = ('VENTURE_CAPITAL') WHERE id = 18;
+
+--changeset joriswijlens:#1-29 Adding write off
+INSERT INTO ledger (id, code, name, profit_and_loss_heading) VALUES (24, 'DEP', 'Afschrijvingen', 'WRITE_OFF');
