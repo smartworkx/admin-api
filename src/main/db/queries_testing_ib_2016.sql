@@ -116,53 +116,11 @@ SELECT *
 FROM ledger
 WHERE balance_heading IS NULL AND profit_and_loss_heading IS NULL
 
-SELECT sum(r.amount)
-FROM journal_entry j
-  JOIN financial_fact ff ON j.financial_fact_id = ff.id
-  JOIN record r ON r.journal_entry_id = j.id
-  JOIN ledger l ON r.ledger_id = l.id
-WHERE l.code = 'VATS' AND j.value_date < '2016-12-31' AND r.debit_credit = 'CREDIT';
-
-SELECT sum(r.amount)
-FROM journal_entry j
-  JOIN financial_fact ff ON j.financial_fact_id = ff.id
-  JOIN record r ON r.journal_entry_id = j.id
-  JOIN ledger l ON r.ledger_id = l.id
-WHERE l.code = 'VATS' AND j.value_date < '2016-12-31' AND r.debit_credit = 'DEBIT';
-
-SELECT sum(r.amount)
-FROM journal_entry j
-  JOIN financial_fact ff ON j.financial_fact_id = ff.id
-  JOIN record r ON r.journal_entry_id = j.id
-  JOIN ledger l ON r.ledger_id = l.id
-WHERE l.code = 'BANK' AND j.value_date < '2016-12-31' AND r.debit_credit = 'CREDIT';
-
-SELECT sum(r.amount)
-FROM journal_entry j
-  JOIN financial_fact ff ON j.financial_fact_id = ff.id
-  JOIN record r ON r.journal_entry_id = j.id
-  JOIN ledger l ON r.ledger_id = l.id
-WHERE l.code = 'BANK' AND j.value_date < '2016-12-31' AND r.debit_credit = 'DEBIT';
-
-SELECT sum(r.amount)
-FROM journal_entry j
-  JOIN financial_fact ff ON j.financial_fact_id = ff.id
-  JOIN record r ON r.journal_entry_id = j.id
-  JOIN ledger l ON r.ledger_id = l.id
-WHERE l.code = 'VATP' AND j.value_date < '2016-12-31';
-
-SELECT
-  ff.description,
-  r.amount
-FROM journal_entry j
-  JOIN financial_fact ff ON j.financial_fact_id = ff.id
-  JOIN record r ON r.journal_entry_id = j.id
-  JOIN ledger l ON r.ledger_id = l.id
-WHERE l.code = 'COSTS' AND j.value_date < '2016-12-31';
-
-SELECT *
-FROM record
-WHERE journal_entry_id = 1958
+select je.id, je.value_date, ff.description, r.debit_credit, l.name, l.code, r.amount from record r
+  join journal_entry je on je.id = r.journal_entry_id
+  join financial_fact ff on ff.id = je.financial_fact_id
+  JOIN ledger l on l.id = r.ledger_id
+where ff.value_date = '2016-12-31'
 
 SELECT sum(amount)
 FROM record
