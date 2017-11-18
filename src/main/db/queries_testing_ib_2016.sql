@@ -1,82 +1,168 @@
-update record set ledger_id = 3 where debit_credit = 'DEBIT' and ledger_id = 2
+UPDATE record
+SET ledger_id = 3
+WHERE debit_credit = 'DEBIT' AND ledger_id = 2
 
-delete from vat_journal_entry;
-delete from vat_declaration;
+DELETE FROM vat_journal_entry;
+DELETE FROM vat_declaration;
 
-select sum(amount) from financial_fact where origin_type = 'OUTGOING_INVOICE'
+SELECT sum(amount)
+FROM financial_fact
+WHERE origin_type = 'OUTGOING_INVOICE'
 
-SELECT j.value_date, ff.description, r.amount, r.debit_credit FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code = 'VATS' and j.value_date < '2016-12-31' ORDER BY j.value_date;
+SELECT
+  j.value_date,
+  ff.description,
+  r.amount,
+  r.debit_credit
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'VATS' AND j.value_date < '2016-12-31'
+ORDER BY j.value_date;
 
-SELECT j.value_date, ff.description, r.amount, r.debit_credit FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-  JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code = 'VATS' and j.value_date < '2016-12-31' ORDER BY j.value_date;
+SELECT
+  j.value_date,
+  ff.description,
+  r.amount,
+  r.debit_credit
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'VATS' AND j.value_date < '2016-12-31'
+ORDER BY j.value_date;
 
-SELECT r.id, j.value_date, ff.description, r.amount, r.debit_credit, l.name FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-  JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code <> 'BANK' and j.value_date < '2016-12-31' and r.debit_credit = 'CREDIT' and r.amount = 50 ORDER BY j.value_date;
+SELECT
+  r.id,
+  j.value_date,
+  ff.description,
+  r.amount,
+  r.debit_credit,
+  l.name
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code <> 'BANK' AND j.value_date < '2016-12-31' AND r.debit_credit = 'CREDIT' AND r.amount = 50
+ORDER BY j.value_date;
+
+SELECT
+sum(r.amount)
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'DEP' AND j.value_date <= '2016-12-31'
 
 
-select * FROM ledger;
+SELECT *
+FROM ledger;
 
-update financial_fact set amount = 6092 where id = 2800;
+UPDATE financial_fact
+SET amount = 6092
+WHERE id = 2800;
 
-select sum(vat_serviced_amount_value) from vat_declaration where year = 2016;
-
-
-select * from financial_fact
-
-select sum(amount) FROM record r
-  JOIN ledger l on l.id = r.ledger_id
-  JOIN journal_entry j on j.id = r.journal_entry_id
-where l.code = 'TOJ' and j.value_date < '2016-12-31'
+SELECT sum(vat_serviced_amount_value)
+FROM vat_declaration
+WHERE year = 2016;
 
 
-select * from balance_account
+SELECT
+  debit_credit,
+  sum(amount)
+FROM record r
+  JOIN journal_entry j ON j.id = r.journal_entry_id
+WHERE j.value_date >= '2016-01-01'
+      AND j.value_date <= '2016-12-31'
+GROUP BY debit_credit
 
-SELECT sum(r.amount) FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-  JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code = 'VATS' and j.value_date < '2016-12-31' and r.debit_credit = 'CREDIT';
 
-SELECT sum(r.amount) FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-  JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code = 'VATS' and j.value_date < '2016-12-31' and r.debit_credit = 'DEBIT';
+SELECT sum(amount)
+FROM record
+WHERE debit_credit = 'DEBIT'
 
-SELECT sum(r.amount) FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-  JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code = 'BANK' and j.value_date < '2016-12-31' and r.debit_credit = 'CREDIT';
+SELECT
+  sum(amount),
+  max(value_date),
+  min(value_date)
+FROM record r
+  JOIN ledger l ON l.id = r.ledger_id
+  JOIN journal_entry j ON j.id = r.journal_entry_id
+WHERE l.code = 'PRIVJ'
 
-SELECT sum(r.amount) FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-  JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code = 'BANK' and j.value_date < '2016-12-31' and r.debit_credit = 'DEBIT';
+SELECT
+  sum(amount),
+  count(j.id),
+  max(value_date),
+  min(value_date)
+FROM record r
+  JOIN ledger l ON l.id = r.ledger_id
+  JOIN journal_entry j ON j.id = r.journal_entry_id
+WHERE l.code = 'COSTS' and j.value_date >= '2016-01-01'
+AND j.value_date <= '2016-12-31'
+GROUP BY debit_credit
 
-SELECT sum(r.amount) FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-  JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code = 'VATP' and j.value_date < '2016-12-31';
+SELECT
+  *
+FROM record r
+  JOIN ledger l ON l.id = r.ledger_id
+  JOIN journal_entry j ON j.id = r.journal_entry_id
+WHERE l.code = 'COSTS' and amount = 532.82
 
-SELECT ff.description, r.amount FROM journal_entry j
-  JOIN financial_fact ff on j.financial_fact_id = ff.id
-  JOIN record r on r.journal_entry_id = j.id
-  JOIN ledger l on r.ledger_id = l.id
-where l.code = 'COSTS' and j.value_date < '2016-12-31';
 
-select * FROM record WHERE journal_entry_id = 1958
+SELECT *
+FROM ledger
+WHERE balance_heading IS NULL AND profit_and_loss_heading IS NULL
 
-select sum(amount) from record group by journal_entry_id
+SELECT sum(r.amount)
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'VATS' AND j.value_date < '2016-12-31' AND r.debit_credit = 'CREDIT';
+
+SELECT sum(r.amount)
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'VATS' AND j.value_date < '2016-12-31' AND r.debit_credit = 'DEBIT';
+
+SELECT sum(r.amount)
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'BANK' AND j.value_date < '2016-12-31' AND r.debit_credit = 'CREDIT';
+
+SELECT sum(r.amount)
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'BANK' AND j.value_date < '2016-12-31' AND r.debit_credit = 'DEBIT';
+
+SELECT sum(r.amount)
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'VATP' AND j.value_date < '2016-12-31';
+
+SELECT
+  ff.description,
+  r.amount
+FROM journal_entry j
+  JOIN financial_fact ff ON j.financial_fact_id = ff.id
+  JOIN record r ON r.journal_entry_id = j.id
+  JOIN ledger l ON r.ledger_id = l.id
+WHERE l.code = 'COSTS' AND j.value_date < '2016-12-31';
+
+SELECT *
+FROM record
+WHERE journal_entry_id = 1958
+
+SELECT sum(amount)
+FROM record
+GROUP BY journal_entry_id

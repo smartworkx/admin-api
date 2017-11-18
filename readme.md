@@ -8,6 +8,17 @@ https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zake
 Opmerkingen btw afdracht vergeet niet te boeken aan het eind
 van het kwartaal zie doc/btw 
 
+Opmerkingen bij het opstellen van de balans
+-Begin met winst en verlies rekening
+-Boek winst naar eigen vermogen door op de winst en verlies rekening
+-Boek prive ontrekkingen naar eigen vermogen
+
+select je.id, je.value_date, ff.description, r.debit_credit, l.name from record r
+join journal_entry je on je.id = r.journal_entry_id
+join financial_fact ff on ff.id = je.financial_fact_id
+JOIN ledger l on l.id = r.ledger_id
+where ff.value_date = '2015-12-31'
+
 Opmerkingen inkomsten belasting:
 
 - Pas op vul in de mutaties op reserveringen voor de for

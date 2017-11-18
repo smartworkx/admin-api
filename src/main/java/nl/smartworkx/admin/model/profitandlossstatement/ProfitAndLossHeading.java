@@ -1,5 +1,8 @@
 package nl.smartworkx.admin.model.profitandlossstatement;
 
+import static java.util.stream.Collectors.groupingBy;
+import static nl.smartworkx.admin.model.journal.Record.sum;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
@@ -59,11 +62,16 @@ public class ProfitAndLossHeading implements DddEntity {
     }
 
     public Amount getAmount() {
-        return Record.sum(records, name.getDebitCredit());
+        return sum(records, name.getDebitCredit());
     }
 
-    public List<Record> getRecords() {
-        return records;
+    public List<ProfitAndLossAccount> getAccounts() {
+        return this.records.stream().collect(
+                groupingBy(Record::getLedgerId))
+                .entrySet().stream()
+                .map(entry ->
+                        new ProfitAndLossAccount(entry.getKey(), sum(entry.getValue(), name.getDebitCredit())))
+                .collect(Collectors.toList());
     }
 
     public DebitCredit getDebitCredit() {

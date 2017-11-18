@@ -269,3 +269,6 @@ UPDATE ledger set (balance_heading) = ('VENTURE_CAPITAL') WHERE id = 18;
 
 --changeset joriswijlens:#1-29 Adding write off
 INSERT INTO ledger (id, code, name, profit_and_loss_heading) VALUES (24, 'DEP', 'Afschrijvingen', 'WRITE_OFF');
+
+--changeset joriswijlens:#1-30 Removing ledger PRIVL
+DELETE FROM ledger WHERE code = 'PRIVL';
