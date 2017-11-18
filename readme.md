@@ -7,6 +7,10 @@ https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zake
 
 Opmerkingen btw afdracht vergeet niet te boeken aan het eind
 van het kwartaal zie doc/btw 
+Te vorderen btw bij het maken van kosten
+Af te dragen btw bij het boeken van omzet
+Te betalen btw bij het boeken van de btw aangifte en het betalen van de btw aangifte
+
 
 Opmerkingen bij het opstellen van de balans
 -Begin met winst en verlies rekening
@@ -26,6 +30,8 @@ Opmerkingen inkomsten belasting:
 - mkb winst vrij stelling
 - Zeg dat je het op persoonlijk niveau wil invullen
 - investeringsaftrek
+- Alles wat invloed heeft op de hoogte van het ondernemings vermogen moet via de winst
+en verliesrekening!!!!!!!!
 
 
 ## Technical

@@ -90,6 +90,9 @@ FROM record r
   JOIN ledger l ON l.id = r.ledger_id
   JOIN journal_entry j ON j.id = r.journal_entry_id
 WHERE l.code = 'PRIVJ'
+  and r.debit_credit = 'DEBIT'
+and j.value_date >= '2016-01-01'
+AND j.value_date <= '2016-12-31'
 
 SELECT
   debit_credit,
@@ -102,6 +105,20 @@ FROM record r
   JOIN journal_entry j ON j.id = r.journal_entry_id
 WHERE l.code = 'CRED' and j.value_date >= '2016-01-01'
 AND j.value_date <= '2016-12-31'
+GROUP BY debit_credit
+
+
+SELECT
+  debit_credit,
+  sum(amount),
+  count(j.id),
+  max(value_date),
+  min(value_date)
+FROM record r
+  JOIN ledger l ON l.id = r.ledger_id
+  JOIN journal_entry j ON j.id = r.journal_entry_id
+WHERE l.code = 'ODR' and j.value_date >= '2016-01-01'
+      AND j.value_date <= '2016-12-31'
 GROUP BY debit_credit
 
 SELECT
@@ -125,3 +142,11 @@ where ff.value_date = '2016-12-31'
 SELECT sum(amount)
 FROM record
 GROUP BY journal_entry_id
+
+select f.id, f.description, l.code, l.name FROM journal_entry j
+JOIN record r on r.journal_entry_id = j.id
+  JOIN ledger l on l.id = r.ledger_id
+  join financial_fact f on j.financial_fact_id = f.id
+where l.code = 'VATP'
+      and j.value_date >= '2016-01-01'
+      AND j.value_date <= '2016-12-31'
