@@ -32,7 +32,7 @@ public class BalanceDetails {
     public BalanceDetails(LedgerRepository ledgerRepo, Balance balance) {
         this.balance = balance;
 
-        this.balanceHeadings = getHeadings(ledgerRepo.findAllBy());
+        this.balanceHeadings = getHeadings(ledgerRepo.findAll().stream());
 
         this.debitAmount = sumOfHeadings(DebitCredit.DEBIT);
         this.creditAmount = sumOfHeadings(DebitCredit.CREDIT);

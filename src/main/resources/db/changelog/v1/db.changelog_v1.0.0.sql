@@ -266,3 +266,16 @@ UPDATE ledger set (balance_heading) = (null) WHERE id = 18;
 
 --changeset joriswijlens:#1-28 Adding private joris to venture capital on balance
 UPDATE ledger set (balance_heading) = ('VENTURE_CAPITAL') WHERE id = 18;
+
+--changeset joriswijlens:#1-29 Adding write off
+INSERT INTO ledger (id, code, name, profit_and_loss_heading) VALUES (24, 'DEP', 'Afschrijvingen', 'WRITE_OFF');
+
+--changeset joriswijlens:#1-30 Removing ledger PRIVL
+DELETE FROM ledger WHERE code = 'PRIVL';
+
+--changeset joriswijlens:#1-31 Adding write off for debtors
+INSERT INTO ledger (id, code, name, profit_and_loss_heading) VALUES (25, 'DEPD', 'Afschrijvingen debiteuren', 'WRITE_OFF');
+
+--changeset joriswijlens:#1-32 Switch labels between VATP and VATS
+UPDATE ledger SET name = 'Te betalen BTW' WHERE code = 'VATP';
+UPDATE ledger SET name = 'Af te dragen BTW' WHERE code = 'VATS';

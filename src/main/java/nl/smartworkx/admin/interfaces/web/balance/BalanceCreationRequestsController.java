@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
-import nl.smartworkx.admin.model.balance.BalanceCreationRequestedEvent;
+import nl.smartworkx.admin.model.balance.BalanceCreationCommand;
 import nl.smartworkx.admin.model.balance.BalanceDetails;
 import nl.smartworkx.admin.model.balance.CreateBalanceService;
 
@@ -17,13 +17,13 @@ import nl.smartworkx.admin.model.balance.CreateBalanceService;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/balance-creation-requested-events")
-public class BalanceCreationRequestedEventsController {
+@RequestMapping("/balance-creation-requests")
+public class BalanceCreationRequestsController {
 
     private final CreateBalanceService createBalanceService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity create(@RequestBody BalanceCreationRequestedEvent event) {
+    public ResponseEntity create(@RequestBody BalanceCreationCommand event) {
 
         final BalanceDetails balanceDetails = createBalanceService.createBalanceDetails(event);
         return new ResponseEntity<>(new Resource(balanceDetails), HttpStatus.CREATED);

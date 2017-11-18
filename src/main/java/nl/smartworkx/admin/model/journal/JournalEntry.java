@@ -6,7 +6,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.AssertTrue;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -63,22 +70,13 @@ public class JournalEntry implements DddAggregate {
     public JournalEntry(final LocalDate valueDate, final Long financialFactId, final List<Record> records) {
         this();
         this.valueDate = valueDate;
-
         this.financialFactId = financialFactId;
         this.records = records;
     }
 
     @AssertTrue
     public boolean isRecordsBalance() {
-        Amount debitAmount = getSum(DebitCredit.DEBIT);
-        Amount creditAmount = getSum(DebitCredit.CREDIT);
-        return debitAmount.equals(creditAmount);
-    }
-
-    private Amount getSum(DebitCredit debitCredit) {
-        return sum(this.records.stream().filter(record -> {
-            return record.getDebitCredit() == debitCredit;
-        }));
+        return sum(this.records, DebitCredit.DEBIT).equals(Amount.ZERO);
     }
 
     public Long getFinancialFactId() {

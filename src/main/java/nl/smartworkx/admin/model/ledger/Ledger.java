@@ -78,4 +78,13 @@ public class Ledger {
 	public boolean shouldShowOnProfitAndLossStatement() {
 		return getProfitAndLossHeading() != null;
 	}
+
+	@Override
+	public String toString() {
+		return "Ledger{" +
+				"code='" + code + '\'' +
+				", balanceHeading=" + balanceHeading +
+				", profitAndLossHeading=" + profitAndLossHeading +
+				'}';
+	}
 }

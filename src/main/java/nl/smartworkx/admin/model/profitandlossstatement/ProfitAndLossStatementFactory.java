@@ -6,12 +6,10 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import nl.smartworkx.admin.model.journal.JournalEntryCalculator;
 import nl.smartworkx.admin.model.journal.JournalEntryFinancialFact;
@@ -39,7 +37,7 @@ public class ProfitAndLossStatementFactory {
 
         JournalEntryCalculator calculator = new JournalEntryCalculator(ledgerRepository, journalEntryFinancialFacts);
 
-        List<ProfitAndLossHeading> profitAndLossHeadings = ledgerRepository.findAllBy().filter(ledger -> ledger.shouldShowOnProfitAndLossStatement())
+        List<ProfitAndLossHeading> profitAndLossHeadings = ledgerRepository.findAll().stream().filter(ledger -> ledger.shouldShowOnProfitAndLossStatement())
                 .collect(groupingBy(ledger -> ledger.getProfitAndLossHeading())).entrySet().stream().map(entry -> {
                     final Map<Ledger, List<Record>> recordsByLedger = calculator.getRecordsByLedger();
                     return new ProfitAndLossHeading(entry.getKey(), entry.getValue().stream().flatMap(ledger -> {

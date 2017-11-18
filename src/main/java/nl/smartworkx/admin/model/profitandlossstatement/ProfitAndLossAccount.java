@@ -1,4 +1,4 @@
-package nl.smartworkx.admin.model.balance;
+package nl.smartworkx.admin.model.profitandlossstatement;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,32 +13,21 @@ import nl.smartworkx.admin.model.ledger.Ledger;
 /**
  *
  */
-@Entity
-@Immutable
-public class BalanceAccount {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balance_account")
-    @SequenceGenerator(name = "balance_account", sequenceName = "balance_account_id_seq")
-    private Long id;
+public class ProfitAndLossAccount {
 
     private Long ledgerId;
 
     private Amount amount;
 
-    private BalanceAccount() {
+    private ProfitAndLossAccount() {
     }
 
-    BalanceAccount(Ledger ledger, Amount amount) {
-        this.ledgerId = ledger.getId();
+    ProfitAndLossAccount(Long ledger, Amount amount) {
+        this.ledgerId = ledger;
         this.amount = amount;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    Long getLedgerId() {
+    public Long getLedgerId() {
         return ledgerId;
     }
 

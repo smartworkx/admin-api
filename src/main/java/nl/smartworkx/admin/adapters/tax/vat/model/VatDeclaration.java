@@ -22,8 +22,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import nl.smartworkx.admin.model.Amount;
 import nl.smartworkx.admin.model.DddAggregate;
-import nl.smartworkx.admin.model.time.Quarter;
 import nl.smartworkx.admin.model.time.DateUtils;
+import nl.smartworkx.admin.model.time.Quarter;
 
 @Entity
 @Immutable
@@ -53,6 +53,12 @@ public class VatDeclaration implements DddAggregate {
             @AttributeOverride(name = "currency", column = @Column(name = "vat_deducted_amount_currency"))
     })
     private Amount vatDeductedAmount;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "value", column = @Column(name = "turnover_high_amount_value")),
+            @AttributeOverride(name = "currency", column = @Column(name = "turnover_high_amount_currency"))
+    })
+    private Amount turnoverHigh;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "vat_declaration_id")
@@ -62,11 +68,12 @@ public class VatDeclaration implements DddAggregate {
         this.creationDateTime = DateUtils.now();
     }
 
-    VatDeclaration(Quarter period, Amount vatServicedAmount, Amount vatDeductedAmount, Set<VatJournalEntry> journalEntries) {
+    VatDeclaration(Quarter period, Amount vatServicedAmount, Amount vatDeductedAmount, Amount turnoverHigh, Set<VatJournalEntry> journalEntries) {
         this();
         this.period = period;
         this.vatServicedAmount = vatServicedAmount;
         this.vatDeductedAmount = vatDeductedAmount;
+        this.turnoverHigh = turnoverHigh;
         this.journalEntries = journalEntries;
     }
 
@@ -94,5 +101,9 @@ public class VatDeclaration implements DddAggregate {
 
     public LocalDateTime getCreationDateTime() {
         return creationDateTime;
+    }
+
+    public Amount getTurnoverHigh() {
+        return turnoverHigh;
     }
 }

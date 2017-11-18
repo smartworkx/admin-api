@@ -1,7 +1,9 @@
 package nl.smartworkx.admin.model.ledger;
 
+import java.util.List;
 import java.util.stream.Stream;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +23,10 @@ public interface LedgerRepository extends CrudRepository<Ledger, Long> {
 	 * @param code to find the Ledger
 	 * @return the ledger for the code
 	 */
+	@Cacheable("ledgers")
 	Ledger findByCode(String code);
 
-	Stream<Ledger> findAllBy();
+	@Cacheable("allLedgersStream")
+	List<Ledger> findAll();
+
 }

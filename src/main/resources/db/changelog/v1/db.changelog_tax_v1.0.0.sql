@@ -27,3 +27,8 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "admin-api";
 --changeset joriswijlens:#1-2 Vat declaration unique
 CREATE UNIQUE INDEX vat_declaration_unique
   ON vat_declaration (year, quarter)
+
+--changeset joriswijlens:#1-3 Add turnover high to vat declaration
+ALTER TABLE vat_declaration
+  ADD COLUMN turnover_high_amount_currency VARCHAR(64) NULL,
+  ADD COLUMN turnover_high_amount_value    NUMERIC(19, 2) NULL

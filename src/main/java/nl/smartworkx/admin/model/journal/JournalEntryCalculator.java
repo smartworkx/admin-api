@@ -10,8 +10,11 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import nl.smartworkx.admin.model.Amount;
+import nl.smartworkx.admin.model.DebitCredit;
+import nl.smartworkx.admin.model.balance.BalanceHeadingName;
 import nl.smartworkx.admin.model.ledger.Ledger;
 import nl.smartworkx.admin.model.ledger.LedgerRepository;
+import nl.smartworkx.admin.model.profitandlossstatement.ProfitAndLossHeadingName;
 
 public class JournalEntryCalculator {
     private LedgerRepository ledgerRepository;
@@ -24,7 +27,19 @@ public class JournalEntryCalculator {
 
     public Amount sum(String name) {
         final Stream<Record> records = getRecords(name);
-        return Record.sum(records);
+        DebitCredit debitCredit = null;
+        final Ledger ledger = ledgerRepository.findByCode(name);
+        final BalanceHeadingName balanceHeading = ledger.getBalanceHeading();
+        if (balanceHeading != null) {
+            debitCredit = balanceHeading.getDebitCredit();
+        }
+        if(debitCredit == null) {
+            final ProfitAndLossHeadingName profitAndLossHeading = ledger.getProfitAndLossHeading();
+            if(profitAndLossHeading == null) {
+                debitCredit = profitAndLossHeading.getDebitCredit();
+            }
+        }
+        return Record.sum(records, debitCredit);
     }
 
     private Stream<Record> getRecords(String name) {

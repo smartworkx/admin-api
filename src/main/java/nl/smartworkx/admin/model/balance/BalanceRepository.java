@@ -13,6 +13,6 @@ import java.time.LocalDate;
 @CrossOrigin
 @RepositoryRestResource(collectionResourceRel = "balances", path = "balances")
 public interface BalanceRepository extends CrudRepository<Balance, Long> {
-    @Query("select b from Balance b join fetch b.accounts where b.date < ?1")
+    @Query("select b from Balance b join fetch b.accounts where date = (select max (date) from  Balance where b.date < ?1)")
     Balance findPreviousBalance(LocalDate date);
 }
