@@ -11,7 +11,6 @@ Te vorderen btw bij het maken van kosten
 Af te dragen btw bij het boeken van omzet
 Te betalen btw bij het boeken van de btw aangifte en het betalen van de btw aangifte
 
-
 Opmerkingen bij het opstellen van de balans
 -Begin met winst en verlies rekening
 -Boek winst naar eigen vermogen door op de winst en verlies rekening
