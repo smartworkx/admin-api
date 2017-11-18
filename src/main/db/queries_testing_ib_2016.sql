@@ -92,6 +92,7 @@ FROM record r
 WHERE l.code = 'PRIVJ'
 
 SELECT
+  debit_credit,
   sum(amount),
   count(j.id),
   max(value_date),
@@ -99,7 +100,7 @@ SELECT
 FROM record r
   JOIN ledger l ON l.id = r.ledger_id
   JOIN journal_entry j ON j.id = r.journal_entry_id
-WHERE l.code = 'COSTS' and j.value_date >= '2016-01-01'
+WHERE l.code = 'CRED' and j.value_date >= '2016-01-01'
 AND j.value_date <= '2016-12-31'
 GROUP BY debit_credit
 

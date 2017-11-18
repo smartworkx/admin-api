@@ -41,7 +41,9 @@ public class BalanceFactory {
     public Balance create(LocalDate date, String description) {
         Balance previousBalance = balanceRepository.findPreviousBalance(date);
 
-        Set<JournalEntryFinancialFact> journalEntriesByDate = journalEntryRepository.findJournalEntriesByDate(new DatePeriod(previousBalance.getDate(), date));
+        Set<JournalEntryFinancialFact> journalEntriesByDate = journalEntryRepository.findJournalEntriesByDate(new DatePeriod(previousBalance.getDate()
+                .plusDays(1),
+                date));
 
         JournalEntryCalculator calculator = new JournalEntryCalculator(ledgerRepository, journalEntriesByDate);
 
