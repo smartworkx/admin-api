@@ -24,18 +24,20 @@ endpoints:
   health:
     path: /
 
-security:
-  oauth2:
-    client:
-      clientId: 518342583119-rflaovpanso3fks1eubnbmae55b6gdqd.apps.googleusercontent.com
-      clientSecret: 2gxfbBt4EhbydWxBSeiXOojD
-      accessTokenUri: https://www.googleapis.com/oauth2/v4/token
-      userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
-      clientAuthenticationScheme: form
-      scope:
-        - openid
-        - email
-        - profile
-    resource:
-      userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
-      preferTokenInfo: true
+keycloak:
+  realm: admin
+  auth-server-url: http://172.17.0.2:8080/auth
+  resource: admin-api
+  ssl-required: external
+  credentials:
+    secret: dc007938-7d82-4bce-b22f-0a2726f502e6
+  use-resource-role-mappings: true
+  securityConstraints:
+    - authRoles:
+      - admin
+      - user
+      securityCollections:
+      - name: insecure stuff
+        patterns:
+        - /
+
