@@ -22,7 +22,6 @@ import nl.smartworkx.admin.model.ledger.Ledger;
 @SpringBootApplication
 @EnableHypermediaSupport(type = { EnableHypermediaSupport.HypermediaType.HAL })
 @EnableCaching
-
 public class AdminApplication extends RepositoryRestMvcConfiguration {
 
     @Value("${cross-origin-addresses}")
