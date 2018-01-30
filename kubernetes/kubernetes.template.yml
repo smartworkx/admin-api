@@ -54,8 +54,8 @@ spec:
           initialDelaySeconds: 30
         ports:
         - containerPort: 8080
-      - image: gcr.io/cloudsql-docker/gce-proxy:1.09
-        name: cloudsql-proxy
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.09
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
                   "-instances=smartworkx-173909:europe-west1:smartworkx=tcp:5432",
                   "-credential_file=/secrets/cloudsql/credentials.json"]
