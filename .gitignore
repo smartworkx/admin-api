@@ -15,3 +15,4 @@ tmp
 /provisioning/credentials/
 /pipeline/io/
 /out/
+*/credentials.yml

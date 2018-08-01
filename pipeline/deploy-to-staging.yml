@@ -5,9 +5,9 @@ image_resource:
   type: docker-image
   source:
     repository: smartworkx/deploy
-    email: joris@smartworkx.nl
-    username: smartworkx
-    password: j4UNXqMlNoj7j62STXFB
+    email: {{docker_mail}}
+    username: {{docker_user}}
+    password: {{docker_pass}}
 
 inputs:
   - name: sources

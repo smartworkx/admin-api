@@ -1,0 +1,1 @@
+- Install on minikube by running helm install ./admin-api in the current directory
