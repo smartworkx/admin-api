@@ -20,7 +20,7 @@ public class PayedInvoiceProposalCreator extends AbstractProposalCreator {
 
     @Override
     public boolean matches(FinancialFact financialFact) {
-        return descriptionContainsAny(financialFact, "first eight", "fixedtoday", "fixed today", "DELTA R", "BRAINNET BV");
+        return descriptionContainsAny(financialFact, "first eight", "fixedtoday", "fixed today", "DELTA R", "BRAINNET BV","MAXEDA DIY");
     }
 
     @Override

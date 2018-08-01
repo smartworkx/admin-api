@@ -11,6 +11,10 @@ Te vorderen btw bij het maken van kosten
 Af te dragen btw bij het boeken van omzet
 Te betalen btw bij het boeken van de btw aangifte en het betalen van de btw aangifte
 
+NS word pas veel later afgeschreven dus als de factuur buiten het kwartaal ligt datum veranderen zodat het wel binnen het kwartaal valt. Bijvoorbeeld NS factuur
+van 14 september 2017.
+
+
 Opmerkingen bij het opstellen van de balans
 -Begin met winst en verlies rekening
 -Boek winst naar eigen vermogen door op de winst en verlies rekening

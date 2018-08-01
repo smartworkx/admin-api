@@ -1,0 +1,1 @@
+Run create-pipeline.sh to create the pipeline for admin-api

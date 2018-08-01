@@ -1,0 +1,4 @@
+dependencies:
+  - smartworkx-build-server
+  - smartworkx-postgres
+  - smartworkx-cluster

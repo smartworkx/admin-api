@@ -10,6 +10,6 @@ public class CreditorFromBankProposalCreator extends PayedFromBankProposalCreato
 
     @Override
     protected String[] descriptions() {
-        return descriptions("ing commercial cards", "it in zicht haarlem", "simyo", "transip");
+        return descriptions("ing commercial cards", "it in zicht haarlem", "simyo", "transip","NS GROEP IZ NS REIZIGERS Factuur");
     }
 }
