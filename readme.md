@@ -16,9 +16,14 @@ van 14 september 2017.
 
 
 Opmerkingen bij het opstellen van de balans
+-Controleer dat het boeken van de btw goed is gedaan door te controleren dat er 8 VATP journal entries zijn
 -Begin met winst en verlies rekening
 -Boek winst naar eigen vermogen door op de winst en verlies rekening
--Boek prive ontrekkingen naar eigen vermogen
+
+-Boek prive ontrekkingen naar eigen vermogen zie sum_of_private_for_income_tax.sql
+
+balance debit = balance credit - prive ontrekkingen + winst
+112378.79 = 103266.12 - 151863.49 + 160976.16 voor 2017
 
 select je.id, je.value_date, ff.description, r.debit_credit, l.name from record r
 join journal_entry je on je.id = r.journal_entry_id
@@ -28,6 +33,7 @@ where ff.value_date = '2015-12-31'
 
 Opmerkingen inkomsten belasting:
 
+- Afschrijving naar winst en verlies
 - Pas op vul in de mutaties op reserveringen voor de for
 - Zelfstandigen aftrek
 - mkb winst vrij stelling

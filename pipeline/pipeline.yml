@@ -4,11 +4,6 @@ resources:
     source:
       uri: https://github.com/smartworkx/admin-api.git
       branch: master
-  - name: staging
-    type: git
-    source:
-      uri: https://github.com/smartworkx/staging.git
-      branch: master
   - name: admin-api-image
     type: docker-image
     source:
@@ -31,11 +26,12 @@ jobs:
 - name: deploy-staging
   plan:
   - get: admin-api-image
-    trigger: false
   - get: sources
-    trigger: false
-  - get: staging
-    trigger: true
   - task: deploy
     file: sources/pipeline/deploy-to-staging.yml
-
+- name: deploy-prod
+  plan:
+  - get: admin-api-image
+  - get: sources
+  - task: deploy
+    file: sources/pipeline/deploy-to-prod.yml
