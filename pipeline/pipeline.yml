@@ -12,7 +12,6 @@ resources:
       username: {{docker_user}}
       password: {{docker_pass}}
 
-
 jobs:
 - name: build
   plan:
