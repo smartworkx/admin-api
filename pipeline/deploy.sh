@@ -1,3 +1,3 @@
 #!/bin/sh
-echo "deploy"
+echo "deploy v2"
 
