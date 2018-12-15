@@ -1,14 +1,6 @@
 ---
 platform: linux
 
-image_resource:
-  type: docker-image
-  source:
-    repository: smartworkx/deploy
-    email: {{docker_mail}}
-    username: {{docker_user}}
-    password: {{docker_pass}}
-
 inputs:
   - name: sources
   - name: admin-api-image

@@ -12,6 +12,7 @@ resources:
       username: {{docker_user}}
       password: {{docker_pass}}
 
+
 jobs:
 - name: build
   plan:
@@ -29,9 +30,3 @@ jobs:
   - get: sources
   - task: deploy
     file: sources/pipeline/deploy-to-staging.yml
-- name: deploy-prod
-  plan:
-  - get: admin-api-image
-  - get: sources
-  - task: deploy
-    file: sources/pipeline/deploy-to-prod.yml
