@@ -48,3 +48,8 @@ en verliesrekening!!!!!!!!
 - When getting compiling issues that have to do with lombok in intellij enable annotation processing.
 
 - Buitenlandse uitgaven geen btw boeken niet de moeite waard om terug te vragen.
+
+- Creating the database docker run -it --rm --volume=$(pwd)/src/main/db:/scripts postgres psql -h 192.168.99.100 -p <PORT> -U postgres -f ./scripts/init_db.sql
+
+https://github.com/linkyard/concourse-helm-resource
+https://cloud.google.com/solutions/continuous-integration-helm-concourse

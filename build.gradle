@@ -1,72 +1,73 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.2.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
-	}
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
 task javadocs(type: Javadoc) {
-	source = sourceSets.main.allJava
+    source = sourceSets.main.allJava
 }
 
 task testjavadocs(type: Javadoc) {
-	source = sourceSets.test.allJava
-	destinationDir = reporting.file("test-docs")
+    source = sourceSets.test.allJava
+    destinationDir = reporting.file("test-docs")
 }
 
 jar {
-	baseName = 'admin-api'
-	version = ""
+    baseName = 'admin-api'
+    version = ""
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.data:spring-data-rest-webmvc')
-	compile("org.springframework.boot:spring-boot-starter-actuator")
-	compile('org.postgresql:postgresql:9.4-1206-jdbc42')
-	compile('org.javamoney:moneta:1.0')
-	compile('javax.money:money-api:1.0')
-	compile('commons-lang:commons-lang:2.6')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.data:spring-data-rest-webmvc')
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile('org.postgresql:postgresql:9.4-1206-jdbc42')
+    compile('org.javamoney:moneta:1.0')
+    compile('javax.money:money-api:1.0')
+    compile('commons-lang:commons-lang:2.6')
     compile fileTree(dir: 'libs', include: '*.jar')
-	compile('com.google.guava:guava:19.0')
-	compile("org.springframework.boot:spring-boot-devtools")
-	compile("org.hibernate:hibernate-java8")
-	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.4.0"
-	runtime('org.liquibase:liquibase-core')
-	compileOnly("org.projectlombok:lombok:1.12.6")
+    compile('com.google.guava:guava:19.0')
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.hibernate:hibernate-java8")
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.4.0"
+    runtime('org.liquibase:liquibase-core')
+    compileOnly("org.projectlombok:lombok:1.12.6")
 
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile 'com.jayway.jsonpath:json-path:2.2.0'
-	testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile 'com.jayway.jsonpath:json-path:2.2.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 springBoot {
-	executable = true
+    executable = true
 }
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '2.12'
+task createDb(type: Exec) {
+    workingDir './helm'
+    commandLine 'docker run -it --rm --volume=$(pwd)/src/main/db:/scripts postgres psql -h 192.168.99.100 -p 31547 -U postgres -f ./scripts/init_db.sql'
 }
 
 def getTimestamp() {
-	def date = new Date()
-	return date.format('yyMMdd.HHmmss')
+    def date = new Date()
+    return date.format('yyMMdd.HHmmss')
 }
 
 apply plugin: 'java'
